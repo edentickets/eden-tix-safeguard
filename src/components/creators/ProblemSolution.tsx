@@ -1,51 +1,81 @@
 import { motion } from "framer-motion";
-import { Shield, Ticket, Users } from "lucide-react";
-import { Card } from "@/components/ui/card";
+import { 
+  Banknote, 
+  Shield, 
+  Users, 
+  TrendingUp,
+  Ticket,
+  BarChart3
+} from "lucide-react";
+
+const features = [
+  {
+    icon: <Banknote className="w-6 h-6" />,
+    title: "Fair Revenue Share",
+    description: "Earn from both primary sales and resales with our blockchain-powered revenue sharing model."
+  },
+  {
+    icon: <Shield className="w-6 h-6" />,
+    title: "Fraud-Proof Tickets",
+    description: "NFT-based tickets with dynamic QR scrambling ensure maximum security and prevent unauthorized transfers."
+  },
+  {
+    icon: <Users className="w-6 h-6" />,
+    title: "Large Market Exposure",
+    description: "Access a growing community of event enthusiasts and maximize your ticket sales."
+  },
+  {
+    icon: <TrendingUp className="w-6 h-6" />,
+    title: "Smart Pricing",
+    description: "Set dynamic pricing rules and optimize revenue with our AI-powered pricing engine."
+  },
+  {
+    icon: <Ticket className="w-6 h-6" />,
+    title: "Controlled Resale",
+    description: "Set your own resale rules and maintain control over your ticket market."
+  },
+  {
+    icon: <BarChart3 className="w-6 h-6" />,
+    title: "Real-time Analytics",
+    description: "Track sales, monitor trends, and make data-driven decisions with comprehensive analytics."
+  }
+];
 
 export const ProblemSolution = () => {
-  const solutions = [
-    {
-      icon: <Shield className="w-12 h-12 text-eden-primary" />,
-      title: "Secure & Safe Resales",
-      description: "Every ticket is unique and encrypted, ensuring it's safely resold only through our platform at fair market prices."
-    },
-    {
-      icon: <Ticket className="w-12 h-12 text-eden-secondary" />,
-      title: "Complete Control",
-      description: "Take a cut from every resale transaction, ensuring you benefit each time a ticket changes hands."
-    },
-    {
-      icon: <Users className="w-12 h-12 text-eden-accent" />,
-      title: "Broader Reach",
-      description: "Connect with a wider audience through our marketplace, reaching fans you never could before."
-    }
-  ];
-
   return (
-    <section className="relative py-32 px-4 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-secondary opacity-5" />
+    <section className="py-24 px-4 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <motion.h2 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="text-4xl md:text-6xl font-medium text-center mb-16 gradient-text"
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          Traditional Ticketing is Broken—Eden Fixes It
-        </motion.h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          {solutions.map((solution, index) => (
+          <h2 className="text-4xl md:text-5xl font-medium mb-6 gradient-text">
+            The Future of Event Ticketing
+          </h2>
+          <p className="text-xl text-white/70 max-w-2xl mx-auto">
+            Traditional ticketing platforms are plagued with fraud, scalping, and lost revenue. 
+            Eden solves these problems with blockchain technology.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
             <motion.div
-              key={index}
+              key={feature.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="bg-white/5 backdrop-blur-sm rounded-xl p-6 hover:bg-white/10 transition-colors"
             >
-              <Card className="glass-card p-8 space-y-6 hover:border-eden-primary/30 transition-all duration-300">
-                {solution.icon}
-                <h3 className="text-2xl font-medium text-white">{solution.title}</h3>
-                <p className="text-white/70 leading-relaxed">{solution.description}</p>
-              </Card>
+              <div className="h-12 w-12 rounded-lg bg-eden-accent/10 flex items-center justify-center mb-4">
+                {feature.icon}
+              </div>
+              <h3 className="text-xl font-medium mb-2">{feature.title}</h3>
+              <p className="text-white/70">{feature.description}</p>
             </motion.div>
           ))}
         </div>
