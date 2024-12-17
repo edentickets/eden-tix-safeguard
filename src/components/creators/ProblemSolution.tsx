@@ -11,33 +11,33 @@ import {
 const features = [
   {
     icon: <Banknote className="w-6 h-6" />,
-    title: "Revenue from Every Resale",
-    description: "Earn from secondary market sales that previously generated zero revenue for creators."
+    title: "Profit From Every Resale",
+    description: "Finally earn your share from secondary market sales. Every ticket transfer puts money in your pocket."
   },
   {
     icon: <Shield className="w-6 h-6" />,
-    title: "Dynamic Security",
-    description: "Real-time QR validation and proximity-based activation prevent unauthorized transfers."
+    title: "Bulletproof Security",
+    description: "Our proximity-based QR codes and real-time validation make ticket fraud impossible."
   },
   {
     icon: <Users className="w-6 h-6" />,
-    title: "Growing Marketplace",
-    description: "Access a thriving community of event enthusiasts with industry-lowest transaction fees."
+    title: "Industry-Lowest Fees",
+    description: "Keep more of your revenue with our unbeatable transaction fees. No hidden charges, ever."
   },
   {
     icon: <TrendingUp className="w-6 h-6" />,
-    title: "Smart Pricing",
-    description: "Set dynamic pricing rules and earn from both primary sales and controlled resales."
+    title: "Smart Price Control",
+    description: "Set your rules for resale pricing. Maintain control while maximizing your revenue."
   },
   {
     icon: <Ticket className="w-6 h-6" />,
-    title: "Controlled Resale",
-    description: "Set your own resale rules while earning from every ticket transfer in the secondary market."
+    title: "Your Market, Your Rules",
+    description: "Define how tickets can be resold while earning from every transfer. No more scalper profits."
   },
   {
     icon: <BarChart3 className="w-6 h-6" />,
-    title: "Live Analytics",
-    description: "Track sales, monitor resale trends, and optimize revenue with real-time insights."
+    title: "Real-Time Insights",
+    description: "Watch your revenue grow with instant analytics on primary sales and resale earnings."
   }
 ];
 
@@ -53,11 +53,12 @@ export const ProblemSolution = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-medium mb-6 gradient-text">
-            The Future of Event Ticketing Revenue
+            Stop Letting Scalpers Profit From Your Events
           </h2>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            Traditional ticketing platforms ignore the secondary market, leaving money on the table. 
-            Eden helps you capture revenue from every ticket sale and resale, with industry-lowest fees.
+            The secondary market generates billions in revenue that should belong to creators. 
+            Eden ensures you get your fair share from every ticket resale, while keeping your 
+            primary sales costs at industry-lows.
           </p>
         </motion.div>
 
