@@ -6,33 +6,33 @@ export const Features = () => {
   const features = [
     {
       icon: <Shield className="w-8 h-8" />,
-      title: "NFT-Style Tickets",
-      description: "Unique, encrypted, and secure tickets"
+      title: "Advanced Digital Security",
+      description: "Dynamic QR codes with real-time validation ensure maximum ticket security"
     },
     {
       icon: <BarChart3 className="w-8 h-8" />,
-      title: "Revenue from Resales",
-      description: "Earn from every ticket resale"
+      title: "Smart Revenue Share",
+      description: "Earn from both primary sales and controlled resales"
     },
     {
       icon: <Zap className="w-8 h-8" />,
-      title: "Dynamic Pricing",
-      description: "Market-driven resale prices"
+      title: "Real-time Updates",
+      description: "Instant ticket validation and live event management"
     },
     {
       icon: <Gift className="w-8 h-8" />,
-      title: "Customizable Options",
-      description: "Multiple ticket tiers and types"
+      title: "Flexible Ticketing",
+      description: "Multiple tiers, packages, and custom access levels"
     },
     {
       icon: <Users className="w-8 h-8" />,
       title: "Event Dashboard",
-      description: "Complete event management"
+      description: "Real-time analytics and comprehensive event management"
     },
     {
       icon: <CreditCard className="w-8 h-8" />,
-      title: "Easy Payments",
-      description: "Multiple payment methods"
+      title: "Modern Payments",
+      description: "Accept credit cards, Apple Pay, and Google Pay"
     }
   ];
 
@@ -46,7 +46,7 @@ export const Features = () => {
           transition={{ duration: 0.5 }}
           className="text-4xl md:text-6xl font-medium text-center mb-16 gradient-text"
         >
-          Eden's Powerful Features for Event Creators
+          Eden's Smart Features for Event Creators
         </motion.h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (

@@ -15,16 +15,17 @@ export const HeroSection = () => {
         className="relative max-w-7xl mx-auto text-center space-y-8"
       >
         <h1 className="text-6xl md:text-7xl font-medium tracking-tight gradient-text mb-6 leading-tight">
-          Next-Generation Ticketing for Your Events
+          Smart Digital Ticketing for Modern Events
         </h1>
         <p className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed">
-          Create secure, unique tickets with advanced anti-fraud protection. Control your sales, engage your fans, and maximize revenue.
+          Create secure digital tickets with real-time validation and dynamic QR technology. 
+          Take control of your sales, engage your audience, and maximize revenue.
         </p>
         <Button 
           size="lg" 
           className="bg-eden-secondary hover:bg-eden-secondary/90 text-lg px-8 py-6 mt-8"
         >
-          Start Selling on Eden
+          Start Creating Events
           <ArrowRight className="ml-2" />
         </Button>
       </motion.div>

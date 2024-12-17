@@ -12,22 +12,22 @@ const features = [
   {
     icon: <Banknote className="w-6 h-6" />,
     title: "Smart Revenue Share",
-    description: "Earn from both primary sales and resales with our innovative revenue sharing model."
+    description: "Earn from both primary sales and controlled resales with our innovative revenue sharing model."
   },
   {
     icon: <Shield className="w-6 h-6" />,
-    title: "Advanced Security",
-    description: "Unique digital tickets with dynamic QR scrambling ensure maximum security and prevent unauthorized transfers."
+    title: "Dynamic Security",
+    description: "Real-time QR validation and proximity-based activation prevent unauthorized ticket transfers."
   },
   {
     icon: <Users className="w-6 h-6" />,
-    title: "Large Market Exposure",
-    description: "Access a growing community of event enthusiasts and maximize your ticket sales."
+    title: "Growing Marketplace",
+    description: "Access a thriving community of event enthusiasts and maximize your ticket sales."
   },
   {
     icon: <TrendingUp className="w-6 h-6" />,
     title: "Smart Pricing",
-    description: "Set dynamic pricing rules and optimize revenue with our AI-powered pricing engine."
+    description: "Set dynamic pricing rules and optimize revenue with our data-driven pricing engine."
   },
   {
     icon: <Ticket className="w-6 h-6" />,
@@ -36,8 +36,8 @@ const features = [
   },
   {
     icon: <BarChart3 className="w-6 h-6" />,
-    title: "Real-time Analytics",
-    description: "Track sales, monitor trends, and make data-driven decisions with comprehensive analytics."
+    title: "Live Analytics",
+    description: "Track sales, monitor trends, and make data-driven decisions with real-time analytics."
   }
 ];
 
@@ -57,7 +57,7 @@ export const ProblemSolution = () => {
           </h2>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
             Traditional ticketing platforms struggle with fraud, scalping, and revenue leakage. 
-            Eden solves these problems with advanced digital security and smart features.
+            Eden solves these problems with smart digital security and real-time features.
           </p>
         </motion.div>
 
