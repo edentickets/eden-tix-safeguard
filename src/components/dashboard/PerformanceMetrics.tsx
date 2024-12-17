@@ -10,7 +10,6 @@ import {
 import {
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent,
 } from "@/components/ui/chart";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts";
 
@@ -104,25 +103,21 @@ export function PerformanceMetrics() {
                 stroke="#4A5568"
                 tickFormatter={(value) => `$${value / 1000}k`}
               />
-              <ChartTooltip
-                content={({ active, payload }) => {
+              <ChartTooltip>
+                {({ active, payload }) => {
                   if (!active || !payload?.length) return null;
                   return (
-                    <ChartTooltipContent
-                      className="bg-eden-dark"
-                      items={[
-                        {
-                          label: "Revenue",
-                          value: new Intl.NumberFormat("en-US", {
-                            style: "currency",
-                            currency: "USD",
-                          }).format(payload[0].value as number),
-                        },
-                      ]}
-                    />
+                    <div className="rounded-lg bg-eden-dark p-2 shadow-md">
+                      <p className="text-sm text-white">
+                        Revenue: {new Intl.NumberFormat("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                        }).format(payload[0].value as number)}
+                      </p>
+                    </div>
                   );
                 }}
-              />
+              </ChartTooltip>
               <Line
                 type="monotone"
                 dataKey="revenue"
