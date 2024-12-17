@@ -1,30 +1,27 @@
-import { EventCard } from "@/components/EventCard";
 import { Navbar } from "@/components/Navbar";
+import { ExploreHero } from "@/components/explore/ExploreHero";
+import { EventGrid } from "@/components/explore/EventGrid";
+import { CategorySection } from "@/components/explore/CategorySection";
 import { Event } from "@/types/event";
 
 const mockEvents: Event[] = [
   {
     id: "1",
-    title: "Summer Music Festival 2024",
-    date: "July 15, 2024",
-    location: "Central Park, NY",
+    title: "Rolling Loud Miami 2025",
+    date: "July 19-21, 2025",
+    location: "Hard Rock Stadium, Miami, FL",
     imageUrl: "https://source.unsplash.com/random/800x600/?concert",
-    price: 99.99,
+    price: 299.99,
     availableTickets: 150,
     description: "The biggest music festival of the summer featuring top artists from around the world.",
-    organizer: "Summer Fest Productions",
+    organizer: "Rolling Loud Events",
     rating: 4.8,
-    reviews: 1250,
+    reviews: 2347,
     highlights: [
       {
         icon: "🎵",
-        title: "Live Performances",
+        title: "World-Class Lineup",
         description: "Multiple stages with continuous live music"
-      },
-      {
-        icon: "🍔",
-        title: "Food & Drinks",
-        description: "Gourmet food trucks and premium beverages"
       },
       {
         icon: "🎪",
@@ -35,82 +32,66 @@ const mockEvents: Event[] = [
   },
   {
     id: "2",
-    title: "Tech Conference 2024",
-    date: "August 20, 2024",
-    location: "Convention Center, SF",
-    imageUrl: "https://source.unsplash.com/random/800x600/?technology",
-    price: 299.99,
-    availableTickets: 75,
-    description: "Join industry leaders for a day of innovation and networking.",
-    organizer: "TechCon Events",
+    title: "Art Basel Afterparty",
+    date: "December 3, 2025",
+    location: "Wynwood, Miami",
+    imageUrl: "https://source.unsplash.com/random/800x600/?party",
+    price: 149.99,
+    availableTickets: 200,
+    description: "The most exclusive afterparty during Art Basel Miami.",
+    organizer: "Miami Art Collective",
     rating: 4.9,
-    reviews: 850,
+    reviews: 856,
     highlights: [
       {
-        icon: "💻",
-        title: "Expert Talks",
-        description: "Keynotes from industry leaders"
+        icon: "🎨",
+        title: "Art Exhibitions",
+        description: "Exclusive art showcases"
       },
       {
-        icon: "🤝",
-        title: "Networking",
-        description: "Dedicated networking sessions"
-      },
-      {
-        icon: "🚀",
-        title: "Innovation Hub",
-        description: "Latest tech demos and exhibitions"
+        icon: "🍷",
+        title: "Premium Experience",
+        description: "Open bar and catering"
       }
     ]
   },
   {
     id: "3",
-    title: "Food & Wine Festival",
-    date: "September 5, 2024",
-    location: "Waterfront Park, Miami",
-    imageUrl: "https://source.unsplash.com/random/800x600/?food",
-    price: 149.99,
-    availableTickets: 200,
-    description: "Experience the finest cuisine and wines from renowned chefs.",
-    organizer: "Culinary Arts Society",
+    title: "Rawayana World Tour",
+    date: "August 5, 2025",
+    location: "FTX Arena, Miami",
+    imageUrl: "https://source.unsplash.com/random/800x600/?music",
+    price: 59.99,
+    availableTickets: 500,
+    description: "Rawayana brings their electrifying world tour to Miami.",
+    organizer: "Live Nation",
     rating: 4.7,
-    reviews: 975,
+    reviews: 1243,
     highlights: [
       {
-        icon: "👨‍🍳",
-        title: "Chef Demonstrations",
-        description: "Live cooking shows by top chefs"
+        icon: "🎸",
+        title: "Live Performance",
+        description: "Full band with special guests"
       },
       {
-        icon: "🍷",
-        title: "Wine Tasting",
-        description: "Premium wine sampling sessions"
-      },
-      {
-        icon: "🌟",
-        title: "VIP Experience",
-        description: "Exclusive dining experiences"
+        icon: "🎉",
+        title: "Meet & Greet",
+        description: "VIP ticket holders only"
       }
     ]
-  },
+  }
 ];
 
-const Index = () => {
+const Explore = () => {
   return (
-    <div className="min-h-screen bg-eden-gray">
+    <div className="min-h-screen bg-eden-dark">
       <Navbar />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-4xl font-bold text-eden-primary mb-8">
-          Featured Events
-        </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockEvents.map((event) => (
-            <EventCard key={event.id} event={event} />
-          ))}
-        </div>
-      </main>
+      <ExploreHero />
+      <EventGrid title="Trending Now" events={mockEvents} />
+      <CategorySection />
+      <EventGrid title="Happening Near You" events={mockEvents} />
     </div>
   );
 };
 
-export default Index;
+export default Explore;

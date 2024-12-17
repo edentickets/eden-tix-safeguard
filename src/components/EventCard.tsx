@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Event } from "@/types/event";
 import { Link } from "react-router-dom";
+import { Star } from "lucide-react";
 
 export const EventCard = ({ event }: { event: Event }) => {
   return (
@@ -20,6 +21,18 @@ export const EventCard = ({ event }: { event: Event }) => {
           </h3>
           <p className="text-sm text-gray-300 mt-1">{event.date}</p>
           <p className="text-sm text-gray-300">{event.location}</p>
+          
+          {/* Rating and Reviews */}
+          <div className="flex items-center gap-1 mt-2">
+            <Star className="w-4 h-4 fill-eden-secondary text-eden-secondary" />
+            <span className="text-eden-secondary font-medium">
+              {event.rating}
+            </span>
+            <span className="text-gray-400 text-sm">
+              ({event.reviews} reviews)
+            </span>
+          </div>
+
           <div className="mt-2 flex justify-between items-center">
             <span className="text-lg font-bold text-eden-secondary">
               ${event.price}
