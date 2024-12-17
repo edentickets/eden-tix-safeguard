@@ -1,14 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-import { LayoutDashboard, Users, UserPlus } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 
 export const Navbar = () => {
   return (
@@ -19,45 +11,18 @@ export const Navbar = () => {
             <Link to="/" className="flex items-center">
               <span className="text-2xl font-bold gradient-text">Eden</span>
             </Link>
-            
-            <NavigationMenu>
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-white hover:text-eden-primary">
-                    <Users className="w-4 h-4 mr-2" />
-                    Community
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="grid gap-3 p-4 w-[400px]">
-                      <Link 
-                        to="/creators" 
-                        className="flex items-center space-x-2 hover:bg-eden-light/10 p-2 rounded-md transition-colors"
-                      >
-                        <UserPlus className="w-4 h-4 text-eden-primary" />
-                        <div>
-                          <div className="font-medium">Creators</div>
-                          <p className="text-sm text-muted-foreground">
-                            Discover event organizers and promoters
-                          </p>
-                        </div>
-                      </Link>
-                      <Link 
-                        to="/users" 
-                        className="flex items-center space-x-2 hover:bg-eden-light/10 p-2 rounded-md transition-colors"
-                      >
-                        <Users className="w-4 h-4 text-eden-secondary" />
-                        <div>
-                          <div className="font-medium">Users</div>
-                          <p className="text-sm text-muted-foreground">
-                            Connect with other event enthusiasts
-                          </p>
-                        </div>
-                      </Link>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
+
+            <Link to="/creators">
+              <Button variant="ghost" className="text-white hover:text-eden-primary">
+                For Creators
+              </Button>
+            </Link>
+
+            <Link to="/users">
+              <Button variant="ghost" className="text-white hover:text-eden-primary">
+                For Users
+              </Button>
+            </Link>
 
             <Link to="/explore">
               <Button variant="ghost" className="text-white hover:text-eden-primary">

@@ -9,6 +9,8 @@ import EventDetails from "./pages/EventDetails";
 import CreatorDashboard from "./pages/CreatorDashboard";
 import CreatorProfile from "./pages/CreatorProfile";
 import UserProfile from "./pages/UserProfile";
+import CreatorsLanding from "./pages/CreatorsLanding";
+import UsersLanding from "./pages/UsersLanding";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +22,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/creators" element={<CreatorsLanding />} />
+          <Route path="/users" element={<UsersLanding />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/event/:id" element={<EventDetails />} />
           <Route path="/dashboard" element={<CreatorDashboard />} />
