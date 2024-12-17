@@ -4,6 +4,7 @@ import { HeroSection } from "@/components/creators/HeroSection";
 import { ProblemSolution } from "@/components/creators/ProblemSolution";
 import { Features } from "@/components/creators/Features";
 import { CTASection } from "@/components/creators/CTASection";
+import { PricingSection } from "@/components/creators/PricingSection";
 import ClientsSection from "@/components/sections/ClientsSection";
 
 const CreatorsLanding = () => {
@@ -15,6 +16,7 @@ const CreatorsLanding = () => {
       <ClientsSection />
       <ProblemSolution />
       <Features />
+      <PricingSection />
       <CTASection />
     </div>
   );
