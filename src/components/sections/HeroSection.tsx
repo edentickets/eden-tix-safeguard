@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { Shield, Ticket, Coins, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Background3D from "@/components/Background3D";
+import FeatureIcons from "@/components/hero/FeatureIcons";
+import HeroCTAs from "@/components/hero/HeroCTAs";
+import NFTTicketPreview from "@/components/hero/NFTTicketPreview";
 
 const HeroSection = () => {
   return (
@@ -40,26 +40,7 @@ const HeroSection = () => {
         </h1>
 
         {/* Feature Icons */}
-        <div className="flex justify-center gap-8 py-8">
-          {[
-            { icon: Shield, text: "Blockchain-Secured NFTs" },
-            { icon: Ticket, text: "Dynamic QR Protection" },
-            { icon: Coins, text: "Fair Price Resale" },
-          ].map(({ icon: Icon, text }, index) => (
-            <motion.div
-              key={text}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.2 }}
-              className="flex flex-col items-center gap-2"
-            >
-              <div className="p-4 rounded-full bg-eden-primary/10 border border-eden-primary/20">
-                <Icon className="w-6 h-6 text-eden-primary" />
-              </div>
-              <span className="text-sm text-white/70">{text}</span>
-            </motion.div>
-          ))}
-        </div>
+        <FeatureIcons />
 
         {/* Description */}
         <motion.p 
@@ -73,52 +54,10 @@ const HeroSection = () => {
         </motion.p>
 
         {/* CTAs */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2 }}
-          className="flex flex-col sm:flex-row justify-center gap-4 pt-8"
-        >
-          <Link to="/explore">
-            <Button size="lg" className="bg-eden-primary hover:bg-eden-primary/90 text-white px-8 py-6">
-              Explore Events
-              <ArrowRight className="ml-2" />
-            </Button>
-          </Link>
-          <Link to="/creators">
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-eden-primary text-eden-primary hover:bg-eden-primary/10 px-8 py-6"
-            >
-              Join as Creator
-            </Button>
-          </Link>
-        </motion.div>
+        <HeroCTAs />
 
         {/* NFT Ticket Preview */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.5 }}
-          className="mt-12"
-        >
-          <div className="relative w-full max-w-md mx-auto animate-float">
-            <div className="absolute inset-0 bg-gradient-secondary opacity-20 blur-xl" />
-            <div className="relative glass-card p-6 space-y-4">
-              <div className="flex justify-between items-center">
-                <div className="text-left">
-                  <p className="text-sm text-white/60">NFT Ticket Preview</p>
-                  <h3 className="text-lg font-semibold text-white">Rolling Loud 2024</h3>
-                </div>
-                <div className="h-16 w-16 bg-eden-primary/20 rounded-lg flex items-center justify-center">
-                  <Ticket className="w-8 h-8 text-eden-primary" />
-                </div>
-              </div>
-              <div className="h-32 bg-eden-light/20 rounded-lg animate-pulse" />
-            </div>
-          </div>
-        </motion.div>
+        <NFTTicketPreview />
       </motion.div>
     </div>
   );
