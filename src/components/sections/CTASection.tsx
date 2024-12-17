@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const CTASection = () => {
   return (
@@ -14,12 +15,16 @@ const CTASection = () => {
               Discover events. Resell tickets seamlessly. Experience fair pricing and rewards. The future of ticketing is here.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button size="lg" className="bg-eden-secondary text-white hover:bg-eden-secondary/90">
-                Browse Events
-              </Button>
-              <Button size="lg" variant="outline">
-                Join Eden
-              </Button>
+              <Link to="/explore">
+                <Button size="lg" className="bg-eden-secondary text-white hover:bg-eden-secondary/90">
+                  Browse Events
+                </Button>
+              </Link>
+              <Link to="/users">
+                <Button size="lg" variant="outline">
+                  Join Eden
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
