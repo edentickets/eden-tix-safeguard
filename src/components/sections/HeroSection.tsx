@@ -21,11 +21,8 @@ const HeroSection = () => {
             Secure. Fair. Seamless. Unlock exclusive tickets, effortless resales, and rewards—all on one platform.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 pt-8">
-            <Button size="lg" className="bg-eden-secondary text-white hover:bg-eden-secondary/90">
-              Buy Tickets
-            </Button>
             <Link to="/explore">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto">
+              <Button size="lg" className="bg-eden-secondary text-white hover:bg-eden-secondary/90 w-full sm:w-auto">
                 Explore Events
                 <ArrowRight className="ml-2" />
               </Button>
