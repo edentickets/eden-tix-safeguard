@@ -12,6 +12,26 @@ const mockEvents: Event[] = [
     price: 99.99,
     availableTickets: 150,
     description: "The biggest music festival of the summer featuring top artists from around the world.",
+    organizer: "Summer Fest Productions",
+    rating: 4.8,
+    reviews: 1250,
+    highlights: [
+      {
+        icon: "🎵",
+        title: "Live Performances",
+        description: "Multiple stages with continuous live music"
+      },
+      {
+        icon: "🍔",
+        title: "Food & Drinks",
+        description: "Gourmet food trucks and premium beverages"
+      },
+      {
+        icon: "🎪",
+        title: "Festival Activities",
+        description: "Interactive art installations and workshops"
+      }
+    ]
   },
   {
     id: "2",
@@ -22,6 +42,26 @@ const mockEvents: Event[] = [
     price: 299.99,
     availableTickets: 75,
     description: "Join industry leaders for a day of innovation and networking.",
+    organizer: "TechCon Events",
+    rating: 4.9,
+    reviews: 850,
+    highlights: [
+      {
+        icon: "💻",
+        title: "Expert Talks",
+        description: "Keynotes from industry leaders"
+      },
+      {
+        icon: "🤝",
+        title: "Networking",
+        description: "Dedicated networking sessions"
+      },
+      {
+        icon: "🚀",
+        title: "Innovation Hub",
+        description: "Latest tech demos and exhibitions"
+      }
+    ]
   },
   {
     id: "3",
@@ -32,6 +72,26 @@ const mockEvents: Event[] = [
     price: 149.99,
     availableTickets: 200,
     description: "Experience the finest cuisine and wines from renowned chefs.",
+    organizer: "Culinary Arts Society",
+    rating: 4.7,
+    reviews: 975,
+    highlights: [
+      {
+        icon: "👨‍🍳",
+        title: "Chef Demonstrations",
+        description: "Live cooking shows by top chefs"
+      },
+      {
+        icon: "🍷",
+        title: "Wine Tasting",
+        description: "Premium wine sampling sessions"
+      },
+      {
+        icon: "🌟",
+        title: "VIP Experience",
+        description: "Exclusive dining experiences"
+      }
+    ]
   },
 ];
 
