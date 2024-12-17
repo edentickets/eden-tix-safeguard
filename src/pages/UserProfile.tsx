@@ -3,6 +3,10 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { UserStats } from "@/components/profile/UserStats";
+import { UserBio } from "@/components/profile/UserBio";
+import { UserTickets } from "@/components/profile/UserTickets";
+import { UserRewards } from "@/components/profile/UserRewards";
 import { EventGrid } from "@/components/explore/EventGrid";
 import { Edit2, Ticket, Users, Award, Bell } from "lucide-react";
 
@@ -26,8 +30,7 @@ const userData = {
       name: "Rolling Loud",
       image: "/placeholder.svg",
       isFollowing: true
-    },
-    // Add more creators as needed
+    }
   ]
 };
 
@@ -97,50 +100,16 @@ export default function UserProfile() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-8 space-y-8">
         {/* Stats Section */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card className="p-4 bg-eden-light/30 backdrop-blur-sm border-eden-light/10">
-            <div className="flex items-center gap-3">
-              <Ticket className="h-8 w-8 text-eden-accent" />
-              <div>
-                <p className="text-sm text-gray-400">Tickets Purchased</p>
-                <p className="text-xl font-bold text-white">{userData.stats.ticketsPurchased}</p>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-4 bg-eden-light/30 backdrop-blur-sm border-eden-light/10">
-            <div className="flex items-center gap-3">
-              <Users className="h-8 w-8 text-eden-secondary" />
-              <div>
-                <p className="text-sm text-gray-400">Following</p>
-                <p className="text-xl font-bold text-white">{userData.stats.followingCount}</p>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-4 bg-eden-light/30 backdrop-blur-sm border-eden-light/10">
-            <div className="flex items-center gap-3">
-              <Award className="h-8 w-8 text-eden-primary" />
-              <div>
-                <p className="text-sm text-gray-400">Reward Points</p>
-                <p className="text-xl font-bold text-white">{userData.stats.rewardsPoints}</p>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-4 bg-eden-light/30 backdrop-blur-sm border-eden-light/10">
-            <div className="flex items-center gap-3">
-              <Bell className="h-8 w-8 text-eden-accent" />
-              <div>
-                <p className="text-sm text-gray-400">Notifications</p>
-                <p className="text-xl font-bold text-white">3 New</p>
-              </div>
-            </div>
-          </Card>
-        </div>
+        <UserStats stats={userData.stats} />
 
         {/* Bio Section */}
-        <Card className="p-6 bg-eden-light/30 backdrop-blur-sm border-eden-light/10">
-          <h2 className="text-xl font-semibold text-white mb-3">About Me</h2>
-          <p className="text-gray-300">{userData.bio}</p>
-        </Card>
+        <UserBio bio={userData.bio} followedCreators={userData.followedCreators} />
+
+        {/* Tickets Section */}
+        <UserTickets />
+
+        {/* Rewards Section */}
+        <UserRewards points={userData.stats.rewardsPoints} />
 
         {/* Upcoming Events Section */}
         <div>
