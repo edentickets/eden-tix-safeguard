@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { useState } from "react";
-import { Shield, TrendingUp, Gift } from "lucide-react";
+import { Shield, TrendingUp, Gift, ArrowRightLeft } from "lucide-react";
 
 interface FeatureCardProps {
   icon: "security" | "pricing" | "rewards";
@@ -15,29 +15,30 @@ const FeatureCard = ({ icon, title, description, details }: FeatureCardProps) =>
   const getIcon = () => {
     switch (icon) {
       case "security":
-        return <Shield className="w-8 h-8 text-eden-primary" />;
+        return <Shield className="w-12 h-12 text-eden-primary animate-pulse" />;
       case "pricing":
-        return <TrendingUp className="w-8 h-8 text-eden-secondary" />;
+        return <TrendingUp className="w-12 h-12 text-eden-secondary animate-pulse" />;
       case "rewards":
-        return <Gift className="w-8 h-8 text-eden-accent" />;
+        return <Gift className="w-12 h-12 text-eden-accent animate-pulse" />;
     }
   };
 
   return (
-    <div
-      className="relative w-full h-[300px] perspective-1000"
-      onMouseEnter={() => setIsFlipped(true)}
-      onMouseLeave={() => setIsFlipped(false)}
-    >
+    <div className="relative w-full h-[300px] group perspective-[1000px]">
       <div
-        className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${
+        className={`relative w-full h-full transition-transform duration-500 transform-gpu preserve-3d ${
           isFlipped ? "rotate-y-180" : ""
         }`}
+        onMouseEnter={() => setIsFlipped(true)}
+        onMouseLeave={() => setIsFlipped(false)}
       >
         {/* Front of card */}
         <Card className="absolute w-full h-full glass-card p-6 backface-hidden">
           <div className="flex flex-col items-center text-center space-y-4">
-            {getIcon()}
+            <div className="relative">
+              {getIcon()}
+              <ArrowRightLeft className="absolute -right-4 -bottom-4 w-6 h-6 text-eden-primary/50 animate-bounce" />
+            </div>
             <h3 className="text-xl font-semibold text-white">{title}</h3>
             <p className="text-white/70">{description}</p>
           </div>

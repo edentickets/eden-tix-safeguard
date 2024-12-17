@@ -67,6 +67,35 @@
   .btn-gradient {
     @apply bg-gradient-secondary hover:opacity-90 transition-opacity;
   }
+
+  /* 3D Transform Utilities */
+  .perspective-[1000px] {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+}
+
+/* Performance optimizations */
+* {
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Add will-change for better performance on cards */
+.glass-card {
+  will-change: transform;
 }
 
 /* Optimized animations */
@@ -83,12 +112,3 @@
     transform: translateY(0);
   }
 }
-
-/* Performance optimizations */
-* {
-  backface-visibility: hidden;
-  -webkit-font-smoothing: subpixel-antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-/* Remove unused App.css styles */
