@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Shield, Ticket, Bell, Coins, Users, ChartBar } from "lucide-react";
+import { Shield, QrCode, BarChart3, Bell, CreditCard, Users } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 const FeaturesSection = () => {
@@ -10,12 +10,12 @@ const FeaturesSection = () => {
       description: "Every ticket is a unique NFT, making fraud impossible and transfers secure."
     },
     {
-      icon: <Ticket className="w-8 h-8 text-eden-secondary" />,
+      icon: <QrCode className="w-8 h-8 text-eden-secondary" />,
       title: "Dynamic QR Protection",
       description: "Scrambled QR codes prevent unauthorized transfers outside Eden."
     },
     {
-      icon: <Coins className="w-8 h-8 text-eden-accent" />,
+      icon: <BarChart3 className="w-8 h-8 text-eden-accent" />,
       title: "Fair Price Resale",
       description: "Stock exchange-style bidding system ensures fair market prices."
     },
@@ -25,14 +25,14 @@ const FeaturesSection = () => {
       description: "Get alerts for price changes, drops, and favorite events."
     },
     {
-      icon: <Users className="w-8 h-8 text-eden-secondary" />,
-      title: "Creator Revenue Share",
-      description: "Earn from every resale with transparent revenue sharing."
+      icon: <CreditCard className="w-8 h-8 text-eden-secondary" />,
+      title: "Multiple Payment Options",
+      description: "Pay with Apple Pay, crypto, or traditional payment methods."
     },
     {
-      icon: <ChartBar className="w-8 h-8 text-eden-accent" />,
-      title: "Real-Time Analytics",
-      description: "Track sales, attendee behavior, and market trends."
+      icon: <Users className="w-8 h-8 text-eden-accent" />,
+      title: "Creator Revenue Share",
+      description: "Earn from every resale with transparent revenue sharing."
     }
   ];
 
@@ -43,6 +43,7 @@ const FeaturesSection = () => {
         <motion.h2 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.5 }}
           className="text-4xl md:text-6xl font-medium text-center mb-16 gradient-text"
         >
@@ -54,6 +55,7 @@ const FeaturesSection = () => {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <Card className="glass-card p-6 space-y-4 hover:border-eden-primary/30 transition-all duration-300">
