@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 export const CTASection = () => {
   return (
     <section className="py-32 px-4 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-primary opacity-10" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-eden-accent/20 via-eden-primary/10 to-transparent" />
       <div className="max-w-7xl mx-auto text-center relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

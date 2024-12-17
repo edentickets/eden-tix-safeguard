@@ -38,6 +38,7 @@ export const Features = () => {
 
   return (
     <section className="py-32 px-4 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-secondary opacity-5" />
       <div className="max-w-7xl mx-auto relative">
         <motion.h2 
           initial={{ opacity: 0 }}
