@@ -6,45 +6,38 @@
 
 @layer base {
   html {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
   }
+  
   @supports (font-variation-settings: normal) {
     html {
-      font-family: 'Inter var', sans-serif;
+      font-family: 'Inter var', system-ui, -apple-system, sans-serif;
     }
   }
 
   :root {
     --background: 228 35% 13%;
     --foreground: 210 40% 98%;
-
     --card: 228 35% 13%;
     --card-foreground: 210 40% 98%;
-
     --popover: 228 35% 13%;
     --popover-foreground: 210 40% 98%;
-
     --primary: 262 83% 58%;
     --primary-foreground: 210 40% 98%;
-
     --secondary: 160 84% 39%;
     --secondary-foreground: 210 40% 98%;
-
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-
     --accent: 262 83% 58%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 262 83% 58%;
-
     --radius: 0.5rem;
   }
 }
@@ -53,21 +46,30 @@
   * {
     @apply border-border;
   }
+  
   body {
-    @apply bg-eden-dark text-foreground;
+    @apply bg-eden-dark text-foreground antialiased;
+  }
+  
+  /* Optimize animations */
+  * {
+    backface-visibility: hidden;
+    -webkit-font-smoothing: subpixel-antialiased;
   }
 }
 
-.glass-card {
-  @apply bg-eden-light/30 backdrop-blur-md border border-white/10 shadow-xl;
-}
+@layer components {
+  .glass-card {
+    @apply bg-eden-light/30 backdrop-blur-md border border-white/10 shadow-xl;
+  }
 
-.gradient-text {
-  @apply bg-clip-text text-transparent bg-gradient-primary;
-}
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-primary;
+  }
 
-.btn-gradient {
-  @apply bg-gradient-secondary hover:opacity-90 transition-opacity;
+  .btn-gradient {
+    @apply bg-gradient-secondary hover:opacity-90 transition-opacity;
+  }
 }
 
 /* 3D Card Flip Styles */
@@ -85,4 +87,18 @@
 
 .rotate-y-180 {
   transform: rotateY(180deg);
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
