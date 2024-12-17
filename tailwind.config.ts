@@ -18,6 +18,20 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: [
+          'Inter var',
+          'Inter',
+          'system-ui',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'sans-serif',
+        ],
+      },
       colors: {
         eden: {
           primary: "#8B5CF6", // Main purple
