@@ -13,24 +13,69 @@ const HeroSection = () => {
           transition={{ duration: 0.8 }}
           className="text-center space-y-8"
         >
-          <h1 className="text-4xl md:text-7xl font-medium tracking-tight text-white">
-            Revolutionizing Event Ticketing
-            <span className="block gradient-text">with Blockchain Technology</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-light">
+          <motion.h1 
+            className="text-4xl md:text-7xl font-medium tracking-tight"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <span className="text-white">Revolutionizing Event Ticketing</span>
+            <motion.span 
+              className="block gradient-text"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              with Blockchain Technology
+            </motion.span>
+          </motion.h1>
+          
+          <motion.p 
+            className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-light"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
             Secure. Fair. Seamless. Unlock exclusive tickets, effortless resales, and rewards—all on one platform.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4 pt-8">
-            <Button size="lg" className="bg-eden-secondary text-white hover:bg-eden-secondary/90">
-              Buy Tickets
+          </motion.p>
+          
+          <motion.div 
+            className="flex flex-col sm:flex-row justify-center gap-4 pt-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            <Button 
+              size="lg" 
+              className="bg-eden-secondary text-white hover:bg-eden-secondary/90 group relative overflow-hidden"
+            >
+              <span className="relative z-10">Buy Tickets</span>
+              <motion.div
+                className="absolute inset-0 bg-white/20"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: "100%" }}
+                transition={{ duration: 0.5 }}
+              />
             </Button>
+            
             <Link to="/explore">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="w-full sm:w-auto group hover:bg-eden-primary/10"
+              >
                 Explore Events
-                <ArrowRight className="ml-2" />
+                <motion.span
+                  className="inline-block ml-2"
+                  initial={{ x: 0 }}
+                  whileHover={{ x: 4 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ArrowRight className="h-5 w-5" />
+                </motion.span>
               </Button>
             </Link>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </div>
