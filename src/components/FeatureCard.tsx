@@ -25,17 +25,17 @@ const FeatureCard = ({ icon, title, description, details }: FeatureCardProps) =>
 
   return (
     <div
-      className="relative w-full h-[300px] perspective-1000"
+      className="relative w-full h-[300px] [perspective:1000px]"
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
     >
       <div
-        className={`relative w-full h-full transition-transform duration-500 transform-style-3d ${
-          isFlipped ? "rotate-y-180" : ""
+        className={`relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] ${
+          isFlipped ? "[transform:rotateY(180deg)]" : ""
         }`}
       >
         {/* Front of card */}
-        <Card className="absolute w-full h-full glass-card p-6 backface-hidden">
+        <Card className="absolute w-full h-full glass-card p-6 [backface-visibility:hidden]">
           <div className="flex flex-col items-center text-center space-y-4">
             {getIcon()}
             <h3 className="text-xl font-semibold text-white">{title}</h3>
@@ -44,7 +44,7 @@ const FeatureCard = ({ icon, title, description, details }: FeatureCardProps) =>
         </Card>
 
         {/* Back of card */}
-        <Card className="absolute w-full h-full glass-card p-6 backface-hidden rotate-y-180">
+        <Card className="absolute w-full h-full glass-card p-6 [backface-visibility:hidden] [transform:rotateY(180deg)]">
           <div className="flex flex-col items-center text-center justify-center h-full">
             <p className="text-white/90 leading-relaxed">{details}</p>
           </div>
