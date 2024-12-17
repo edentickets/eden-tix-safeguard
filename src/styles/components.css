@@ -1,18 +1,33 @@
 @layer components {
   .glass-card {
-    @apply bg-eden-light/30 backdrop-blur-lg border border-white/10 shadow-xl;
+    @apply bg-white/10 backdrop-blur-md border border-white/20;
     transform-style: preserve-3d;
-    transform: translateZ(0);
-    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 
-  .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-primary;
-    transform: translateZ(0);
+  .perspective-[1000px] {
+    perspective: 1000px;
+  }
+
+  .transform-style-preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
   }
 
   .btn-gradient {
-    @apply bg-gradient-secondary hover:opacity-90 transition-opacity;
-    transform: translateZ(0);
+    @apply bg-gradient-to-r from-eden-primary to-eden-secondary text-white hover:opacity-90 transition-opacity;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-eden-primary to-eden-secondary;
   }
 }

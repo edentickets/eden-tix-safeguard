@@ -1,61 +1,14 @@
 @layer utilities {
-  .perspective-[1000px] {
+  .perspective-1000 {
     perspective: 1000px;
   }
 
-  .transform-style-preserve-3d {
+  .preserve-3d {
     transform-style: preserve-3d;
   }
 
-  .backface-hidden {
-    -webkit-backface-visibility: hidden;
+  .backface-visibility-hidden {
     backface-visibility: hidden;
-    transform: translateZ(1px);
-  }
-
-  .rotate-y-180 {
-    transform: rotateY(180deg);
-  }
-}
-
-/* Performance optimizations */
-* {
-  backface-visibility: hidden;
-  -webkit-font-smoothing: subpixel-antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-/* Hardware acceleration for animations */
-.animate-on-scroll,
-.glass-card,
-.gradient-text,
-.btn-gradient {
-  transform: translateZ(0);
-  will-change: transform, opacity;
-}
-
-/* Optimized animations with reduced motion preference */
-@media (prefers-reduced-motion: no-preference) {
-  .animate-on-scroll {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-  }
-
-  .animate-on-scroll.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Reduce animation complexity for better performance */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+    -webkit-backface-visibility: hidden;
   }
 }

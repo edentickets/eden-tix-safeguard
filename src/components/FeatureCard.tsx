@@ -10,7 +10,7 @@ interface FeatureCardProps {
   details: string;
 }
 
-const FeatureCard = memo(({ icon, title, description, details }: FeatureCardProps) => {
+const FeatureCard = ({ icon, title, description, details }: FeatureCardProps) => {
   const Icon = Icons[icon] as LucideIcon;
 
   return (
@@ -36,8 +36,6 @@ const FeatureCard = memo(({ icon, title, description, details }: FeatureCardProp
       </div>
     </div>
   );
-});
+};
 
-FeatureCard.displayName = "FeatureCard";
-
-export default FeatureCard;
+export default memo(FeatureCard);
