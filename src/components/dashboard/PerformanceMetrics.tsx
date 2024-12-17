@@ -103,8 +103,8 @@ export function PerformanceMetrics() {
                 stroke="#4A5568"
                 tickFormatter={(value) => `$${value / 1000}k`}
               />
-              <ChartTooltip>
-                {({ active, payload }) => {
+              <ChartTooltip 
+                content={({ active, payload }) => {
                   if (!active || !payload?.length) return null;
                   return (
                     <div className="rounded-lg bg-eden-dark p-2 shadow-md">
@@ -117,7 +117,7 @@ export function PerformanceMetrics() {
                     </div>
                   );
                 }}
-              </ChartTooltip>
+              />
               <Line
                 type="monotone"
                 dataKey="revenue"
