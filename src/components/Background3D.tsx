@@ -10,20 +10,18 @@ const Background3D = () => {
   const spheres = useRef<THREE.Mesh[]>([]);
 
   // Memoize geometry and materials
-  const sphereGeometry = useMemo(() => new THREE.SphereGeometry(1, 32, 32), []);
+  const sphereGeometry = useMemo(() => new THREE.SphereGeometry(1, 16, 16), []); // Reduced geometry complexity
   const materials = useMemo(
     () => [
-      new THREE.MeshPhongMaterial({
+      new THREE.MeshBasicMaterial({ // Changed to BasicMaterial for better performance
         color: 0x8B5CF6,
         transparent: true,
-        opacity: 0.3,
-        shininess: 100,
+        opacity: 0.2,
       }),
-      new THREE.MeshPhongMaterial({
+      new THREE.MeshBasicMaterial({
         color: 0x10B981,
         transparent: true,
-        opacity: 0.3,
-        shininess: 100,
+        opacity: 0.2,
       }),
     ],
     []
@@ -33,17 +31,18 @@ const Background3D = () => {
   const animate = useCallback(() => {
     if (!scene.current || !camera.current || !renderer.current) return;
 
+    // Reduced animation complexity
     spheres.current.forEach((sphere, i) => {
-      sphere.rotation.x += 0.002;
-      sphere.rotation.y += 0.003;
-      sphere.position.y += Math.sin(Date.now() * 0.001 + i) * 0.01;
+      sphere.rotation.x += 0.001;
+      sphere.rotation.y += 0.001;
+      sphere.position.y += Math.sin(Date.now() * 0.0005 + i) * 0.005;
     });
 
     renderer.current.render(scene.current, camera.current);
     animationFrameId.current = requestAnimationFrame(animate);
   }, []);
 
-  // Memoize resize handler
+  // Memoize resize handler with debouncing
   const handleResize = useCallback(() => {
     if (!camera.current || !renderer.current || !mountRef.current) return;
 
@@ -55,21 +54,22 @@ const Background3D = () => {
   useEffect(() => {
     if (!mountRef.current) return;
 
-    // Scene setup
+    // Scene setup with optimized settings
     scene.current = new THREE.Scene();
     camera.current = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     renderer.current = new THREE.WebGLRenderer({ 
       alpha: true,
-      antialias: true,
-      powerPreference: "high-performance"
+      antialias: false, // Disabled antialiasing for better performance
+      powerPreference: "high-performance",
+      precision: "lowp" // Use low precision for better performance
     });
     
     renderer.current.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.current.setSize(window.innerWidth, window.innerHeight);
     mountRef.current.appendChild(renderer.current.domElement);
 
-    // Create spheres
-    for (let i = 0; i < 5; i++) {
+    // Create fewer spheres
+    for (let i = 0; i < 3; i++) {
       const material = materials[i % 2];
       const sphere = new THREE.Mesh(sphereGeometry, material);
       
@@ -83,27 +83,23 @@ const Background3D = () => {
       scene.current.add(sphere);
     }
 
-    // Optimized lighting
+    // Simplified lighting
     const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    directionalLight.position.set(1, 1, 1);
-    
     scene.current.add(ambientLight);
-    scene.current.add(directionalLight);
 
     camera.current.position.z = 15;
 
     // Start animation
     animate();
 
-    // Add resize listener with debouncing
+    // Debounced resize handler
     let resizeTimeout: NodeJS.Timeout;
     const debouncedResize = () => {
       clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(handleResize, 100);
+      resizeTimeout = setTimeout(handleResize, 250); // Increased debounce time
     };
 
-    window.addEventListener('resize', debouncedResize);
+    window.addEventListener('resize', debouncedResize, { passive: true });
 
     // Cleanup
     return () => {
