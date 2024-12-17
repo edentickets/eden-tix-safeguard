@@ -16,12 +16,12 @@ const Metric = ({ icon, label, value, animate = true }: MetricProps) => (
     animate={{ opacity: 1, y: 0 }}
     whileHover={{ y: -5 }}
   >
-    <div className="p-3 rounded-xl bg-gradient-secondary text-white">
+    <div className="p-3 rounded-xl bg-eden-primary/20 text-white/80">
       {icon}
     </div>
     <div>
-      <p className="text-sm text-gray-400">{label}</p>
-      <p className="text-xl font-semibold text-white">
+      <p className="text-sm text-gray-400/80">{label}</p>
+      <p className="text-xl font-semibold text-white/90">
         {animate ? (
           <motion.span
             key={value}
@@ -47,13 +47,13 @@ export function LiveMetrics() {
         label="Live Tickets Sold"
         value="15,245"
       />
-      <div className="hidden md:block h-12 w-px bg-eden-accent/20" />
+      <div className="hidden md:block h-12 w-px bg-white/5" />
       <Metric
         icon={<RefreshCcw className="w-5 h-5" />}
         label="Live Resale Volume"
         value="3,120"
       />
-      <div className="hidden md:block h-12 w-px bg-eden-accent/20" />
+      <div className="hidden md:block h-12 w-px bg-white/5" />
       <Metric
         icon={<DollarSign className="w-5 h-5" />}
         label="Revenue Earned"
