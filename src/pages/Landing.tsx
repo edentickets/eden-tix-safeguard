@@ -1,14 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Shield, Ticket, RefreshCw } from "lucide-react";
+import Background3D from "@/components/Background3D";
 
 const Landing = () => {
   return (
     <div className="min-h-screen bg-eden-dark overflow-hidden">
       <div className="relative">
-        {/* Background gradient effects */}
-        <div className="absolute top-0 left-1/4 w-1/2 h-1/2 bg-eden-primary/30 rounded-full filter blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 w-1/2 h-1/2 bg-eden-secondary/30 rounded-full filter blur-[120px]" />
+        {/* 3D Background */}
+        <Background3D />
+        
+        {/* Animated gradient overlays */}
+        <div className="absolute top-0 left-1/4 w-1/2 h-1/2 bg-eden-primary/30 rounded-full filter blur-[120px] animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-1/2 h-1/2 bg-eden-secondary/30 rounded-full filter blur-[120px] animate-pulse delay-700" />
         
         {/* Main content */}
         <div className="relative">
@@ -93,7 +97,7 @@ const Landing = () => {
           <div className="py-20 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
               <div className="glass-card rounded-2xl p-12 text-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-secondary opacity-10" />
+                <div className="absolute inset-0 bg-gradient-secondary opacity-10 animate-pulse" />
                 <div className="relative z-10">
                   <h2 className="text-3xl md:text-4xl font-bold mb-6 gradient-text">
                     Ready to Experience the Future?
