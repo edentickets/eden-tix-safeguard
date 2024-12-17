@@ -1,35 +1,35 @@
 import FeatureCard from "@/components/FeatureCard";
 import { motion } from "framer-motion";
 
-const FeaturesSection = () => {
-  const features = [
-    {
-      icon: "security" as const,
-      title: "Secure & Trustworthy Transactions",
-      description: "Say goodbye to unsafe peer-to-peer ticket sales.",
-      details: "With Eden's blockchain-powered platform, every ticket is verified, and every transaction is secure. Experience peace of mind with every purchase."
-    },
-    {
-      icon: "pricing" as const,
-      title: "Fair Resale Prices",
-      description: "No more price gouging.",
-      details: "Our live, market-driven pricing system ensures buyers and sellers get the best value—always. Transparent and fair pricing for everyone."
-    },
-    {
-      icon: "rewards" as const,
-      title: "Exclusive Rewards & Benefits",
-      description: "Earn points, unlock rewards, and get early access.",
-      details: "Earn points, unlock rewards, and get early access to events by engaging on Eden. It's ticketing reimagined for the modern era."
-    }
-  ];
+const features = [
+  {
+    icon: "security" as const,
+    title: "Secure & Trustworthy",
+    description: "Say goodbye to unsafe ticket sales.",
+    details: "Every transaction is verified and secure on our platform."
+  },
+  {
+    icon: "pricing" as const,
+    title: "Fair Pricing",
+    description: "No more price gouging.",
+    details: "Market-driven pricing ensures the best value for everyone."
+  },
+  {
+    icon: "rewards" as const,
+    title: "Exclusive Benefits",
+    description: "Earn rewards and get early access.",
+    details: "Unlock special perks and benefits as you use Eden."
+  }
+] as const;
 
+const FeaturesSection = () => {
   return (
-    <div className="py-32 px-4 sm:px-6 lg:px-8">
+    <div className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5 }}
           className="text-3xl md:text-5xl font-medium text-center mb-16 gradient-text"
         >
           Why Eden Changes the Game
@@ -41,7 +41,7 @@ const FeaturesSection = () => {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <FeatureCard {...feature} />
             </motion.div>

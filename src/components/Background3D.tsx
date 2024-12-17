@@ -1,19 +1,30 @@
-import { useEffect, useRef, useMemo, useCallback } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 const Background3D = () => {
   const mountRef = useRef<HTMLDivElement>(null);
-  const animationFrameId = useRef<number>();
-  const scene = useRef<THREE.Scene>();
-  const camera = useRef<THREE.PerspectiveCamera>();
-  const renderer = useRef<THREE.WebGLRenderer>();
-  const spheres = useRef<THREE.Mesh[]>([]);
 
-  // Memoize geometry and materials
-  const sphereGeometry = useMemo(() => new THREE.SphereGeometry(1, 16, 16), []); // Reduced geometry complexity
-  const materials = useMemo(
-    () => [
-      new THREE.MeshBasicMaterial({ // Changed to BasicMaterial for better performance
+  useEffect(() => {
+    if (!mountRef.current) return;
+
+    // Basic scene setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ 
+      alpha: true,
+      antialias: false,
+      powerPreference: "high-performance",
+      precision: "lowp"
+    });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    mountRef.current.appendChild(renderer.domElement);
+
+    // Simplified geometry and materials
+    const sphereGeometry = new THREE.SphereGeometry(1, 16, 16);
+    const materials = [
+      new THREE.MeshBasicMaterial({
         color: 0x8B5CF6,
         transparent: true,
         opacity: 0.2,
@@ -23,107 +34,71 @@ const Background3D = () => {
         transparent: true,
         opacity: 0.2,
       }),
-    ],
-    []
-  );
+    ];
 
-  // Memoize animation function
-  const animate = useCallback(() => {
-    if (!scene.current || !camera.current || !renderer.current) return;
-
-    // Reduced animation complexity
-    spheres.current.forEach((sphere, i) => {
-      sphere.rotation.x += 0.001;
-      sphere.rotation.y += 0.001;
-      sphere.position.y += Math.sin(Date.now() * 0.0005 + i) * 0.005;
-    });
-
-    renderer.current.render(scene.current, camera.current);
-    animationFrameId.current = requestAnimationFrame(animate);
-  }, []);
-
-  // Memoize resize handler with debouncing
-  const handleResize = useCallback(() => {
-    if (!camera.current || !renderer.current || !mountRef.current) return;
-
-    camera.current.aspect = window.innerWidth / window.innerHeight;
-    camera.current.updateProjectionMatrix();
-    renderer.current.setSize(window.innerWidth, window.innerHeight);
-  }, []);
-
-  useEffect(() => {
-    if (!mountRef.current) return;
-
-    // Scene setup with optimized settings
-    scene.current = new THREE.Scene();
-    camera.current = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    renderer.current = new THREE.WebGLRenderer({ 
-      alpha: true,
-      antialias: false, // Disabled antialiasing for better performance
-      powerPreference: "high-performance",
-      precision: "lowp" // Use low precision for better performance
-    });
-    
-    renderer.current.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.current.setSize(window.innerWidth, window.innerHeight);
-    mountRef.current.appendChild(renderer.current.domElement);
-
-    // Create fewer spheres
-    for (let i = 0; i < 3; i++) {
-      const material = materials[i % 2];
-      const sphere = new THREE.Mesh(sphereGeometry, material);
-      
+    // Create only 2 spheres instead of 3
+    const spheres = Array(2).fill(null).map((_, i) => {
+      const sphere = new THREE.Mesh(sphereGeometry, materials[i % 2]);
       sphere.position.set(
         Math.random() * 20 - 10,
         Math.random() * 20 - 10,
         Math.random() * 10 - 15
       );
       sphere.scale.setScalar(Math.random() * 2 + 1);
-      spheres.current.push(sphere);
-      scene.current.add(sphere);
-    }
+      scene.add(sphere);
+      return sphere;
+    });
 
-    // Simplified lighting
-    const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
-    scene.current.add(ambientLight);
+    camera.position.z = 15;
 
-    camera.current.position.z = 15;
+    // Simplified animation
+    let frameId: number;
+    const animate = () => {
+      frameId = requestAnimationFrame(animate);
+      spheres.forEach((sphere, i) => {
+        sphere.rotation.x += 0.001;
+        sphere.rotation.y += 0.001;
+        sphere.position.y += Math.sin(Date.now() * 0.0005 + i) * 0.005;
+      });
+      renderer.render(scene, camera);
+    };
 
-    // Start animation
     animate();
 
     // Debounced resize handler
     let resizeTimeout: NodeJS.Timeout;
-    const debouncedResize = () => {
+    const handleResize = () => {
       clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(handleResize, 250); // Increased debounce time
+      resizeTimeout = setTimeout(() => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }, 250);
     };
 
-    window.addEventListener('resize', debouncedResize, { passive: true });
+    window.addEventListener('resize', handleResize, { passive: true });
 
     // Cleanup
     return () => {
-      window.removeEventListener('resize', debouncedResize);
-      if (animationFrameId.current) {
-        cancelAnimationFrame(animationFrameId.current);
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(frameId);
+      
+      if (mountRef.current && renderer.domElement) {
+        mountRef.current.removeChild(renderer.domElement);
       }
       
-      if (renderer.current && mountRef.current) {
-        mountRef.current.removeChild(renderer.current.domElement);
-        renderer.current.dispose();
-      }
-
+      renderer.dispose();
       sphereGeometry.dispose();
       materials.forEach(material => material.dispose());
       
-      spheres.current.forEach(sphere => {
+      spheres.forEach(sphere => {
         sphere.geometry.dispose();
         if (sphere.material instanceof THREE.Material) {
           sphere.material.dispose();
         }
       });
     };
-  }, [animate, handleResize, materials, sphereGeometry]);
+  }, []);
 
   return <div ref={mountRef} className="fixed inset-0 -z-10" />;
 };
