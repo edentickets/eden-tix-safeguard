@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import Background3D from "@/components/Background3D";
 import FeatureCard from "@/components/FeatureCard";
+import { Navbar } from "@/components/Navbar";
+import { motion } from "framer-motion";
 
 const Landing = () => {
   return (
@@ -16,39 +18,26 @@ const Landing = () => {
         
         {/* Main content */}
         <div className="relative">
-          {/* Navigation */}
-          <nav className="absolute top-0 w-full z-10 backdrop-blur-sm border-b border-white/5">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex justify-between items-center h-16">
-                <Link to="/" className="flex items-center">
-                  <span className="text-2xl font-medium gradient-text">Eden</span>
-                </Link>
-                <div className="hidden md:flex items-center space-x-8">
-                  <Link to="#how-it-works" className="text-white/80 hover:text-white transition-colors">How It Works</Link>
-                  <Link to="/explore" className="text-white/80 hover:text-white transition-colors">Events</Link>
-                  <Link to="#resell" className="text-white/80 hover:text-white transition-colors">Resell</Link>
-                  <Link to="#contact" className="text-white/80 hover:text-white transition-colors">Contact</Link>
-                  <Button className="bg-white text-eden-dark hover:bg-white/90 transition-colors">
-                    Sign In
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </nav>
+          <Navbar />
 
           {/* Hero Section */}
           <div className="pt-40 pb-20 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
-              <div className="text-center space-y-8">
-                <h1 className="text-4xl md:text-7xl font-medium tracking-tight text-white animate-fade-in">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="text-center space-y-8"
+              >
+                <h1 className="text-4xl md:text-7xl font-medium tracking-tight text-white">
                   Revolutionizing Event Ticketing
                   <span className="block gradient-text">with Blockchain Technology</span>
                 </h1>
-                <p className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-light animate-fade-in delay-100">
+                <p className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-light">
                   Secure. Fair. Seamless. Unlock exclusive tickets, effortless resales, and rewards—all on one platform.
                 </p>
-                <div className="flex flex-col sm:flex-row justify-center gap-4 pt-8 animate-fade-in delay-200">
-                  <Button size="lg" className="bg-eden-secondary text-white hover:bg-eden-secondary/90 transition-colors">
+                <div className="flex flex-col sm:flex-row justify-center gap-4 pt-8">
+                  <Button size="lg" className="bg-eden-secondary text-white hover:bg-eden-secondary/90">
                     Buy Tickets
                   </Button>
                   <Link to="/explore">
@@ -58,7 +47,7 @@ const Landing = () => {
                     </Button>
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
 
@@ -88,6 +77,49 @@ const Landing = () => {
                   details="Earn points, unlock rewards, and get early access to events by engaging on Eden. It's ticketing reimagined for the modern era."
                 />
               </div>
+            </div>
+          </div>
+
+          {/* How It Works Section */}
+          <div className="py-32 px-4 sm:px-6 lg:px-8 bg-eden-light/5">
+            <div className="max-w-7xl mx-auto text-center">
+              <h2 className="text-3xl md:text-5xl font-medium mb-16 gradient-text">
+                The Eden Experience in 3 Simple Steps
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                {[
+                  {
+                    title: "Discover Events",
+                    description: "Browse top events from your favorite creators and global venues—seamlessly."
+                  },
+                  {
+                    title: "Buy & Sell Tickets",
+                    description: "Purchase tickets or resell them through our verified, market-driven platform. Every resale benefits event creators."
+                  },
+                  {
+                    title: "Enjoy Exclusive Perks",
+                    description: "Unlock rewards, notifications, and premium event experiences tailored just for you."
+                  }
+                ].map((step, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.2 }}
+                    className="glass-card p-8 rounded-xl"
+                  >
+                    <div className="text-2xl font-medium mb-4 gradient-text">
+                      {step.title}
+                    </div>
+                    <p className="text-white/70">
+                      {step.description}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+              <Button size="lg" className="mt-16 bg-eden-secondary text-white hover:bg-eden-secondary/90">
+                Get Started Today
+              </Button>
             </div>
           </div>
 
