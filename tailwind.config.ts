@@ -20,9 +20,13 @@ export default {
     extend: {
       colors: {
         eden: {
-          primary: "#4A154B",
-          secondary: "#FFD700",
-          gray: "#F6F8FA",
+          primary: "#8B5CF6", // Main purple
+          secondary: "#10B981", // Green accent
+          dark: "#1A1F2C", // Dark background
+          light: "#2D3748", // Lighter dark shade
+          accent: "#9B87F5", // Light purple
+          success: "#059669", // Dark green
+          gray: "#4A5568",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,6 +61,10 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      backgroundImage: {
+        'gradient-primary': 'linear-gradient(102.3deg, rgba(147,39,143,1) 5.9%, rgba(234,172,232,1) 64%, rgba(246,219,245,1) 89%)',
+        'gradient-secondary': 'linear-gradient(90deg, hsla(277, 75%, 84%, 1) 0%, hsla(297, 50%, 51%, 1) 100%)',
       },
       keyframes: {
         "accordion-down": {
