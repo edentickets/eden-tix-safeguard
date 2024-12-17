@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { LayoutDashboard } from "lucide-react";
 
 export const Navbar = () => {
   return (
@@ -13,6 +14,12 @@ export const Navbar = () => {
             <Link to="/explore">
               <Button variant="ghost" className="text-white hover:text-eden-primary">
                 Explore
+              </Button>
+            </Link>
+            <Link to="/dashboard">
+              <Button variant="ghost" className="text-white hover:text-eden-primary flex items-center gap-2">
+                <LayoutDashboard className="w-4 h-4" />
+                Dashboard
               </Button>
             </Link>
           </div>
