@@ -34,12 +34,12 @@ export default {
       },
       colors: {
         eden: {
-          primary: "#8B5CF6", // Main purple
-          secondary: "#10B981", // Green accent
-          dark: "#1A1F2C", // Dark background
-          light: "#2D3748", // Lighter dark shade
-          accent: "#9B87F5", // Light purple
-          success: "#059669", // Dark green
+          primary: "#8B5CF6",
+          secondary: "#10B981",
+          dark: "#1A1F2C",
+          light: "#2D3748",
+          accent: "#9B87F5",
+          success: "#059669",
           gray: "#4A5568",
         },
         border: "hsl(var(--border))",
@@ -102,6 +102,10 @@ export default {
           "0%, 100%": { opacity: "0.6" },
           "50%": { opacity: "0.8" },
         },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -109,6 +113,7 @@ export default {
         shimmer: "shimmer 2s infinite",
         "fade-in": "fade-in 0.5s ease-out",
         pulse: "pulse 3s ease-in-out infinite",
+        float: "float 6s ease-in-out infinite",
       },
     },
   },

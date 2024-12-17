@@ -103,7 +103,7 @@ const HeroSection = () => {
           transition={{ delay: 1.5 }}
           className="mt-12"
         >
-          <div className="relative w-full max-w-md mx-auto">
+          <div className="relative w-full max-w-md mx-auto animate-float">
             <div className="absolute inset-0 bg-gradient-secondary opacity-20 blur-xl" />
             <div className="relative glass-card p-6 space-y-4">
               <div className="flex justify-between items-center">
