@@ -59,7 +59,7 @@
 }
 
 .glass-card {
-  @apply bg-eden-light/30 backdrop-blur-md border border-white/10 shadow-xl;
+  @apply bg-eden-light/30 backdrop-blur-md border border-white/10 shadow-xl rounded-xl transition-all duration-300 hover:bg-eden-light/40;
 }
 
 .gradient-text {
@@ -68,21 +68,4 @@
 
 .btn-gradient {
   @apply bg-gradient-secondary hover:opacity-90 transition-opacity;
-}
-
-/* 3D Card Flip Styles */
-.perspective-1000 {
-  perspective: 1000px;
-}
-
-.transform-style-3d {
-  transform-style: preserve-3d;
-}
-
-.backface-hidden {
-  backface-visibility: hidden;
-}
-
-.rotate-y-180 {
-  transform: rotateY(180deg);
 }
