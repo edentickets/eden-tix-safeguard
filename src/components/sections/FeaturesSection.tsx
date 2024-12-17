@@ -4,19 +4,19 @@ import { motion } from "framer-motion";
 const FeaturesSection = () => {
   const features = [
     {
-      icon: "security",
+      icon: "security" as const,
       title: "Secure & Trustworthy Transactions",
       description: "Say goodbye to unsafe peer-to-peer ticket sales.",
       details: "With Eden's blockchain-powered platform, every ticket is verified, and every transaction is secure. Experience peace of mind with every purchase."
     },
     {
-      icon: "pricing",
+      icon: "pricing" as const,
       title: "Fair Resale Prices",
       description: "No more price gouging.",
       details: "Our live, market-driven pricing system ensures buyers and sellers get the best value—always. Transparent and fair pricing for everyone."
     },
     {
-      icon: "rewards",
+      icon: "rewards" as const,
       title: "Exclusive Rewards & Benefits",
       description: "Earn points, unlock rewards, and get early access.",
       details: "Earn points, unlock rewards, and get early access to events by engaging on Eden. It's ticketing reimagined for the modern era."
