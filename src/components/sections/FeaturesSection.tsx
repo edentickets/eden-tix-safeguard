@@ -1,35 +1,71 @@
-import FeatureCard from "@/components/FeatureCard";
 import { motion } from "framer-motion";
+import { Shield, Ticket, Bell, Coins, Users, ChartBar } from "lucide-react";
+import { Card } from "@/components/ui/card";
 
 const FeaturesSection = () => {
+  const features = [
+    {
+      icon: <Shield className="w-8 h-8 text-eden-primary" />,
+      title: "Blockchain-Powered Security",
+      description: "Every ticket is a unique NFT, making fraud impossible and transfers secure."
+    },
+    {
+      icon: <Ticket className="w-8 h-8 text-eden-secondary" />,
+      title: "Dynamic QR Protection",
+      description: "Scrambled QR codes prevent unauthorized transfers outside Eden."
+    },
+    {
+      icon: <Coins className="w-8 h-8 text-eden-accent" />,
+      title: "Fair Price Resale",
+      description: "Stock exchange-style bidding system ensures fair market prices."
+    },
+    {
+      icon: <Bell className="w-8 h-8 text-eden-primary" />,
+      title: "Smart Notifications",
+      description: "Get alerts for price changes, drops, and favorite events."
+    },
+    {
+      icon: <Users className="w-8 h-8 text-eden-secondary" />,
+      title: "Creator Revenue Share",
+      description: "Earn from every resale with transparent revenue sharing."
+    },
+    {
+      icon: <ChartBar className="w-8 h-8 text-eden-accent" />,
+      title: "Real-Time Analytics",
+      description: "Track sales, attendee behavior, and market trends."
+    }
+  ];
+
   return (
-    <div className="py-32 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-5xl font-medium text-center mb-16 gradient-text">
-          Why Eden Changes the Game
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <FeatureCard
-            icon="security"
-            title="Secure & Trustworthy Transactions"
-            description="Say goodbye to unsafe peer-to-peer ticket sales."
-            details="With Eden's blockchain-powered platform, every ticket is verified, and every transaction is secure. Experience peace of mind with every purchase."
-          />
-          <FeatureCard
-            icon="pricing"
-            title="Fair Resale Prices"
-            description="No more price gouging."
-            details="Our live, market-driven pricing system ensures buyers and sellers get the best value—always. Transparent and fair pricing for everyone."
-          />
-          <FeatureCard
-            icon="rewards"
-            title="Exclusive Rewards & Benefits"
-            description="Earn points, unlock rewards, and get early access."
-            details="Earn points, unlock rewards, and get early access to events by engaging on Eden. It's ticketing reimagined for the modern era."
-          />
+    <section className="py-32 px-4 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-secondary opacity-5" />
+      <div className="max-w-7xl mx-auto relative">
+        <motion.h2 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-4xl md:text-6xl font-medium text-center mb-16 gradient-text"
+        >
+          The Future of Ticketing is Here
+        </motion.h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <Card className="glass-card p-6 space-y-4 hover:border-eden-primary/30 transition-all duration-300">
+                <div className="text-eden-primary">{feature.icon}</div>
+                <h3 className="text-lg font-medium text-white">{feature.title}</h3>
+                <p className="text-white/70">{feature.description}</p>
+              </Card>
+            </motion.div>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
