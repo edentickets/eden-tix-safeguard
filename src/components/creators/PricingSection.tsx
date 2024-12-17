@@ -10,24 +10,24 @@ import {
 
 const features = [
   {
+    text: "Revenue share from resales",
+    tooltip: "Earn from every resale transaction, unlocking a new revenue stream previously lost to scalpers"
+  },
+  {
+    text: "Industry-lowest transaction fees",
+    tooltip: "Maximize your earnings with our competitive pricing structure"
+  },
+  {
     text: "Dynamic QR security",
-    tooltip: "Time-based validation and proximity activation"
+    tooltip: "Time-based validation and proximity activation ensure maximum ticket security"
   },
   {
     text: "Real-time analytics",
     tooltip: "Track sales and monitor trends in real-time"
   },
   {
-    text: "Smart revenue share",
-    tooltip: "Earn from both primary sales and controlled resales"
-  },
-  {
-    text: "Controlled resale",
-    tooltip: "Set your own resale rules and maintain market control"
-  },
-  {
-    text: "Email notifications",
-    tooltip: "Automated updates for important events"
+    text: "Controlled resale marketplace",
+    tooltip: "Set your own resale rules and maintain market control while earning from each transfer"
   },
   {
     text: "Priority support",
@@ -50,7 +50,7 @@ export const PricingSection = () => {
             Free for Event Creators
           </h2>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            No monthly fees or hidden charges. We only make money when you succeed, through small transaction fees on ticket sales.
+            No monthly fees or hidden charges. We only make money when you succeed, with industry-leading low transaction fees. Plus, earn revenue from resales - money that used to go to scalpers.
           </p>
         </motion.div>
 
@@ -64,7 +64,7 @@ export const PricingSection = () => {
             <h3 className="text-2xl font-medium mb-2">Everything You Need</h3>
             <div className="text-4xl font-bold mb-4 text-eden-primary">Free</div>
             <p className="text-white/70">
-              Access all features with no monthly charges. We take a small percentage of ticket sales and resales.
+              Start selling tickets instantly with no upfront costs. Benefit from our low transaction fees and earn additional revenue from resales.
             </p>
           </div>
 
@@ -88,13 +88,13 @@ export const PricingSection = () => {
           </ul>
 
           <Button 
-            className="w-full bg-eden-primary"
+            className="w-full bg-eden-primary hover:bg-eden-primary/90"
           >
             Start Creating Events
           </Button>
 
           <p className="text-sm text-white/50 mt-4 text-center">
-            Small transaction fee applies to ticket sales. No hidden charges.
+            Industry-lowest transaction fee applies to ticket sales. Earn additional revenue from resales.
           </p>
         </motion.div>
       </div>
