@@ -50,6 +50,26 @@ const mockEvents: Event[] = [
     price: 299.99,
     availableTickets: 75,
     description: "Join industry leaders for a day of innovation and networking.",
+    organizer: "TechCon Events",
+    rating: 4.9,
+    reviews: 850,
+    highlights: [
+      {
+        icon: "💻",
+        title: "Expert Talks",
+        description: "Keynotes from industry leaders"
+      },
+      {
+        icon: "🤝",
+        title: "Networking",
+        description: "Dedicated networking sessions"
+      },
+      {
+        icon: "🚀",
+        title: "Innovation Hub",
+        description: "Latest tech demos and exhibitions"
+      }
+    ]
   },
   {
     id: "3",
@@ -60,6 +80,26 @@ const mockEvents: Event[] = [
     price: 149.99,
     availableTickets: 200,
     description: "Experience the finest cuisine and wines from renowned chefs.",
+    organizer: "Culinary Arts Society",
+    rating: 4.7,
+    reviews: 975,
+    highlights: [
+      {
+        icon: "👨‍🍳",
+        title: "Chef Demonstrations",
+        description: "Live cooking shows by top chefs"
+      },
+      {
+        icon: "🍷",
+        title: "Wine Tasting",
+        description: "Premium wine sampling sessions"
+      },
+      {
+        icon: "🌟",
+        title: "VIP Experience",
+        description: "Exclusive dining experiences"
+      }
+    ]
   },
 ];
 
