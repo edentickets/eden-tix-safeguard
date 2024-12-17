@@ -70,7 +70,6 @@
     transform: translateZ(0);
   }
 
-  /* 3D Transform Utilities */
   .perspective-[1000px] {
     perspective: 1000px;
   }
@@ -81,6 +80,7 @@
 
   .backface-hidden {
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 
   .rotate-y-180 {
