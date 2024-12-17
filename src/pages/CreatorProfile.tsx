@@ -47,7 +47,25 @@ const CreatorProfile = () => {
       availableTickets: 2500,
       rating: 4.9,
       reviews: 856,
-      description: "The world's largest hip-hop festival returns to Miami"
+      description: "The world's largest hip-hop festival returns to Miami",
+      organizer: "Rolling Loud",
+      highlights: [
+        {
+          icon: "music",
+          title: "Live Performances",
+          description: "Over 100 artists across 3 days"
+        },
+        {
+          icon: "star",
+          title: "VIP Experience",
+          description: "Exclusive backstage access and premium viewing areas"
+        },
+        {
+          icon: "food",
+          title: "Food & Drinks",
+          description: "Curated selection of local and international cuisine"
+        }
+      ]
     },
     {
       id: "2",
@@ -59,7 +77,25 @@ const CreatorProfile = () => {
       availableTickets: 1800,
       rating: 4.8,
       reviews: 654,
-      description: "Three days of non-stop hip-hop in Los Angeles"
+      description: "Three days of non-stop hip-hop in Los Angeles",
+      organizer: "Rolling Loud",
+      highlights: [
+        {
+          icon: "music",
+          title: "West Coast Lineup",
+          description: "Featuring the best of West Coast hip-hop"
+        },
+        {
+          icon: "star",
+          title: "Premium Experience",
+          description: "Enhanced sound system and stage production"
+        },
+        {
+          icon: "food",
+          title: "LA Food Scene",
+          description: "Best local food trucks and vendors"
+        }
+      ]
     },
     {
       id: "3",
@@ -71,7 +107,25 @@ const CreatorProfile = () => {
       availableTickets: 2000,
       rating: 4.7,
       reviews: 423,
-      description: "The biggest hip-hop festival comes to the Big Apple"
+      description: "The biggest hip-hop festival comes to the Big Apple",
+      organizer: "Rolling Loud",
+      highlights: [
+        {
+          icon: "music",
+          title: "East Coast Energy",
+          description: "Showcasing New York's finest artists"
+        },
+        {
+          icon: "star",
+          title: "City Views",
+          description: "Spectacular NYC skyline backdrop"
+        },
+        {
+          icon: "food",
+          title: "NYC Flavors",
+          description: "Featuring iconic New York food vendors"
+        }
+      ]
     }
   ];
 
