@@ -11,12 +11,12 @@ interface MetricProps {
 
 const Metric = ({ icon, label, value, animate = true }: MetricProps) => (
   <motion.div 
-    className="flex items-center gap-3 px-4"
+    className="flex items-center gap-3 px-4 hover:scale-105 transition-transform duration-300"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
+    whileHover={{ y: -5 }}
   >
-    <div className="p-2 rounded-lg bg-eden-accent/10 text-eden-accent">
+    <div className="p-3 rounded-xl bg-gradient-secondary text-white">
       {icon}
     </div>
     <div>
@@ -41,19 +41,19 @@ const Metric = ({ icon, label, value, animate = true }: MetricProps) => (
 
 export function LiveMetrics() {
   return (
-    <div className="mt-8 flex justify-between items-center">
+    <div className="mt-8 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">
       <Metric
         icon={<Ticket className="w-5 h-5" />}
         label="Live Tickets Sold"
         value="15,245"
       />
-      <div className="h-12 w-px bg-eden-accent/20" />
+      <div className="hidden md:block h-12 w-px bg-eden-accent/20" />
       <Metric
         icon={<RefreshCcw className="w-5 h-5" />}
         label="Live Resale Volume"
         value="3,120"
       />
-      <div className="h-12 w-px bg-eden-accent/20" />
+      <div className="hidden md:block h-12 w-px bg-eden-accent/20" />
       <Metric
         icon={<DollarSign className="w-5 h-5" />}
         label="Revenue Earned"
