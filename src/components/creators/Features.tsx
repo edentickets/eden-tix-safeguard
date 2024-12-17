@@ -1,38 +1,38 @@
 import { motion } from "framer-motion";
-import { Shield, BarChart3, Zap, Gift, Users, CreditCard } from "lucide-react";
+import { Shield, QrCode, Zap, CreditCard, BarChart3, Bell } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 export const Features = () => {
   const features = [
     {
-      icon: <Shield className="w-8 h-8" />,
-      title: "Advanced Digital Security",
-      description: "Dynamic QR codes with real-time validation ensure maximum ticket security"
+      icon: <QrCode className="w-8 h-8" />,
+      title: "Dynamic QR Technology",
+      description: "Time-based validation and proximity activation ensure maximum ticket security"
     },
     {
-      icon: <BarChart3 className="w-8 h-8" />,
-      title: "Smart Revenue Share",
-      description: "Earn from both primary sales and controlled resales"
+      icon: <Shield className="w-8 h-8" />,
+      title: "Advanced Security",
+      description: "Real-time validation and venue-specific authentication prevent unauthorized transfers"
     },
     {
       icon: <Zap className="w-8 h-8" />,
       title: "Real-time Updates",
-      description: "Instant ticket validation and live event management"
-    },
-    {
-      icon: <Gift className="w-8 h-8" />,
-      title: "Flexible Ticketing",
-      description: "Multiple tiers, packages, and custom access levels"
-    },
-    {
-      icon: <Users className="w-8 h-8" />,
-      title: "Event Dashboard",
-      description: "Real-time analytics and comprehensive event management"
+      description: "Instant ticket validation and live event management through Supabase"
     },
     {
       icon: <CreditCard className="w-8 h-8" />,
       title: "Modern Payments",
-      description: "Accept credit cards, Apple Pay, and Google Pay"
+      description: "Seamless transactions with Stripe - accept credit cards, Apple Pay, and Google Pay"
+    },
+    {
+      icon: <BarChart3 className="w-8 h-8" />,
+      title: "Live Analytics",
+      description: "Real-time insights and comprehensive event analytics with Mixpanel"
+    },
+    {
+      icon: <Bell className="w-8 h-8" />,
+      title: "Smart Notifications",
+      description: "Automated email updates and browser notifications for important events"
     }
   ];
 
@@ -46,7 +46,7 @@ export const Features = () => {
           transition={{ duration: 0.5 }}
           className="text-4xl md:text-6xl font-medium text-center mb-16 gradient-text"
         >
-          Eden's Smart Features for Event Creators
+          Smart Features for Modern Events
         </motion.h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
