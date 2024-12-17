@@ -11,33 +11,33 @@ import {
 const features = [
   {
     icon: <Banknote className="w-6 h-6" />,
-    title: "Smart Revenue Share",
-    description: "Earn from both primary sales and controlled resales with our innovative revenue sharing model."
+    title: "Revenue From Every Transfer",
+    description: "Earn from both primary sales and resales. Finally capture value from the secondary market with automatic revenue sharing."
   },
   {
     icon: <Shield className="w-6 h-6" />,
     title: "Dynamic Security",
-    description: "Real-time QR validation and proximity-based activation prevent unauthorized ticket transfers."
+    description: "Real-time QR validation and proximity-based activation ensure only legitimate transfers generate revenue."
   },
   {
     icon: <Users className="w-6 h-6" />,
     title: "Growing Marketplace",
-    description: "Access a thriving community of event enthusiasts and maximize your ticket sales."
+    description: "Access a thriving community of event enthusiasts while maintaining control over your ticket market."
   },
   {
     icon: <TrendingUp className="w-6 h-6" />,
-    title: "Smart Pricing",
-    description: "Set dynamic pricing rules and optimize revenue with our data-driven pricing engine."
+    title: "Industry-Low Fees",
+    description: "Keep more of your earnings with our transparent, industry-leading low transaction fees."
   },
   {
     icon: <Ticket className="w-6 h-6" />,
     title: "Controlled Resale",
-    description: "Set your own resale rules and maintain control over your ticket market."
+    description: "Set your own resale rules while ensuring you earn from every legitimate transfer."
   },
   {
     icon: <BarChart3 className="w-6 h-6" />,
     title: "Live Analytics",
-    description: "Track sales, monitor trends, and make data-driven decisions with real-time analytics."
+    description: "Track both primary and secondary market performance with real-time analytics."
   }
 ];
 
@@ -53,11 +53,11 @@ export const ProblemSolution = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-medium mb-6 gradient-text">
-            The Future of Event Ticketing
+            Stop Losing Revenue to Resellers
           </h2>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            Traditional ticketing platforms struggle with fraud, scalping, and revenue leakage. 
-            Eden solves these problems with smart digital security and real-time features.
+            Traditional ticketing platforms ignore the secondary market, leaving money on the table. 
+            Eden ensures you earn from every ticket transfer while keeping primary sales costs low.
           </p>
         </motion.div>
 

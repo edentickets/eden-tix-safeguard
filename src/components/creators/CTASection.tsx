@@ -15,16 +15,16 @@ export const CTASection = () => {
           className="space-y-8"
         >
           <h2 className="text-4xl md:text-6xl font-medium text-white mb-8">
-            Join the Future of Ticketing Today
+            Start Earning From Every Ticket Transfer
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto font-light">
-            Experience the power of secure, transparent, and profitable event ticketing with Eden.
+            Join Eden today with zero upfront costs. Benefit from industry-low fees and automatic revenue sharing on both primary sales and resales.
           </p>
           <Button 
             size="lg" 
             className="bg-eden-dark hover:bg-eden-dark/90 text-lg px-8 py-6"
           >
-            Get Started with Eden
+            Create Your First Event
             <ArrowRight className="ml-2" />
           </Button>
         </motion.div>
