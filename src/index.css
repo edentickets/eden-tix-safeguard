@@ -1,13 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import './styles/base.css';
 @import './styles/components.css';
 @import './styles/utilities.css';
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  
-  body {
-    @apply bg-eden-dark text-foreground antialiased;
-  }
-}
