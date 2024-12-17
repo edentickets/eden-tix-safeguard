@@ -23,19 +23,19 @@ const FeatureCard = ({ icon, title, description, details }: FeatureCardProps) =>
   return (
     <div className="relative w-full h-[350px] perspective-[1000px] group">
       <div className="relative w-full h-full transition-transform duration-500 transform-gpu preserve-3d group-hover:rotate-y-180">
-        {/* Front of card */}
-        <Card className="absolute w-full h-full bg-gradient-secondary p-6 backface-hidden">
+        {/* Front of card (detailed side) - Now shows by default */}
+        <Card className="absolute w-full h-full glass-card p-6 backface-hidden">
+          <div className="flex flex-col items-center text-center justify-center h-full">
+            <p className="text-white/90 text-lg leading-relaxed">{details}</p>
+          </div>
+        </Card>
+
+        {/* Back of card (gradient side) - Shows on hover */}
+        <Card className="absolute w-full h-full bg-gradient-secondary p-6 backface-hidden rotate-y-180">
           <div className="flex flex-col items-center text-center space-y-6">
             {getIcon()}
             <h3 className="text-2xl font-semibold text-white">{title}</h3>
             <p className="text-white/90 text-lg">{description}</p>
-          </div>
-        </Card>
-
-        {/* Back of card */}
-        <Card className="absolute w-full h-full glass-card p-6 backface-hidden rotate-y-180">
-          <div className="flex flex-col items-center text-center justify-center h-full">
-            <p className="text-white/90 text-lg leading-relaxed rotate-y-180">{details}</p>
           </div>
         </Card>
       </div>
