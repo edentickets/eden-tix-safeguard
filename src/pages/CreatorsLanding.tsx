@@ -2,6 +2,8 @@ import { Navbar } from "@/components/Navbar";
 import Background3D from "@/components/Background3D";
 import { HeroSection } from "@/components/creators/HeroSection";
 import { ProblemSolution } from "@/components/creators/ProblemSolution";
+import { Features } from "@/components/creators/Features";
+import { CTASection } from "@/components/creators/CTASection";
 import ClientsSection from "@/components/sections/ClientsSection";
 
 const CreatorsLanding = () => {
@@ -10,8 +12,10 @@ const CreatorsLanding = () => {
       <Background3D />
       <Navbar />
       <HeroSection />
-      <ProblemSolution />
       <ClientsSection />
+      <ProblemSolution />
+      <Features />
+      <CTASection />
     </div>
   );
 };
