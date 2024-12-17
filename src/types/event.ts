@@ -7,4 +7,12 @@ export interface Event {
   price: number;
   availableTickets: number;
   description: string;
+  organizer: string;
+  rating: number;
+  reviews: number;
+  highlights: {
+    icon: string;
+    title: string;
+    description: string;
+  }[];
 }
