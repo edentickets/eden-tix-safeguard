@@ -4,21 +4,21 @@ import { motion } from "framer-motion";
 const features = [
   {
     icon: "security" as const,
-    title: "Secure & Trustworthy",
-    description: "Advanced blockchain technology ensures your tickets are authentic and protected.",
-    details: "Our platform uses state-of-the-art encryption and blockchain verification to eliminate fraud. Every ticket is uniquely encoded and tracked, making counterfeiting impossible and giving you peace of mind."
+    title: "Security First",
+    description: "Your tickets are protected by blockchain technology",
+    details: "Every ticket is uniquely encoded and tracked on the blockchain, making counterfeiting impossible. Our platform ensures that your tickets are authentic and your transactions are secure."
   },
   {
     icon: "pricing" as const,
-    title: "Fair Market Pricing",
-    description: "Dynamic pricing system that benefits both buyers and sellers.",
-    details: "Experience transparent pricing driven by real market demand. Our smart pricing algorithm prevents scalping while ensuring fair value for both parties. Sellers get optimal returns while buyers pay reasonable prices."
+    title: "Fair Pricing",
+    description: "Market-driven prices that benefit everyone",
+    details: "Our dynamic pricing system prevents scalping while ensuring fair market value. Sellers get optimal returns and buyers pay reasonable prices, creating a balanced marketplace."
   },
   {
     icon: "rewards" as const,
-    title: "Exclusive Benefits",
-    description: "Earn points and unlock special perks with every transaction.",
-    details: "Join our rewards program to earn points on every purchase. Unlock exclusive pre-sales, VIP upgrades, and special event access. The more you use Eden, the more benefits you receive!"
+    title: "Rewards Program",
+    description: "Earn points with every transaction",
+    details: "Join our rewards program to earn points on purchases. Get access to exclusive pre-sales, VIP upgrades, and special event access. The more you participate, the more benefits you receive."
   }
 ] as const;
 
@@ -32,7 +32,7 @@ const FeaturesSection = () => {
           transition={{ duration: 0.5 }}
           className="text-3xl md:text-5xl font-medium text-center mb-16 gradient-text"
         >
-          Why Eden Changes the Game
+          Why Choose Eden
         </motion.h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
