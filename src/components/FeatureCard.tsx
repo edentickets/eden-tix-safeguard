@@ -13,9 +13,9 @@ const FeatureCard = ({ icon, title, description, details }: FeatureCardProps) =>
   const Icon = Icons[icon] as LucideIcon;
 
   return (
-    <div className="relative preserve-3d group h-[300px]">
-      <div className="absolute w-full h-full duration-1000 transform-style-3d group-hover:rotate-y-180">
-        {/* Front of card (gradient side) - Shows by default */}
+    <div className="relative h-[300px] perspective-[1000px]">
+      <div className="relative w-full h-full transition-transform duration-500 transform-style-preserve-3d hover:rotate-y-180">
+        {/* Front of card */}
         <Card className="absolute w-full h-full glass-card p-6 backface-hidden">
           <div className="flex flex-col items-center text-center justify-center h-full space-y-4">
             <div className="p-3 rounded-full bg-white/10">
@@ -26,9 +26,9 @@ const FeatureCard = ({ icon, title, description, details }: FeatureCardProps) =>
           </div>
         </Card>
 
-        {/* Back of card (detailed side) - Shows on hover */}
+        {/* Back of card */}
         <Card className="absolute w-full h-full glass-card p-6 backface-hidden rotate-y-180">
-          <div className="flex flex-col items-center text-center justify-center h-full">
+          <div className="flex flex-col items-center text-center justify-center h-full rotate-y-180">
             <p className="text-white/90 text-lg leading-relaxed">{details}</p>
           </div>
         </Card>
