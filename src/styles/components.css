@@ -1,0 +1,18 @@
+@layer components {
+  .glass-card {
+    @apply bg-eden-light/30 backdrop-blur-lg border border-white/10 shadow-xl;
+    transform-style: preserve-3d;
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-primary;
+    transform: translateZ(0);
+  }
+
+  .btn-gradient {
+    @apply bg-gradient-secondary hover:opacity-90 transition-opacity;
+    transform: translateZ(0);
+  }
+}

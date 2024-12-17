@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Icons } from "@/components/icons";
 import { LucideIcon } from "lucide-react";
+import { memo } from "react";
 
 interface FeatureCardProps {
   icon: keyof typeof Icons;
@@ -9,7 +10,7 @@ interface FeatureCardProps {
   details: string;
 }
 
-const FeatureCard = ({ icon, title, description, details }: FeatureCardProps) => {
+const FeatureCard = memo(({ icon, title, description, details }: FeatureCardProps) => {
   const Icon = Icons[icon] as LucideIcon;
 
   return (
@@ -35,6 +36,8 @@ const FeatureCard = ({ icon, title, description, details }: FeatureCardProps) =>
       </div>
     </div>
   );
-};
+});
+
+FeatureCard.displayName = "FeatureCard";
 
 export default FeatureCard;

@@ -1,27 +1,33 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, memo } from 'react';
 import * as THREE from 'three';
 
-const Background3D = () => {
+const Background3D = memo(() => {
   const mountRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<THREE.Scene>();
+  const cameraRef = useRef<THREE.PerspectiveCamera>();
+  const rendererRef = useRef<THREE.WebGLRenderer>();
+  const spheresRef = useRef<THREE.Mesh[]>([]);
+  const frameIdRef = useRef<number>();
 
   useEffect(() => {
     if (!mountRef.current) return;
 
-    // Basic scene setup
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ 
+    // Scene setup with performance optimizations
+    sceneRef.current = new THREE.Scene();
+    cameraRef.current = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    rendererRef.current = new THREE.WebGLRenderer({ 
       alpha: true,
       antialias: false,
       powerPreference: "high-performance",
       precision: "lowp"
     });
 
+    const renderer = rendererRef.current;
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     mountRef.current.appendChild(renderer.domElement);
 
-    // Simplified geometry and materials
+    // Optimized geometry and materials
     const sphereGeometry = new THREE.SphereGeometry(1, 16, 16);
     const materials = [
       new THREE.MeshBasicMaterial({
@@ -36,8 +42,8 @@ const Background3D = () => {
       }),
     ];
 
-    // Create only 2 spheres instead of 3
-    const spheres = Array(2).fill(null).map((_, i) => {
+    // Create spheres
+    spheresRef.current = Array(2).fill(null).map((_, i) => {
       const sphere = new THREE.Mesh(sphereGeometry, materials[i % 2]);
       sphere.position.set(
         Math.random() * 20 - 10,
@@ -45,22 +51,25 @@ const Background3D = () => {
         Math.random() * 10 - 15
       );
       sphere.scale.setScalar(Math.random() * 2 + 1);
-      scene.add(sphere);
+      sceneRef.current?.add(sphere);
       return sphere;
     });
 
-    camera.position.z = 15;
+    cameraRef.current.position.z = 15;
 
-    // Simplified animation
-    let frameId: number;
+    // Optimized animation loop
     const animate = () => {
-      frameId = requestAnimationFrame(animate);
-      spheres.forEach((sphere, i) => {
+      if (!sceneRef.current || !cameraRef.current || !rendererRef.current) return;
+      
+      frameIdRef.current = requestAnimationFrame(animate);
+      
+      spheresRef.current.forEach((sphere, i) => {
         sphere.rotation.x += 0.001;
         sphere.rotation.y += 0.001;
         sphere.position.y += Math.sin(Date.now() * 0.0005 + i) * 0.005;
       });
-      renderer.render(scene, camera);
+      
+      rendererRef.current.render(sceneRef.current, cameraRef.current);
     };
 
     animate();
@@ -70,9 +79,11 @@ const Background3D = () => {
     const handleResize = () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        if (!cameraRef.current || !rendererRef.current) return;
+        
+        cameraRef.current.aspect = window.innerWidth / window.innerHeight;
+        cameraRef.current.updateProjectionMatrix();
+        rendererRef.current.setSize(window.innerWidth, window.innerHeight);
       }, 250);
     };
 
@@ -81,26 +92,32 @@ const Background3D = () => {
     // Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
-      cancelAnimationFrame(frameId);
-      
-      if (mountRef.current && renderer.domElement) {
-        mountRef.current.removeChild(renderer.domElement);
+      if (frameIdRef.current) {
+        cancelAnimationFrame(frameIdRef.current);
       }
       
-      renderer.dispose();
+      if (mountRef.current && rendererRef.current?.domElement) {
+        mountRef.current.removeChild(rendererRef.current.domElement);
+      }
+      
+      // Dispose of Three.js resources
       sphereGeometry.dispose();
       materials.forEach(material => material.dispose());
       
-      spheres.forEach(sphere => {
+      spheresRef.current.forEach(sphere => {
         sphere.geometry.dispose();
         if (sphere.material instanceof THREE.Material) {
           sphere.material.dispose();
         }
       });
+
+      rendererRef.current?.dispose();
     };
   }, []);
 
   return <div ref={mountRef} className="fixed inset-0 -z-10" />;
-};
+});
+
+Background3D.displayName = "Background3D";
 
 export default Background3D;
