@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Explore from "./pages/Explore";
 import EventDetails from "./pages/EventDetails";
+import CreatorDashboard from "./pages/CreatorDashboard";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ const App = () => (
           <Route path="/" element={<Landing />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/event/:id" element={<EventDetails />} />
+          <Route path="/dashboard" element={<CreatorDashboard />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
