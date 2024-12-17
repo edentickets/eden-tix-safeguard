@@ -7,6 +7,7 @@ import Landing from "./pages/Landing";
 import Explore from "./pages/Explore";
 import EventDetails from "./pages/EventDetails";
 import CreatorDashboard from "./pages/CreatorDashboard";
+import CreatorProfile from "./pages/CreatorProfile";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/explore" element={<Explore />} />
           <Route path="/event/:id" element={<EventDetails />} />
           <Route path="/dashboard" element={<CreatorDashboard />} />
+          <Route path="/profile" element={<CreatorProfile />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
