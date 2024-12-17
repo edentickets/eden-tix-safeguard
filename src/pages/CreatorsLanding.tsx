@@ -7,7 +7,8 @@ import { CTASection } from "@/components/creators/CTASection";
 
 const CreatorsLanding = () => {
   return (
-    <div className="min-h-screen bg-eden-dark overflow-hidden">
+    <div className="min-h-screen bg-eden-dark relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-secondary opacity-5" />
       <Background3D />
       <Navbar />
       <HeroSection />
