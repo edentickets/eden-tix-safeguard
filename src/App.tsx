@@ -8,6 +8,7 @@ import Explore from "./pages/Explore";
 import EventDetails from "./pages/EventDetails";
 import CreatorDashboard from "./pages/CreatorDashboard";
 import CreatorProfile from "./pages/CreatorProfile";
+import UserProfile from "./pages/UserProfile";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/event/:id" element={<EventDetails />} />
           <Route path="/dashboard" element={<CreatorDashboard />} />
           <Route path="/profile" element={<CreatorProfile />} />
+          <Route path="/user-profile" element={<UserProfile />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
