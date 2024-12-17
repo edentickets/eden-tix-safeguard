@@ -32,10 +32,10 @@ const FeatureCard = ({ icon, title, description, details }: FeatureCardProps) =>
           </div>
         </Card>
 
-        {/* Back of card - Note the additional rotate-y-180 class to fix text orientation */}
+        {/* Back of card */}
         <Card className="absolute w-full h-full glass-card p-6 backface-hidden rotate-y-180">
-          <div className="flex flex-col items-center text-center justify-center h-full rotate-y-180">
-            <p className="text-white/90 text-lg leading-relaxed">{details}</p>
+          <div className="flex flex-col items-center text-center justify-center h-full">
+            <p className="text-white/90 text-lg leading-relaxed rotate-y-180">{details}</p>
           </div>
         </Card>
       </div>
