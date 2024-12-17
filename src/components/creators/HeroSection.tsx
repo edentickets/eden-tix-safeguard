@@ -15,10 +15,10 @@ export const HeroSection = () => {
         className="relative max-w-7xl mx-auto text-center space-y-8"
       >
         <h1 className="text-6xl md:text-7xl font-medium tracking-tight gradient-text mb-6 leading-tight">
-          Unlock the Future of Ticketing for Your Events
+          Next-Generation Ticketing for Your Events
         </h1>
         <p className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed">
-          Sell smarter, resell securely, and engage your fans like never before—Join Eden today.
+          Create secure, unique tickets with advanced anti-fraud protection. Control your sales, engage your fans, and maximize revenue.
         </p>
         <Button 
           size="lg" 

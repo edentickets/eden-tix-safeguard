@@ -11,13 +11,13 @@ import {
 const features = [
   {
     icon: <Banknote className="w-6 h-6" />,
-    title: "Fair Revenue Share",
-    description: "Earn from both primary sales and resales with our blockchain-powered revenue sharing model."
+    title: "Smart Revenue Share",
+    description: "Earn from both primary sales and resales with our innovative revenue sharing model."
   },
   {
     icon: <Shield className="w-6 h-6" />,
-    title: "Fraud-Proof Tickets",
-    description: "NFT-based tickets with dynamic QR scrambling ensure maximum security and prevent unauthorized transfers."
+    title: "Advanced Security",
+    description: "Unique digital tickets with dynamic QR scrambling ensure maximum security and prevent unauthorized transfers."
   },
   {
     icon: <Users className="w-6 h-6" />,
@@ -56,8 +56,8 @@ export const ProblemSolution = () => {
             The Future of Event Ticketing
           </h2>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            Traditional ticketing platforms are plagued with fraud, scalping, and lost revenue. 
-            Eden solves these problems with blockchain technology.
+            Traditional ticketing platforms struggle with fraud, scalping, and revenue leakage. 
+            Eden solves these problems with advanced digital security and smart features.
           </p>
         </motion.div>
 
