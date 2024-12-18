@@ -3,6 +3,7 @@ import Background3D from "@/components/Background3D";
 import FeatureIcons from "@/components/hero/FeatureIcons";
 import HeroCTAs from "@/components/hero/HeroCTAs";
 import NFTTicketPreview from "@/components/hero/NFTTicketPreview";
+import { PriceAlertNotification } from "@/components/hero/PriceAlertNotification";
 
 const HeroSection = () => {
   return (
@@ -12,6 +13,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-eden-accent/20 via-eden-primary/10 to-transparent" />
       
       <Background3D />
+      <PriceAlertNotification />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -52,13 +54,13 @@ const HeroSection = () => {
             with state of the art digital dynamic security and real-time alerts.
           </motion.p>
 
-          {/* NFT Ticket Preview - Now positioned between caption and features */}
-          <div className="relative z-10 -mb-24">
+          {/* NFT Ticket Preview */}
+          <div className="relative z-10">
             <NFTTicketPreview />
           </div>
 
-          {/* Feature Icons with adjusted spacing */}
-          <div className="pt-20 relative z-0">
+          {/* Feature Icons */}
+          <div className="relative z-0">
             <FeatureIcons />
           </div>
 
