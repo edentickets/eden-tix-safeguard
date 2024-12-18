@@ -1,29 +1,28 @@
 import { motion } from "framer-motion";
 import { Shield, Ticket, Bell, Check } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { PriceAlertNotification } from "@/components/hero/PriceAlertNotification";
 
 const FeaturesSection = () => {
   const features = [
     {
       icon: <Shield className="w-8 h-8 text-eden-primary" />,
-      title: "State of the Art Security",
-      description: "Our dynamic security system ensures ticket authenticity and prevents unauthorized transfers."
+      title: "Smart Ticket Security",
+      description: "Dynamic QR codes with time-based validation and proximity activation"
     },
     {
       icon: <Check className="w-8 h-8 text-eden-secondary" />,
-      title: "Smart Marketplace",
-      description: "Buy and sell tickets with confidence through our transparent marketplace with real-time price tracking."
+      title: "Revenue Optimization",
+      description: "Earn from every ticket resale while maintaining industry-low primary sale fees"
     },
     {
       icon: <Bell className="w-8 h-8 text-eden-accent" />,
-      title: "Smart Notifications",
-      description: "Get instant alerts for price drops and ticket availability for your favorite events."
+      title: "Real-time Management",
+      description: "Instant validation and live event controls through our secure platform"
     },
     {
       icon: <Ticket className="w-8 h-8 text-eden-primary" />,
-      title: "Earn from Resales",
-      description: "Event creators earn a percentage from every ticket resale in their secondary market."
+      title: "Premium Benefits",
+      description: "Access exclusive features and priority support as an event creator"
     }
   ];
 
@@ -31,26 +30,20 @@ const FeaturesSection = () => {
     <section className="py-32 px-4 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-secondary opacity-5" />
       <div className="max-w-7xl mx-auto relative">
-        <div className="text-center space-y-4 mb-16">
-          <motion.h2 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-4xl md:text-6xl font-medium gradient-text"
-          >
-            Why Choose Eden?
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-xl text-white/70"
-          >
-            Because Ticketing Needs a Revolution
-          </motion.p>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center space-y-4 mb-16"
+        >
+          <h2 className="text-4xl md:text-6xl font-medium gradient-text">
+            Powerful Features for Event Creators
+          </h2>
+          <p className="text-xl text-white/70 max-w-2xl mx-auto">
+            Everything you need to manage and optimize your event ticketing
+          </p>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
@@ -69,17 +62,6 @@ const FeaturesSection = () => {
             </motion.div>
           ))}
         </div>
-
-        {/* Price Alert Demo */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-16 flex justify-end max-w-sm ml-auto"
-        >
-          <PriceAlertNotification />
-        </motion.div>
       </div>
     </section>
   );
