@@ -12,14 +12,32 @@ const Explore = () => {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedEventType, setSelectedEventType] = useState("");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
+  const [sortBy, setSortBy] = useState("date_asc");
 
   const { data: events, isLoading } = useQuery({
-    queryKey: ["events"],
+    queryKey: ["events", sortBy],
     queryFn: async () => {
-      const { data, error } = await supabase
+      let query = supabase
         .from("events")
-        .select("*")
-        .order("start_date", { ascending: true });
+        .select("*");
+
+      // Apply sorting
+      switch (sortBy) {
+        case "date_asc":
+          query = query.order("start_date", { ascending: true });
+          break;
+        case "date_desc":
+          query = query.order("start_date", { ascending: false });
+          break;
+        case "price_asc":
+          query = query.order("price", { ascending: true });
+          break;
+        case "price_desc":
+          query = query.order("price", { ascending: false });
+          break;
+      }
+
+      const { data, error } = await query;
 
       if (error) throw error;
       return data as Event[];
@@ -27,7 +45,8 @@ const Explore = () => {
   });
 
   const filteredEvents = events?.filter((event) => {
-    const matchesSearch = event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    const matchesSearch = 
+      event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       event.description?.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesLocation = !selectedLocation || event.location.includes(selectedLocation);
     const matchesPrice = event.price >= priceRange[0] && event.price <= priceRange[1];
@@ -53,6 +72,7 @@ const Explore = () => {
         onLocationChange={setSelectedLocation}
         onEventTypeChange={setSelectedEventType}
         onPriceRangeChange={setPriceRange}
+        onSortChange={setSortBy}
       />
       <EventGrid 
         title={searchQuery ? "Search Results" : "All Events"} 

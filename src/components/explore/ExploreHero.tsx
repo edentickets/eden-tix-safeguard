@@ -3,12 +3,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface ExploreHeroProps {
   onSearchChange: (value: string) => void;
   onLocationChange: (value: string) => void;
   onEventTypeChange: (value: string) => void;
   onPriceRangeChange: (value: [number, number]) => void;
+  onSortChange: (value: string) => void;
 }
 
 export const ExploreHero = ({
@@ -16,6 +24,7 @@ export const ExploreHero = ({
   onLocationChange,
   onEventTypeChange,
   onPriceRangeChange,
+  onSortChange,
 }: ExploreHeroProps) => {
   const [priceRange, setPriceRange] = useState([0]);
 
@@ -47,38 +56,55 @@ export const ExploreHero = ({
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
           </div>
 
-          <div className="flex flex-wrap gap-2 mt-4 justify-center">
-            <select
-              className="bg-eden-light/30 border border-white/10 rounded-lg px-4 py-2 text-white"
-              onChange={(e) => onLocationChange(e.target.value)}
-            >
-              <option value="">All Locations</option>
-              <option value="Miami">Miami</option>
-              <option value="New York">New York</option>
-              <option value="Los Angeles">Los Angeles</option>
-            </select>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+            <Select onValueChange={onLocationChange}>
+              <SelectTrigger className="bg-eden-light/30 border border-white/10 text-white">
+                <SelectValue placeholder="All Locations" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">All Locations</SelectItem>
+                <SelectItem value="Miami">Miami</SelectItem>
+                <SelectItem value="New York">New York</SelectItem>
+                <SelectItem value="Los Angeles">Los Angeles</SelectItem>
+              </SelectContent>
+            </Select>
 
-            <select
-              className="bg-eden-light/30 border border-white/10 rounded-lg px-4 py-2 text-white"
-              onChange={(e) => onEventTypeChange(e.target.value)}
-            >
-              <option value="">All Event Types</option>
-              <option value="concert">Concerts</option>
-              <option value="festival">Festivals</option>
-              <option value="conference">Conferences</option>
-            </select>
+            <Select onValueChange={onEventTypeChange}>
+              <SelectTrigger className="bg-eden-light/30 border border-white/10 text-white">
+                <SelectValue placeholder="All Event Types" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">All Event Types</SelectItem>
+                <SelectItem value="concert">Concerts</SelectItem>
+                <SelectItem value="festival">Festivals</SelectItem>
+                <SelectItem value="conference">Conferences</SelectItem>
+              </SelectContent>
+            </Select>
 
-            <div className="w-full max-w-xs mt-4">
-              <label className="block text-white text-sm mb-2">
-                Price Range: Up to ${priceRange[0]}
-              </label>
-              <Slider
-                defaultValue={[500]}
-                max={1000}
-                step={50}
-                onValueChange={handlePriceRangeChange}
-              />
-            </div>
+            <Select onValueChange={onSortChange}>
+              <SelectTrigger className="bg-eden-light/30 border border-white/10 text-white">
+                <SelectValue placeholder="Sort By" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="date_asc">Date: Earliest First</SelectItem>
+                <SelectItem value="date_desc">Date: Latest First</SelectItem>
+                <SelectItem value="price_asc">Price: Low to High</SelectItem>
+                <SelectItem value="price_desc">Price: High to Low</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="mt-6">
+            <label className="block text-white text-sm mb-2">
+              Price Range: Up to ${priceRange[0]}
+            </label>
+            <Slider
+              defaultValue={[500]}
+              max={1000}
+              step={50}
+              onValueChange={handlePriceRangeChange}
+              className="mt-2"
+            />
           </div>
         </div>
       </div>
