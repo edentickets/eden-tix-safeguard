@@ -4,6 +4,7 @@ import { ArrowRight, Shield, Ticket, Bell } from "lucide-react";
 import { Link } from "react-router-dom";
 import Background3D from "@/components/Background3D";
 import { PriceAlertNotification } from "@/components/hero/PriceAlertNotification";
+import { motion } from "framer-motion";
 
 const UsersLanding = () => {
   return (
