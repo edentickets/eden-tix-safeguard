@@ -1,15 +1,16 @@
-import { Shield, Ticket, Coins } from "lucide-react";
+import { Shield, Ticket, Coins, Bell } from "lucide-react";
 import { motion } from "framer-motion";
 
 const FeatureIcons = () => {
   const features = [
-    { icon: Shield, text: "Blockchain-Secured NFTs" },
+    { icon: Shield, text: "Blockchain Security" },
     { icon: Ticket, text: "Dynamic QR Protection" },
     { icon: Coins, text: "Fair Price Resale" },
+    { icon: Bell, text: "Real-time Alerts" },
   ];
 
   return (
-    <div className="flex justify-center gap-8 py-8">
+    <div className="flex flex-wrap justify-center gap-8 py-8">
       {features.map(({ icon: Icon, text }, index) => (
         <motion.div
           key={text}
