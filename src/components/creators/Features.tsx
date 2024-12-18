@@ -1,38 +1,24 @@
 import { motion } from "framer-motion";
-import { Shield, QrCode, Zap, CreditCard, BarChart3, Bell } from "lucide-react";
+import { BarChart3, DollarSign, Database } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { DashboardPreview } from "./DashboardPreview";
 
 export const Features = () => {
   const features = [
     {
-      icon: <QrCode className="w-8 h-8" />,
-      title: "Smart Ticket Security",
-      description: "Dynamic QR codes with time-based validation and proximity activation"
-    },
-    {
-      icon: <Shield className="w-8 h-8" />,
-      title: "Revenue Optimization",
-      description: "Earn from every ticket resale while maintaining industry-low primary sale fees"
-    },
-    {
-      icon: <Zap className="w-8 h-8" />,
-      title: "Real-time Management",
-      description: "Instant validation and live event controls through our secure platform"
-    },
-    {
-      icon: <CreditCard className="w-8 h-8" />,
-      title: "Flexible Payments",
-      description: "Accept credit cards, Apple Pay, and Google Pay with transparent pricing"
-    },
-    {
       icon: <BarChart3 className="w-8 h-8" />,
-      title: "Advanced Analytics",
+      title: "Real-time Analytics",
       description: "Track sales performance and market trends with comprehensive insights"
     },
     {
-      icon: <Bell className="w-8 h-8" />,
-      title: "Smart Notifications",
-      description: "Automated updates for sales, transfers, and important event milestones"
+      icon: <DollarSign className="w-8 h-8" />,
+      title: "Secondary Market Revenue",
+      description: "Earn from every ticket resale while maintaining industry-low primary sale fees"
+    },
+    {
+      icon: <Database className="w-8 h-8" />,
+      title: "Smart Insights",
+      description: "AI-powered recommendations for optimal pricing and inventory management"
     }
   ];
 
@@ -48,7 +34,7 @@ export const Features = () => {
         >
           Powerful Features for Modern Events
         </motion.h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 mb-24">
           {features.map((feature, index) => (
             <motion.div
               key={index}
@@ -64,6 +50,7 @@ export const Features = () => {
             </motion.div>
           ))}
         </div>
+        <DashboardPreview />
       </div>
     </section>
   );
