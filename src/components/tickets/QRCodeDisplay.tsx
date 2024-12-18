@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "@/hooks/use-toast";
-import QRCode from "qrcode.react";
+import { QRCodeSVG } from "qrcode.react"; // Changed from default import to named import
 
 interface QRCodeDisplayProps {
   ticketId: string;
@@ -89,7 +89,7 @@ export const QRCodeDisplay = ({ ticketId, eventId }: QRCodeDisplayProps) => {
   return (
     <div className="bg-white p-4 rounded-lg shadow-lg">
       {qrValue ? (
-        <QRCode value={qrValue} size={256} level="H" />
+        <QRCodeSVG value={qrValue} size={256} level="H" />
       ) : (
         <div className="w-64 h-64 flex items-center justify-center bg-gray-100 rounded-lg">
           <p className="text-gray-500">Loading QR code...</p>
