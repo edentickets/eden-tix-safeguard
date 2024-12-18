@@ -1,27 +1,27 @@
 import { motion } from "framer-motion";
-import { Award, Gift, Star, BadgeDollarSign } from "lucide-react";
+import { Crown, Gift, Star, BadgeDollarSign } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
-const rewardFeatures = [
+const vipFeatures = [
   {
-    icon: <BadgeDollarSign className="w-8 h-8 text-eden-primary" />,
-    title: "Earn on Every Purchase",
-    description: "Get 100 points for every ticket you buy. Points add up fast!"
+    icon: <Crown className="w-8 h-8 text-eden-primary" />,
+    title: "Priority Access",
+    description: "Get exclusive pre-sale access and reserve tickets before they go public"
   },
   {
     icon: <Gift className="w-8 h-8 text-eden-secondary" />,
-    title: "Exclusive Rewards",
-    description: "Redeem points for merchandise, VIP upgrades, and exclusive event access"
+    title: "VIP Rewards",
+    description: "Earn points on every purchase to redeem for merchandise, upgrades, and exclusive access"
   },
   {
-    icon: <Star className="w-8 h-8 text-eden-accent" />,
-    title: "Member Benefits",
-    description: "Unlock special discounts and early access to popular events"
+    icon: <BadgeDollarSign className="w-8 h-8 text-eden-accent" />,
+    title: "Reduced Fees",
+    description: "Enjoy industry-lowest transaction fees and special VIP pricing on select events"
   },
   {
-    icon: <Award className="w-8 h-8 text-eden-primary" />,
-    title: "Tier Privileges",
-    description: "Earn more as you climb our membership tiers with special bonuses"
+    icon: <Star className="w-8 h-8 text-eden-primary" />,
+    title: "Premium Benefits",
+    description: "Access member-only events, exclusive content, and special promotional offers"
   }
 ];
 
@@ -37,16 +37,20 @@ const RewardsSection = () => {
           transition={{ duration: 0.5 }}
           className="text-center space-y-4 mb-16"
         >
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Crown className="w-8 h-8 text-eden-primary" />
+            <span className="text-sm font-medium text-eden-primary uppercase tracking-wider">VIP Members Only</span>
+          </div>
           <h2 className="text-4xl md:text-6xl font-medium gradient-text">
-            Earn While You Experience
+            Join Our Elite Membership
           </h2>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            Join our rewards program and turn every ticket purchase into points you can redeem for amazing benefits
+            Unlock exclusive benefits, priority access, and premium rewards as a VIP member. Experience events like never before.
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {rewardFeatures.map((feature, index) => (
+          {vipFeatures.map((feature, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
