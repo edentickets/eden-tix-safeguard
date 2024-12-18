@@ -19,8 +19,9 @@ const HeroSection = () => {
         transition={{ duration: 0.8 }}
         className="relative max-w-7xl mx-auto text-center"
       >
-        {/* Main Heading */}
+        {/* Main Content */}
         <div className="space-y-8">
+          {/* Main Heading */}
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
             <motion.span 
               initial={{ opacity: 0 }}
@@ -40,24 +41,26 @@ const HeroSection = () => {
             </motion.span>
           </h1>
 
-          {/* NFT Ticket Preview - Positioned between heading and description */}
-          <div className="-mb-12 relative z-10">
-            <NFTTicketPreview />
-          </div>
-
           {/* Description */}
           <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
-            className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed relative z-20 bg-eden-dark/80 backdrop-blur-sm rounded-lg p-4"
+            className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed"
           >
             Discover, buy, and resell tickets with confidence. Experience seamless ticketing 
             with state of the art digital dynamic security and real-time alerts.
           </motion.p>
 
-          {/* Feature Icons */}
-          <FeatureIcons />
+          {/* NFT Ticket Preview - Now positioned between caption and features */}
+          <div className="relative z-10 -mb-24">
+            <NFTTicketPreview />
+          </div>
+
+          {/* Feature Icons with adjusted spacing */}
+          <div className="pt-20 relative z-0">
+            <FeatureIcons />
+          </div>
 
           {/* CTAs */}
           <HeroCTAs />
