@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Ban, Users, TrendingUp } from "lucide-react";
+import { Ban, Users, TrendingUp, DollarSign } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 const problems = [
@@ -17,6 +17,11 @@ const problems = [
     icon: <TrendingUp className="w-8 h-8 text-eden-accent" />,
     title: "Real-Time Market Insights",
     description: "Make informed decisions with live market data and get alerts when tickets match your target price."
+  },
+  {
+    icon: <DollarSign className="w-8 h-8 text-eden-primary" />,
+    title: "Hidden Fees & High Costs",
+    description: "We believe in transparency. Zero hidden fees and industry-lowest transaction costs mean more value for everyone."
   }
 ];
 
@@ -46,7 +51,7 @@ const ProblemStatementSection = () => {
           </motion.p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {problems.map((problem, index) => (
             <motion.div
               key={index}
