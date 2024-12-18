@@ -15,11 +15,11 @@ export const HeroSection = () => {
         className="relative max-w-7xl mx-auto text-center space-y-8"
       >
         <h1 className="text-6xl md:text-7xl font-medium tracking-tight gradient-text mb-6 leading-tight">
-          Turn Ticket Resales Into Your Revenue Stream
+          Smart Digital Ticketing for Modern Events
         </h1>
         <p className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed">
-          Finally earn from every ticket transfer with industry-low fees and automatic revenue sharing. 
-          Take control of your secondary market and maximize your earnings.
+          Create secure digital tickets with real-time validation and dynamic QR technology. 
+          Plus, earn revenue from every resale with industry-low fees.
         </p>
         <Button 
           size="lg" 
