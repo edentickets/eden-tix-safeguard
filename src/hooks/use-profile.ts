@@ -1,31 +1,30 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { User } from "@supabase/supabase-js";
+import { useSession } from "@supabase/auth-helpers-react";
 
-interface Profile {
-  id: string;
-  username: string | null;
-  full_name: string | null;
-  avatar_url: string | null;
-  created_at: string | null;
-  updated_at: string | null;
-}
+export const useProfile = (userId?: string) => {
+  const session = useSession();
+  const currentUserId = session?.user?.id;
+  const targetUserId = userId || currentUserId;
 
-export const useProfile = (user: User | null) => {
   return useQuery({
-    queryKey: ["profile", user?.id],
+    queryKey: ['profile', targetUserId],
     queryFn: async () => {
-      if (!user) throw new Error("User is required");
-      
+      if (!targetUserId) throw new Error('User ID is required');
+
       const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", user.id)
-        .single();
-      
+        .from('profiles')
+        .select(`
+          *,
+          events:events(*)
+        `)
+        .eq('id', targetUserId)
+        .maybeSingle();
+
       if (error) throw error;
-      return data as Profile;
+      if (!data) throw new Error('Profile not found');
+      return data;
     },
-    enabled: !!user,
+    enabled: !!targetUserId,
   });
 };
