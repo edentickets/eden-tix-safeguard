@@ -1,18 +1,17 @@
 export interface Event {
   id: string;
+  creator_id: string;
   title: string;
-  date: string;
+  description?: string;
   location: string;
-  imageUrl: string;
+  start_date: string;
+  end_date: string;
+  image_url?: string;
+  total_tickets: number;
+  available_tickets: number;
   price: number;
-  availableTickets: number;
-  description: string;
-  organizer: string;
-  rating: number;
-  reviews: number;
-  highlights: {
-    icon: string;
-    title: string;
-    description: string;
-  }[];
+  created_at?: string;
+  updated_at?: string;
+  rating?: number;
+  reviews?: number;
 }

@@ -8,12 +8,14 @@ import HeroSection from "@/components/sections/HeroSection";
 import FeaturesSection from "@/components/sections/FeaturesSection";
 import CTASection from "@/components/sections/CTASection";
 import ClientsSection from "@/components/sections/ClientsSection";
+import { CreateEventForm } from "@/components/events/CreateEventForm";
+import { useSession } from "@supabase/auth-helpers-react";
 
 const Landing = () => {
   const navigate = useNavigate();
+  const session = useSession();
 
   useEffect(() => {
-    // Check authentication status
     supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_IN" && session) {
         navigate("/explore");
@@ -25,10 +27,19 @@ const Landing = () => {
     <div className="min-h-screen bg-eden-dark">
       <Navbar />
       
-      {/* Main Content */}
       <main>
         <HeroSection />
         <FeaturesSection />
+        {session && (
+          <section className="py-16 px-4">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-3xl font-bold text-center mb-8 gradient-text">
+                Create Your Event
+              </h2>
+              <CreateEventForm />
+            </div>
+          </section>
+        )}
         <ClientsSection />
         <CTASection />
       </main>
@@ -43,8 +54,8 @@ const Landing = () => {
               variables: {
                 default: {
                   colors: {
-                    brand: '#7c3aed', // eden-primary
-                    brandAccent: '#10b981', // eden-secondary
+                    brand: '#7c3aed',
+                    brandAccent: '#10b981',
                   },
                 },
               },
