@@ -14,7 +14,15 @@ import UserProfile from "./pages/UserProfile";
 import CreatorsLanding from "./pages/CreatorsLanding";
 import UsersLanding from "./pages/UsersLanding";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

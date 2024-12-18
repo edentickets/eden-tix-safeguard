@@ -1,47 +1,14 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { LayoutDashboard } from "lucide-react";
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { useAuthState } from "@/hooks/use-auth-state";
 
 export const Navbar = () => {
-  const [user, setUser] = useState(null);
-  const { toast } = useToast();
-
-  useEffect(() => {
-    // Check initial auth state
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user ?? null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const { user, signOut } = useAuthState();
 
   const handleSignIn = () => {
     const modal = document.getElementById('auth-modal');
     if (modal) modal.classList.remove('hidden');
-  };
-
-  const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      toast({
-        title: "Error signing out",
-        description: error.message,
-        variant: "destructive",
-      });
-    } else {
-      toast({
-        title: "Signed out successfully",
-        description: "Come back soon!",
-      });
-    }
   };
 
   return (
@@ -92,7 +59,7 @@ export const Navbar = () => {
                 <Button 
                   variant="ghost" 
                   className="text-white hover:text-eden-primary"
-                  onClick={handleSignOut}
+                  onClick={signOut}
                 >
                   Sign Out
                 </Button>

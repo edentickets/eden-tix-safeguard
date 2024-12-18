@@ -1,7 +1,8 @@
 import { Card } from "@/components/ui/card";
-import { Event, formatEventDate } from "@/types/event";
+import { Event } from "@/types/event";
 import { Link } from "react-router-dom";
 import { Star } from "lucide-react";
+import { formatDate } from "@/utils/date-utils";
 
 export const EventCard = ({ event }: { event: Event }) => {
   return (
@@ -20,11 +21,10 @@ export const EventCard = ({ event }: { event: Event }) => {
             {event.title}
           </h3>
           <p className="text-sm text-gray-300 mt-1">
-            {formatEventDate(event.start_date, event.end_date)}
+            {formatDate(event.start_date)}
           </p>
           <p className="text-sm text-gray-300">{event.location}</p>
           
-          {/* Rating and Reviews */}
           {event.rating && event.reviews && (
             <div className="flex items-center gap-1 mt-2">
               <Star className="w-4 h-4 fill-eden-secondary text-eden-secondary" />
