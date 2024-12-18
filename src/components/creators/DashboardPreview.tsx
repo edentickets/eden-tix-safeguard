@@ -12,105 +12,56 @@ import { PerformanceMetrics } from "@/components/dashboard/PerformanceMetrics";
 
 export const DashboardPreview = () => {
   return (
-    <section className="py-24 px-4 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-primary opacity-5" />
-      <div className="max-w-6xl mx-auto relative">
+    <div className="max-w-7xl mx-auto px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="text-center mb-12"
+      >
+        <h2 className="text-4xl font-medium gradient-text mb-4">
+          Powerful Insights at Your Fingertips
+        </h2>
+        <p className="text-lg text-white/70 max-w-2xl mx-auto">
+          Make data-driven decisions with our comprehensive dashboard. Track sales, monitor trends, 
+          and maximize revenue from both primary and secondary markets.
+        </p>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="relative mx-auto max-w-5xl"
+      >
+        <div className="relative rounded-lg overflow-hidden border border-white/10 shadow-2xl">
+          <div className="bg-eden-dark/90 backdrop-blur-sm p-4 rounded-lg">
+            <div className="transform scale-75 origin-top">
+              <DashboardHeader />
+              <div className="mt-4">
+                <PerformanceMetrics />
+              </div>
+            </div>
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-eden-dark/80 to-transparent pointer-events-none" />
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="absolute -bottom-4 -right-4 bg-eden-dark/90 backdrop-blur-sm p-4 rounded-lg border border-eden-primary/20"
         >
-          <h2 className="text-4xl md:text-5xl font-medium gradient-text mb-4">
-            Powerful Insights at Your Fingertips
-          </h2>
-          <p className="text-lg text-white/70 max-w-2xl mx-auto">
-            Make data-driven decisions with our comprehensive dashboard. Track sales, monitor trends, 
-            and maximize revenue from both primary and secondary markets.
-          </p>
+          <div className="flex items-center gap-2">
+            <ArrowUp className="w-4 h-4 text-eden-secondary" />
+            <span className="text-sm text-eden-secondary font-medium">+24%</span>
+            <span className="text-sm text-white/70">Revenue from Resales</span>
+          </div>
         </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-6 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="space-y-4"
-          >
-            <Card className="p-4 bg-eden-dark/50 border-eden-primary/20 backdrop-blur-sm">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-eden-primary/20">
-                  <BarChart3 className="w-5 h-5 text-eden-primary" />
-                </div>
-                <div>
-                  <h3 className="text-base font-medium text-white">Real-time Analytics</h3>
-                  <p className="text-sm text-white/70">Track sales performance and market trends instantly</p>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="p-4 bg-eden-dark/50 border-eden-primary/20 backdrop-blur-sm">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-eden-secondary/20">
-                  <DollarSign className="w-5 h-5 text-eden-secondary" />
-                </div>
-                <div>
-                  <h3 className="text-base font-medium text-white">Secondary Market Revenue</h3>
-                  <p className="text-sm text-white/70">Earn from every resale with our revenue sharing model</p>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="p-4 bg-eden-dark/50 border-eden-primary/20 backdrop-blur-sm">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-eden-accent/20">
-                  <Database className="w-5 h-5 text-eden-accent" />
-                </div>
-                <div>
-                  <h3 className="text-base font-medium text-white">Smart Insights</h3>
-                  <p className="text-sm text-white/70">AI-powered recommendations for optimal pricing</p>
-                </div>
-              </div>
-            </Card>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            <div className="relative rounded-lg overflow-hidden border border-white/10 shadow-2xl transform scale-90">
-              <div className="bg-eden-dark/90 backdrop-blur-sm p-4 rounded-lg">
-                <div className="transform scale-90">
-                  <DashboardHeader />
-                  <div className="mt-4">
-                    <PerformanceMetrics />
-                  </div>
-                </div>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-eden-dark/80 to-transparent pointer-events-none" />
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="absolute -bottom-4 -right-4 bg-eden-dark/90 backdrop-blur-sm p-4 rounded-lg border border-eden-primary/20"
-            >
-              <div className="flex items-center gap-2">
-                <ArrowUp className="w-4 h-4 text-eden-secondary" />
-                <span className="text-sm text-eden-secondary font-medium">+24%</span>
-                <span className="text-sm text-white/70">Revenue from Resales</span>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
+      </motion.div>
+    </div>
   );
 };

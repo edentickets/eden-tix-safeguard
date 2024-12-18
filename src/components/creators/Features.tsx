@@ -34,7 +34,9 @@ export const Features = () => {
         >
           Powerful Features for Modern Events
         </motion.h2>
-        <div className="grid md:grid-cols-3 gap-6 mb-24">
+        
+        {/* Feature cards in horizontal layout */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
           {features.map((feature, index) => (
             <motion.div
               key={index}
@@ -50,8 +52,10 @@ export const Features = () => {
             </motion.div>
           ))}
         </div>
-        <DashboardPreview />
       </div>
+
+      {/* Dashboard preview below feature cards */}
+      <DashboardPreview />
     </section>
   );
 };
