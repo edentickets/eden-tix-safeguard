@@ -6,26 +6,24 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Event } from "@/types/event";
 import { Loader2 } from "lucide-react";
+import { useEventFilters } from "@/hooks/use-event-filters";
+import { usePagination } from "@/hooks/use-pagination";
 
 const EVENTS_PER_PAGE = 9;
 
 const Explore = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedLocation, setSelectedLocation] = useState("");
-  const [selectedEventType, setSelectedEventType] = useState("");
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
-  const [sortBy, setSortBy] = useState("date_asc");
-  const [currentPage, setCurrentPage] = useState(1);
+  const { filters, updateFilter, filterEvents } = useEventFilters();
+  const { currentPage, setCurrentPage, calculateTotalPages, getPageRange } = 
+    usePagination(EVENTS_PER_PAGE);
 
   const { data: events, isLoading } = useQuery({
-    queryKey: ["events", sortBy, currentPage],
+    queryKey: ["events", filters.sortBy, currentPage],
     queryFn: async () => {
       let query = supabase
         .from("events")
         .select("*", { count: "exact" });
 
-      // Apply sorting
-      switch (sortBy) {
+      switch (filters.sortBy) {
         case "date_asc":
           query = query.order("start_date", { ascending: true });
           break;
@@ -40,28 +38,18 @@ const Explore = () => {
           break;
       }
 
-      // Apply pagination
-      const from = (currentPage - 1) * EVENTS_PER_PAGE;
-      const to = from + EVENTS_PER_PAGE - 1;
+      const { from, to } = getPageRange();
       query = query.range(from, to);
 
       const { data, error, count } = await query;
-
       if (error) throw error;
+      
       return { events: data as Event[], totalCount: count || 0 };
     },
   });
 
-  const filteredEvents = events?.events.filter((event) => {
-    const matchesSearch = 
-      event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      event.description?.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesLocation = !selectedLocation || event.location.includes(selectedLocation);
-    const matchesPrice = event.price >= priceRange[0] && event.price <= priceRange[1];
-    return matchesSearch && matchesLocation && matchesPrice;
-  });
-
-  const totalPages = Math.ceil((events?.totalCount || 0) / EVENTS_PER_PAGE);
+  const filteredEvents = events ? filterEvents(events.events) : [];
+  const totalPages = events ? calculateTotalPages(events.totalCount) : 0;
 
   if (isLoading) {
     return (
@@ -78,18 +66,18 @@ const Explore = () => {
     <div className="min-h-screen bg-eden-dark">
       <Navbar />
       <ExploreHero 
-        onSearchChange={setSearchQuery}
-        onLocationChange={setSelectedLocation}
-        onEventTypeChange={setSelectedEventType}
-        onPriceRangeChange={setPriceRange}
-        onSortChange={setSortBy}
+        onSearchChange={(value) => updateFilter("searchQuery", value)}
+        onLocationChange={(value) => updateFilter("location", value)}
+        onEventTypeChange={(value) => updateFilter("eventType", value)}
+        onPriceRangeChange={(value) => updateFilter("priceRange", value as [number, number])}
+        onSortChange={(value) => updateFilter("sortBy", value)}
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
       <EventGrid 
-        title={searchQuery ? "Search Results" : "All Events"} 
-        events={filteredEvents || []} 
+        title={filters.searchQuery ? "Search Results" : "All Events"} 
+        events={filteredEvents} 
       />
     </div>
   );
