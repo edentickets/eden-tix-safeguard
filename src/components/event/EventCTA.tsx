@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { Event } from "@/types/event";
 
 interface EventCTAProps {
-  eventTitle: string;
+  event: Event;
+  userId: string;
 }
 
-export const EventCTA = ({ eventTitle }: EventCTAProps) => {
+export const EventCTA = ({ event, userId }: EventCTAProps) => {
   const { toast } = useToast();
 
   const handlePurchase = () => {
@@ -26,7 +28,7 @@ export const EventCTA = ({ eventTitle }: EventCTAProps) => {
     <section className="py-16 px-4">
       <div className="max-w-7xl mx-auto text-center space-y-6">
         <h2 className="text-3xl font-bold text-white">
-          Your {eventTitle} Experience Starts Here
+          Your {event.title} Experience Starts Here
         </h2>
         <p className="text-gray-300">
           Tickets are selling fast. Secure yours now or set price alerts for your perfect pass.

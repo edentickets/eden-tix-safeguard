@@ -8,6 +8,7 @@ import { EventCTA } from "@/components/event/EventCTA";
 import { Navbar } from "@/components/Navbar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuthState } from "@/hooks/use-auth-state";
+import { Event } from "@/types/event";
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -26,7 +27,7 @@ const EventDetails = () => {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as Event;
     },
     enabled: !!id,
   });
@@ -67,7 +68,7 @@ const EventDetails = () => {
       <main>
         <EventHero event={event} />
         <EventHighlights event={event} />
-        <TicketTiers event={event} />
+        <TicketTiers />
         {user && <EventCTA event={event} userId={user.id} />}
       </main>
     </div>

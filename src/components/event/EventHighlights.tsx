@@ -5,6 +5,10 @@ interface EventHighlightsProps {
 }
 
 export const EventHighlights = ({ event }: EventHighlightsProps) => {
+  if (!event.highlights) {
+    return null;
+  }
+
   return (
     <section className="py-16 px-4 bg-eden-light/10">
       <div className="max-w-7xl mx-auto">
