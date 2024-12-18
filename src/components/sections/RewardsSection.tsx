@@ -37,13 +37,17 @@ const RewardsSection = () => {
           transition={{ duration: 0.5 }}
           className="text-center space-y-4 mb-16"
         >
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Crown className="w-8 h-8 text-eden-primary" />
-            <span className="text-sm font-medium text-eden-primary uppercase tracking-wider">VIP Members Only</span>
-          </div>
-          <h2 className="text-4xl md:text-6xl font-medium gradient-text">
+          <h2 className="text-4xl md:text-6xl font-medium gradient-text mb-8">
             Join Our Elite Membership
           </h2>
+          
+          <div className="relative -mt-4 mb-6">
+            <div className="flex items-center justify-center gap-2 bg-eden-dark/80 backdrop-blur-sm py-2 px-4 rounded-full inline-block mx-auto">
+              <Crown className="w-6 h-6 text-eden-primary" />
+              <span className="text-sm font-medium text-eden-primary uppercase tracking-wider">VIP Members Only</span>
+            </div>
+          </div>
+
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
             Unlock exclusive benefits, priority access, and premium rewards as a VIP member. Experience events like never before.
           </p>
