@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Navbar } from "@/components/Navbar";
 import HeroSection from "@/components/sections/HeroSection";
+import ProblemStatementSection from "@/components/sections/ProblemStatementSection";
 import FeaturesSection from "@/components/sections/FeaturesSection";
 import CTASection from "@/components/sections/CTASection";
 import ClientsSection from "@/components/sections/ClientsSection";
@@ -26,6 +27,7 @@ const Landing = () => {
       
       <main>
         <HeroSection />
+        <ProblemStatementSection />
         <FeaturesSection />
         <CreateEventSection />
         <ClientsSection />
