@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import HeroSection from "@/components/sections/HeroSection";
 import ProblemStatementSection from "@/components/sections/ProblemStatementSection";
 import FeaturesSection from "@/components/sections/FeaturesSection";
+import RewardsSection from "@/components/sections/RewardsSection";
 import CTASection from "@/components/sections/CTASection";
 import ClientsSection from "@/components/sections/ClientsSection";
 import { CreateEventSection } from "@/components/landing/CreateEventSection";
@@ -29,6 +30,7 @@ const Landing = () => {
         <HeroSection />
         <ProblemStatementSection />
         <FeaturesSection />
+        <RewardsSection />
         <CreateEventSection />
         <ClientsSection />
         <CTASection />
