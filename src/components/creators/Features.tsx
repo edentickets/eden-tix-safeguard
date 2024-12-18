@@ -6,33 +6,33 @@ export const Features = () => {
   const features = [
     {
       icon: <QrCode className="w-8 h-8" />,
-      title: "Dynamic QR Technology",
-      description: "Time-based validation and proximity activation ensure maximum ticket security"
+      title: "Smart Ticket Security",
+      description: "Dynamic QR codes with time-based validation and proximity activation"
     },
     {
       icon: <Shield className="w-8 h-8" />,
-      title: "Advanced Security",
-      description: "Real-time validation and venue-specific authentication prevent unauthorized transfers"
+      title: "Revenue Optimization",
+      description: "Earn from every ticket resale while maintaining industry-low primary sale fees"
     },
     {
       icon: <Zap className="w-8 h-8" />,
-      title: "Real-time Updates",
-      description: "Instant ticket validation and live event management through Supabase"
+      title: "Real-time Management",
+      description: "Instant validation and live event controls through our secure platform"
     },
     {
       icon: <CreditCard className="w-8 h-8" />,
-      title: "Modern Payments",
-      description: "Seamless transactions with Stripe - accept credit cards, Apple Pay, and Google Pay"
+      title: "Flexible Payments",
+      description: "Accept credit cards, Apple Pay, and Google Pay with transparent pricing"
     },
     {
       icon: <BarChart3 className="w-8 h-8" />,
-      title: "Live Analytics",
-      description: "Real-time insights and comprehensive event analytics with Mixpanel"
+      title: "Advanced Analytics",
+      description: "Track sales performance and market trends with comprehensive insights"
     },
     {
       icon: <Bell className="w-8 h-8" />,
       title: "Smart Notifications",
-      description: "Automated email updates and browser notifications for important events"
+      description: "Automated updates for sales, transfers, and important event milestones"
     }
   ];
 
@@ -46,7 +46,7 @@ export const Features = () => {
           transition={{ duration: 0.5 }}
           className="text-4xl md:text-6xl font-medium text-center mb-16 gradient-text"
         >
-          Smart Features for Modern Events
+          Powerful Features for Modern Events
         </motion.h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (

@@ -14,20 +14,20 @@ const features = [
     tooltip: "Time-based validation and proximity activation"
   },
   {
+    text: "Secondary market revenue",
+    tooltip: "Earn from ticket resales automatically"
+  },
+  {
+    text: "Industry-low fees",
+    tooltip: "Competitive pricing for primary ticket sales"
+  },
+  {
     text: "Real-time analytics",
-    tooltip: "Track sales and monitor trends in real-time"
+    tooltip: "Track sales and monitor market trends"
   },
   {
-    text: "Smart revenue share",
-    tooltip: "Earn from both primary sales and controlled resales"
-  },
-  {
-    text: "Controlled resale",
-    tooltip: "Set your own resale rules and maintain market control"
-  },
-  {
-    text: "Email notifications",
-    tooltip: "Automated updates for important events"
+    text: "Event management tools",
+    tooltip: "Complete control over your events"
   },
   {
     text: "Priority support",
@@ -47,10 +47,10 @@ export const PricingSection = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-medium gradient-text mb-6">
-            Free for Event Creators
+            Start Creating Events
           </h2>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            No monthly fees or hidden charges. We only make money when you succeed, through small transaction fees on ticket sales.
+            No monthly fees or hidden charges. We only succeed when you do, with transparent transaction fees and revenue sharing on resales.
           </p>
         </motion.div>
 
@@ -64,7 +64,7 @@ export const PricingSection = () => {
             <h3 className="text-2xl font-medium mb-2">Everything You Need</h3>
             <div className="text-4xl font-bold mb-4 text-eden-primary">Free</div>
             <p className="text-white/70">
-              Access all features with no monthly charges. We take a small percentage of ticket sales and resales.
+              Access all features with no monthly charges. Simple transaction fees on sales and automatic revenue sharing on resales.
             </p>
           </div>
 
@@ -94,7 +94,7 @@ export const PricingSection = () => {
           </Button>
 
           <p className="text-sm text-white/50 mt-4 text-center">
-            Small transaction fee applies to ticket sales. No hidden charges.
+            Simple transaction fee applies to ticket sales. No hidden charges.
           </p>
         </motion.div>
       </div>
