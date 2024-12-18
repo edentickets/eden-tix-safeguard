@@ -16,7 +16,7 @@ const notifications = [
 
 export const PriceAlertNotification = () => {
   return (
-    <div className="absolute right-0 top-32 max-w-sm px-4 mt-2 pointer-events-none select-none">
+    <div className="relative max-w-sm pointer-events-none select-none">
       <AnimatePresence>
         {notifications.map((notification, index) => (
           <motion.div

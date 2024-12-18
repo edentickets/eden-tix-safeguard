@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Shield, Ticket, Bell, Check } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { PriceAlertNotification } from "@/components/hero/PriceAlertNotification";
 
 const FeaturesSection = () => {
   const features = [
@@ -50,6 +51,7 @@ const FeaturesSection = () => {
             Because Ticketing Needs a Revolution
           </motion.p>
         </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
             <motion.div
@@ -67,6 +69,17 @@ const FeaturesSection = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Price Alert Demo */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mt-16 flex justify-end max-w-sm ml-auto"
+        >
+          <PriceAlertNotification />
+        </motion.div>
       </div>
     </section>
   );
