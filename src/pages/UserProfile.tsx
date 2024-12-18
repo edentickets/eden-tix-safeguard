@@ -9,6 +9,7 @@ import { UserTickets } from "@/components/profile/UserTickets";
 import { UserRewards } from "@/components/profile/UserRewards";
 import { EventGrid } from "@/components/explore/EventGrid";
 import { Edit2, Ticket, Users, Award, Bell } from "lucide-react";
+import { Event } from "@/types/event";
 
 // Mock user data
 const userData = {
@@ -35,19 +36,22 @@ const userData = {
 };
 
 // Mock upcoming events data
-const upcomingEvents = [
+const upcomingEvents: Event[] = [
   {
     id: "1",
+    creator_id: "1",
     title: "Rolling Loud Miami 2025",
-    date: "July 19-21, 2025",
+    description: "The world's largest hip-hop festival returns to Miami",
     location: "Hard Rock Stadium, Miami",
-    imageUrl: "/placeholder.svg",
+    start_date: "2025-07-19T00:00:00Z",
+    end_date: "2025-07-21T00:00:00Z",
+    image_url: "/placeholder.svg",
+    total_tickets: 5000,
+    available_tickets: 2500,
     price: 299,
-    availableTickets: 2500,
+    organizer: "Rolling Loud",
     rating: 4.9,
     reviews: 856,
-    description: "The world's largest hip-hop festival returns to Miami",
-    organizer: "Rolling Loud",
     highlights: [
       {
         icon: "music",

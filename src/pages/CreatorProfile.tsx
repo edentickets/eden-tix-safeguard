@@ -13,6 +13,7 @@ import {
   Star
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { Event } from "@/types/event";
 
 const CreatorProfile = () => {
   // Placeholder data - would come from API in production
@@ -35,20 +36,23 @@ const CreatorProfile = () => {
     }
   };
 
-  // Placeholder events data
-  const events = [
+  // Update mock events data
+  const events: Event[] = [
     {
       id: "1",
+      creator_id: "1",
       title: "Rolling Loud Miami 2024",
-      date: "July 23-25, 2024",
+      description: "The world's largest hip-hop festival returns to Miami",
       location: "Hard Rock Stadium, Miami Gardens",
-      imageUrl: "/placeholder.svg",
+      start_date: "2024-07-23T00:00:00Z",
+      end_date: "2024-07-25T00:00:00Z",
+      image_url: "/placeholder.svg",
+      total_tickets: 5000,
+      available_tickets: 2500,
       price: 349,
-      availableTickets: 2500,
+      organizer: "Rolling Loud",
       rating: 4.9,
       reviews: 856,
-      description: "The world's largest hip-hop festival returns to Miami",
-      organizer: "Rolling Loud",
       highlights: [
         {
           icon: "music",
@@ -69,16 +73,19 @@ const CreatorProfile = () => {
     },
     {
       id: "2",
+      creator_id: "1",
       title: "Rolling Loud California 2024",
-      date: "March 15-17, 2024",
+      description: "Three days of non-stop hip-hop in Los Angeles",
       location: "Hollywood Park Grounds",
-      imageUrl: "/placeholder.svg",
+      start_date: "2024-03-15T00:00:00Z",
+      end_date: "2024-03-17T00:00:00Z",
+      image_url: "/placeholder.svg",
+      total_tickets: 4000,
+      available_tickets: 1800,
       price: 329,
-      availableTickets: 1800,
+      organizer: "Rolling Loud",
       rating: 4.8,
       reviews: 654,
-      description: "Three days of non-stop hip-hop in Los Angeles",
-      organizer: "Rolling Loud",
       highlights: [
         {
           icon: "music",
@@ -99,16 +106,19 @@ const CreatorProfile = () => {
     },
     {
       id: "3",
+      creator_id: "1",
       title: "Rolling Loud New York 2024",
-      date: "September 20-22, 2024",
+      description: "The biggest hip-hop festival comes to the Big Apple",
       location: "Citi Field, Queens",
-      imageUrl: "/placeholder.svg",
+      start_date: "2024-09-20T00:00:00Z",
+      end_date: "2024-09-22T00:00:00Z",
+      image_url: "/placeholder.svg",
+      total_tickets: 4500,
+      available_tickets: 2000,
       price: 359,
-      availableTickets: 2000,
+      organizer: "Rolling Loud",
       rating: 4.7,
       reviews: 423,
-      description: "The biggest hip-hop festival comes to the Big Apple",
-      organizer: "Rolling Loud",
       highlights: [
         {
           icon: "music",
