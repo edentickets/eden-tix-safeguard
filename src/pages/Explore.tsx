@@ -7,19 +7,22 @@ import { supabase } from "@/integrations/supabase/client";
 import { Event } from "@/types/event";
 import { Loader2 } from "lucide-react";
 
+const EVENTS_PER_PAGE = 9;
+
 const Explore = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedEventType, setSelectedEventType] = useState("");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
   const [sortBy, setSortBy] = useState("date_asc");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { data: events, isLoading } = useQuery({
-    queryKey: ["events", sortBy],
+    queryKey: ["events", sortBy, currentPage],
     queryFn: async () => {
       let query = supabase
         .from("events")
-        .select("*");
+        .select("*", { count: "exact" });
 
       // Apply sorting
       switch (sortBy) {
@@ -37,14 +40,19 @@ const Explore = () => {
           break;
       }
 
-      const { data, error } = await query;
+      // Apply pagination
+      const from = (currentPage - 1) * EVENTS_PER_PAGE;
+      const to = from + EVENTS_PER_PAGE - 1;
+      query = query.range(from, to);
+
+      const { data, error, count } = await query;
 
       if (error) throw error;
-      return data as Event[];
+      return { events: data as Event[], totalCount: count || 0 };
     },
   });
 
-  const filteredEvents = events?.filter((event) => {
+  const filteredEvents = events?.events.filter((event) => {
     const matchesSearch = 
       event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       event.description?.toLowerCase().includes(searchQuery.toLowerCase());
@@ -52,6 +60,8 @@ const Explore = () => {
     const matchesPrice = event.price >= priceRange[0] && event.price <= priceRange[1];
     return matchesSearch && matchesLocation && matchesPrice;
   });
+
+  const totalPages = Math.ceil((events?.totalCount || 0) / EVENTS_PER_PAGE);
 
   if (isLoading) {
     return (
@@ -73,6 +83,9 @@ const Explore = () => {
         onEventTypeChange={setSelectedEventType}
         onPriceRangeChange={setPriceRange}
         onSortChange={setSortBy}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
       />
       <EventGrid 
         title={searchQuery ? "Search Results" : "All Events"} 
