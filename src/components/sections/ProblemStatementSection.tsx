@@ -16,7 +16,7 @@ const problems = [
   {
     icon: <TrendingUp className="w-8 h-8 text-eden-accent" />,
     title: "Real-Time Market Insights",
-    description: "Make informed decisions with live pricing data and market trends. Get alerts when tickets match your target price."
+    description: "Make informed decisions with live market data and get alerts when tickets match your target price."
   }
 ];
 

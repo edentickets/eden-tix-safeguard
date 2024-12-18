@@ -11,8 +11,8 @@ const FeaturesSection = () => {
     },
     {
       icon: <Check className="w-8 h-8 text-eden-secondary" />,
-      title: "Fair Market Prices",
-      description: "Real-time pricing based on actual demand, ensuring fair prices for everyone."
+      title: "Smart Marketplace",
+      description: "Buy and sell tickets with confidence through our transparent marketplace with real-time price tracking."
     },
     {
       icon: <Bell className="w-8 h-8 text-eden-accent" />,
@@ -21,8 +21,8 @@ const FeaturesSection = () => {
     },
     {
       icon: <Ticket className="w-8 h-8 text-eden-primary" />,
-      title: "Easy Reselling",
-      description: "Securely resell your tickets through our transparent marketplace."
+      title: "Earn from Resales",
+      description: "Event creators earn a percentage from every ticket resale in their secondary market."
     }
   ];
 
