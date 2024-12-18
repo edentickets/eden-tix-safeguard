@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Star, Clock, MapPin, User } from "lucide-react";
-import { Event } from "@/types/event";
+import { Event, formatEventDate } from "@/types/event";
 import { useToast } from "@/hooks/use-toast";
 
 interface EventHeroProps {
@@ -27,7 +27,7 @@ export const EventHero = ({ event }: EventHeroProps) => {
   return (
     <div className="relative h-[60vh] w-full">
       <img
-        src={event.imageUrl}
+        src={event.image_url}
         alt={event.title}
         className="w-full h-full object-cover"
       />
@@ -40,22 +40,26 @@ export const EventHero = ({ event }: EventHeroProps) => {
           <div className="flex flex-wrap gap-6 text-gray-200">
             <div className="flex items-center gap-2">
               <Clock className="w-5 h-5" />
-              {event.date}
+              {formatEventDate(event.start_date, event.end_date)}
             </div>
             <div className="flex items-center gap-2">
               <MapPin className="w-5 h-5" />
               {event.location}
             </div>
-            <div className="flex items-center gap-2">
-              <User className="w-5 h-5" />
-              {event.organizer}
+            {event.organizer && (
+              <div className="flex items-center gap-2">
+                <User className="w-5 h-5" />
+                {event.organizer}
+              </div>
+            )}
+          </div>
+          {event.rating && event.reviews && (
+            <div className="flex items-center gap-2 text-yellow-400">
+              <Star className="w-5 h-5 fill-current" />
+              <span>{event.rating}/5</span>
+              <span className="text-gray-300">({event.reviews} reviews)</span>
             </div>
-          </div>
-          <div className="flex items-center gap-2 text-yellow-400">
-            <Star className="w-5 h-5 fill-current" />
-            <span>{event.rating}/5</span>
-            <span className="text-gray-300">({event.reviews} reviews)</span>
-          </div>
+          )}
           <div className="flex gap-4 mt-6">
             <Button
               size="lg"

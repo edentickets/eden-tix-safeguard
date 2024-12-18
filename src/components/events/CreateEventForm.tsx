@@ -37,22 +37,29 @@ export const CreateEventForm = () => {
       return;
     }
 
+    if (!startDate || !endDate) {
+      toast({
+        title: "Missing dates",
+        description: "Please select both start and end dates",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
     const { data, error } = await supabase
       .from("events")
-      .insert([
-        {
-          creator_id: session.user.id,
-          title,
-          description,
-          location,
-          start_date: startDate,
-          end_date: endDate,
-          total_tickets: parseInt(totalTickets),
-          available_tickets: parseInt(totalTickets),
-          price: parseFloat(price),
-        },
-      ])
+      .insert({
+        creator_id: session.user.id,
+        title,
+        description,
+        location,
+        start_date: startDate.toISOString(),
+        end_date: endDate.toISOString(),
+        total_tickets: parseInt(totalTickets),
+        available_tickets: parseInt(totalTickets),
+        price: parseFloat(price),
+      })
       .select()
       .single();
 

@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Event } from "@/types/event";
+import { Event, formatEventDate } from "@/types/event";
 import { Link } from "react-router-dom";
 import { Star } from "lucide-react";
 
@@ -9,7 +9,7 @@ export const EventCard = ({ event }: { event: Event }) => {
       <Card className="glass-card overflow-hidden transition-all duration-300 hover:scale-105">
         <div className="aspect-video relative overflow-hidden">
           <img
-            src={event.imageUrl}
+            src={event.image_url}
             alt={event.title}
             className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
           />
@@ -19,26 +19,30 @@ export const EventCard = ({ event }: { event: Event }) => {
           <h3 className="text-lg font-semibold text-white truncate">
             {event.title}
           </h3>
-          <p className="text-sm text-gray-300 mt-1">{event.date}</p>
+          <p className="text-sm text-gray-300 mt-1">
+            {formatEventDate(event.start_date, event.end_date)}
+          </p>
           <p className="text-sm text-gray-300">{event.location}</p>
           
           {/* Rating and Reviews */}
-          <div className="flex items-center gap-1 mt-2">
-            <Star className="w-4 h-4 fill-eden-secondary text-eden-secondary" />
-            <span className="text-eden-secondary font-medium">
-              {event.rating}
-            </span>
-            <span className="text-gray-400 text-sm">
-              ({event.reviews} reviews)
-            </span>
-          </div>
+          {event.rating && event.reviews && (
+            <div className="flex items-center gap-1 mt-2">
+              <Star className="w-4 h-4 fill-eden-secondary text-eden-secondary" />
+              <span className="text-eden-secondary font-medium">
+                {event.rating}
+              </span>
+              <span className="text-gray-400 text-sm">
+                ({event.reviews} reviews)
+              </span>
+            </div>
+          )}
 
           <div className="mt-2 flex justify-between items-center">
             <span className="text-lg font-bold text-eden-secondary">
               ${event.price}
             </span>
             <span className="text-sm text-eden-accent">
-              {event.availableTickets} tickets left
+              {event.available_tickets} tickets left
             </span>
           </div>
         </div>
