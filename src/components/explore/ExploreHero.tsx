@@ -76,7 +76,7 @@ export const ExploreHero = ({
                 <SelectValue placeholder="All Locations" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Locations</SelectItem>
+                <SelectItem value="all">All Locations</SelectItem>
                 <SelectItem value="Miami">Miami</SelectItem>
                 <SelectItem value="New York">New York</SelectItem>
                 <SelectItem value="Los Angeles">Los Angeles</SelectItem>
@@ -88,7 +88,7 @@ export const ExploreHero = ({
                 <SelectValue placeholder="All Event Types" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Event Types</SelectItem>
+                <SelectItem value="all">All Event Types</SelectItem>
                 <SelectItem value="concert">Concerts</SelectItem>
                 <SelectItem value="festival">Festivals</SelectItem>
                 <SelectItem value="conference">Conferences</SelectItem>
