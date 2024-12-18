@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "./use-toast";
+import { useNavigate } from "react-router-dom";
 
 export const useAuthState = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Check initial auth state
@@ -19,10 +21,18 @@ export const useAuthState = () => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null);
       setLoading(false);
+
+      if (event === 'SIGNED_OUT') {
+        navigate('/');
+        toast({
+          title: "Signed out successfully",
+          description: "Come back soon!",
+        });
+      }
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [navigate, toast]);
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
@@ -31,11 +41,6 @@ export const useAuthState = () => {
         title: "Error signing out",
         description: error.message,
         variant: "destructive",
-      });
-    } else {
-      toast({
-        title: "Signed out successfully",
-        description: "Come back soon!",
       });
     }
   };
