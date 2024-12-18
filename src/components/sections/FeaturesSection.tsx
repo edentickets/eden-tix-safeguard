@@ -30,15 +30,26 @@ const FeaturesSection = () => {
     <section className="py-32 px-4 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-secondary opacity-5" />
       <div className="max-w-7xl mx-auto relative">
-        <motion.h2 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-4xl md:text-6xl font-medium text-center mb-16 gradient-text"
-        >
-          Why Choose Eden?
-        </motion.h2>
+        <div className="text-center space-y-4 mb-16">
+          <motion.h2 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl md:text-6xl font-medium gradient-text"
+          >
+            Why Choose Eden?
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-xl text-white/70"
+          >
+            Because Ticketing Needs a Revolution
+          </motion.p>
+        </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
             <motion.div
