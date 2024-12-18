@@ -9,7 +9,137 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      events: {
+        Row: {
+          available_tickets: number
+          created_at: string | null
+          creator_id: string | null
+          description: string | null
+          end_date: string
+          id: string
+          image_url: string | null
+          location: string
+          price: number
+          start_date: string
+          title: string
+          total_tickets: number
+          updated_at: string | null
+        }
+        Insert: {
+          available_tickets: number
+          created_at?: string | null
+          creator_id?: string | null
+          description?: string | null
+          end_date: string
+          id?: string
+          image_url?: string | null
+          location: string
+          price: number
+          start_date: string
+          title: string
+          total_tickets: number
+          updated_at?: string | null
+        }
+        Update: {
+          available_tickets?: number
+          created_at?: string | null
+          creator_id?: string | null
+          description?: string | null
+          end_date?: string
+          id?: string
+          image_url?: string | null
+          location?: string
+          price?: number
+          start_date?: string
+          title?: string
+          total_tickets?: number
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "events_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          full_name: string | null
+          id: string
+          updated_at: string | null
+          username: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string | null
+          username?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string | null
+          username?: string | null
+        }
+        Relationships: []
+      }
+      tickets: {
+        Row: {
+          created_at: string | null
+          event_id: string | null
+          id: string
+          owner_id: string | null
+          purchase_price: number
+          qr_code: string | null
+          status: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_id?: string | null
+          id?: string
+          owner_id?: string | null
+          purchase_price: number
+          qr_code?: string | null
+          status: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_id?: string | null
+          id?: string
+          owner_id?: string | null
+          purchase_price?: number
+          qr_code?: string | null
+          status?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tickets_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tickets_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
