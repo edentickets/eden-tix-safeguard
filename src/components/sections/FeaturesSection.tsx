@@ -1,38 +1,28 @@
 import { motion } from "framer-motion";
-import { Shield, QrCode, BarChart3, Bell, CreditCard, Users } from "lucide-react";
+import { Shield, Ticket, Bell, Check } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 const FeaturesSection = () => {
   const features = [
     {
       icon: <Shield className="w-8 h-8 text-eden-primary" />,
-      title: "Blockchain-Powered Security",
-      description: "Every ticket is a unique NFT, making fraud impossible and transfers secure."
+      title: "State of the Art Security",
+      description: "Our dynamic security system ensures ticket authenticity and prevents unauthorized transfers."
     },
     {
-      icon: <QrCode className="w-8 h-8 text-eden-secondary" />,
-      title: "Dynamic QR Protection",
-      description: "Scrambled QR codes prevent unauthorized transfers outside Eden."
+      icon: <Check className="w-8 h-8 text-eden-secondary" />,
+      title: "Fair Market Prices",
+      description: "Real-time pricing based on actual demand, ensuring fair prices for everyone."
     },
     {
-      icon: <BarChart3 className="w-8 h-8 text-eden-accent" />,
-      title: "Fair Price Resale",
-      description: "Stock exchange-style bidding system ensures fair market prices."
-    },
-    {
-      icon: <Bell className="w-8 h-8 text-eden-primary" />,
+      icon: <Bell className="w-8 h-8 text-eden-accent" />,
       title: "Smart Notifications",
-      description: "Get alerts for price changes, drops, and favorite events."
+      description: "Get instant alerts for price drops and ticket availability for your favorite events."
     },
     {
-      icon: <CreditCard className="w-8 h-8 text-eden-secondary" />,
-      title: "Multiple Payment Options",
-      description: "Pay with Apple Pay, crypto, or traditional payment methods."
-    },
-    {
-      icon: <Users className="w-8 h-8 text-eden-accent" />,
-      title: "Creator Revenue Share",
-      description: "Earn from every resale with transparent revenue sharing."
+      icon: <Ticket className="w-8 h-8 text-eden-primary" />,
+      title: "Easy Reselling",
+      description: "Securely resell your tickets through our transparent marketplace."
     }
   ];
 
@@ -47,9 +37,9 @@ const FeaturesSection = () => {
           transition={{ duration: 0.5 }}
           className="text-4xl md:text-6xl font-medium text-center mb-16 gradient-text"
         >
-          The Future of Ticketing is Here
+          Why Choose Eden?
         </motion.h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
             <motion.div
               key={index}

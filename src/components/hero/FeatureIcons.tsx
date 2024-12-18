@@ -1,11 +1,10 @@
-import { Shield, Ticket, Coins, Bell } from "lucide-react";
+import { Shield, Ticket, Bell } from "lucide-react";
 import { motion } from "framer-motion";
 
 const FeatureIcons = () => {
   const features = [
-    { icon: Shield, text: "Blockchain Security" },
-    { icon: Ticket, text: "Dynamic QR Protection" },
-    { icon: Coins, text: "Fair Price Resale" },
+    { icon: Shield, text: "Dynamic Security" },
+    { icon: Ticket, text: "Smart Ticketing" },
     { icon: Bell, text: "Real-time Alerts" },
   ];
 
