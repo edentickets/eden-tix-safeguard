@@ -1,15 +1,5 @@
-import { Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Slider } from "@/components/ui/slider";
-import { useState } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { SearchBar } from "./SearchBar";
+import { FilterSection } from "./FilterSection";
 import {
   Pagination,
   PaginationContent,
@@ -40,13 +30,6 @@ export const ExploreHero = ({
   totalPages,
   onPageChange,
 }: ExploreHeroProps) => {
-  const [priceRange, setPriceRange] = useState([0]);
-
-  const handlePriceRangeChange = (value: number[]) => {
-    setPriceRange(value);
-    onPriceRangeChange([0, value[0]]);
-  };
-
   return (
     <div className="relative py-20 overflow-hidden">
       <div className="absolute inset-0 bg-eden-dark">
@@ -59,67 +42,15 @@ export const ExploreHero = ({
           Find Your Next Unforgettable Experience
         </h1>
 
-        <div className="max-w-2xl mx-auto">
-          <div className="relative">
-            <Input
-              type="text"
-              placeholder="Search Events, Artists, or Venues"
-              className="w-full h-14 pl-12 pr-4 rounded-lg bg-eden-light/50 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-eden-primary"
-              onChange={(e) => onSearchChange(e.target.value)}
-            />
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-            <Select onValueChange={onLocationChange}>
-              <SelectTrigger className="bg-eden-light/30 border border-white/10 text-white">
-                <SelectValue placeholder="All Locations" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Locations</SelectItem>
-                <SelectItem value="Miami">Miami</SelectItem>
-                <SelectItem value="New York">New York</SelectItem>
-                <SelectItem value="Los Angeles">Los Angeles</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select onValueChange={onEventTypeChange}>
-              <SelectTrigger className="bg-eden-light/30 border border-white/10 text-white">
-                <SelectValue placeholder="All Event Types" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Event Types</SelectItem>
-                <SelectItem value="concert">Concerts</SelectItem>
-                <SelectItem value="festival">Festivals</SelectItem>
-                <SelectItem value="conference">Conferences</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select onValueChange={onSortChange}>
-              <SelectTrigger className="bg-eden-light/30 border border-white/10 text-white">
-                <SelectValue placeholder="Sort By" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="date_asc">Date: Earliest First</SelectItem>
-                <SelectItem value="date_desc">Date: Latest First</SelectItem>
-                <SelectItem value="price_asc">Price: Low to High</SelectItem>
-                <SelectItem value="price_desc">Price: High to Low</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="mt-6">
-            <label className="block text-white text-sm mb-2">
-              Price Range: Up to ${priceRange[0]}
-            </label>
-            <Slider
-              defaultValue={[500]}
-              max={1000}
-              step={50}
-              onValueChange={handlePriceRangeChange}
-              className="mt-2"
-            />
-          </div>
+        <div className="max-w-2xl mx-auto space-y-8">
+          <SearchBar onSearchChange={onSearchChange} />
+          
+          <FilterSection
+            onLocationChange={onLocationChange}
+            onEventTypeChange={onEventTypeChange}
+            onPriceRangeChange={onPriceRangeChange}
+            onSortChange={onSortChange}
+          />
 
           {totalPages > 1 && (
             <div className="mt-8">
