@@ -1,97 +1,99 @@
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "@/hooks/use-toast";
+import QRCode from "qrcode.react";
 
 interface QRCodeDisplayProps {
   ticketId: string;
-  showQR: boolean;
+  eventId: string;
 }
 
-export const QRCodeDisplay = ({ ticketId, showQR }: QRCodeDisplayProps) => {
-  const [qrCode, setQrCode] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
+export const QRCodeDisplay = ({ ticketId, eventId }: QRCodeDisplayProps) => {
+  const [qrValue, setQrValue] = useState<string>("");
 
-  const generateQRCode = async () => {
-    try {
-      setLoading(true);
-      const { data, error } = await supabase.functions.invoke('generate-qr', {
-        body: { ticketId },
-      });
+  const { data: ticket, isLoading } = useQuery({
+    queryKey: ["ticket", ticketId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("tickets")
+        .select("*")
+        .eq("id", ticketId)
+        .single();
 
       if (error) throw error;
-      setQrCode(data.qrCode);
-    } catch (error) {
-      toast({
-        title: "Error generating QR code",
-        description: error.message,
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+      return data;
+    },
+  });
 
-  // Subscribe to real-time updates
   useEffect(() => {
-    if (!showQR) return;
-
     const channel = supabase
-      .channel('ticket-updates')
+      .channel(`ticket-${ticketId}`)
       .on(
-        'postgres_changes',
+        "postgres_changes",
         {
-          event: 'UPDATE',
-          schema: 'public',
-          table: 'tickets',
+          event: "UPDATE",
+          schema: "public",
+          table: "tickets",
           filter: `id=eq.${ticketId}`,
         },
         (payload) => {
-          setQrCode(payload.new.current_qr_code);
+          const newTicket = payload.new;
+          if (newTicket.current_qr_code !== qrValue) {
+            setQrValue(newTicket.current_qr_code || "");
+          }
         }
       )
       .subscribe();
 
-    // Generate initial QR code
-    generateQRCode();
-
-    // Set up interval for QR code regeneration (every 30 seconds)
-    const interval = setInterval(generateQRCode, 30000);
-
     return () => {
-      clearInterval(interval);
       supabase.removeChannel(channel);
     };
-  }, [ticketId, showQR]);
+  }, [ticketId, qrValue]);
 
-  if (!showQR) {
-    return (
-      <div className="p-8 text-center">
-        <p className="text-gray-500">
-          QR code will be available shortly before the event
-        </p>
-      </div>
-    );
+  useEffect(() => {
+    const generateQR = async () => {
+      try {
+        const response = await fetch("/api/generate-qr", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ticketId, eventId }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to generate QR code");
+        }
+
+        const data = await response.json();
+        setQrValue(data.qrCode);
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: "Failed to generate QR code. Please try again.",
+          variant: "destructive",
+        });
+      }
+    };
+
+    const interval = setInterval(generateQR, 30000);
+    generateQR();
+
+    return () => clearInterval(interval);
+  }, [ticketId, eventId]);
+
+  if (isLoading) {
+    return <Skeleton className="w-64 h-64" />;
   }
 
   return (
-    <div className="p-4 flex flex-col items-center justify-center">
-      {loading ? (
-        <Loader2 className="w-8 h-8 animate-spin text-eden-primary" />
-      ) : qrCode ? (
-        <div className="relative">
-          <img
-            src={`data:image/png;base64,${qrCode}`}
-            alt="Ticket QR Code"
-            className="w-64 h-64"
-          />
-          <div className="mt-2 text-center text-sm text-gray-500">
-            QR Code updates every 30 seconds
-          </div>
-        </div>
+    <div className="bg-white p-4 rounded-lg shadow-lg">
+      {qrValue ? (
+        <QRCode value={qrValue} size={256} level="H" />
       ) : (
-        <div className="text-red-500">Failed to load QR code</div>
+        <div className="w-64 h-64 flex items-center justify-center bg-gray-100 rounded-lg">
+          <p className="text-gray-500">Loading QR code...</p>
+        </div>
       )}
     </div>
   );
