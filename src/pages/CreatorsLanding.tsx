@@ -3,6 +3,7 @@ import Background3D from "@/components/Background3D";
 import { HeroSection } from "@/components/creators/HeroSection";
 import { ProblemSolution } from "@/components/creators/ProblemSolution";
 import { Features } from "@/components/creators/Features";
+import { DashboardPreview } from "@/components/creators/DashboardPreview";
 import { CTASection } from "@/components/creators/CTASection";
 import { PricingSection } from "@/components/creators/PricingSection";
 import ClientsSection from "@/components/sections/ClientsSection";
@@ -16,6 +17,7 @@ const CreatorsLanding = () => {
       <ClientsSection />
       <ProblemSolution />
       <Features />
+      <DashboardPreview />
       <PricingSection />
       <CTASection />
     </div>
