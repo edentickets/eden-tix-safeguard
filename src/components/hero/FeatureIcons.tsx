@@ -9,7 +9,7 @@ const FeatureIcons = () => {
   ];
 
   return (
-    <div className="flex flex-wrap justify-center gap-8 py-4"> {/* Reduced padding here */}
+    <div className="flex flex-wrap justify-center gap-8 pt-16"> {/* Adjusted padding to work with negative margin */}
       {features.map(({ icon: Icon, text, delay }, index) => (
         <motion.div
           key={text}
