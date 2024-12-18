@@ -95,31 +95,40 @@ export type Database = {
       tickets: {
         Row: {
           created_at: string | null
+          current_qr_code: string | null
           event_id: string | null
           id: string
+          last_checked_in_at: string | null
           owner_id: string | null
           purchase_price: number
           qr_code: string | null
+          qr_code_updated_at: string | null
           status: string
           updated_at: string | null
         }
         Insert: {
           created_at?: string | null
+          current_qr_code?: string | null
           event_id?: string | null
           id?: string
+          last_checked_in_at?: string | null
           owner_id?: string | null
           purchase_price: number
           qr_code?: string | null
+          qr_code_updated_at?: string | null
           status: string
           updated_at?: string | null
         }
         Update: {
           created_at?: string | null
+          current_qr_code?: string | null
           event_id?: string | null
           id?: string
+          last_checked_in_at?: string | null
           owner_id?: string | null
           purchase_price?: number
           qr_code?: string | null
+          qr_code_updated_at?: string | null
           status?: string
           updated_at?: string | null
         }
@@ -148,7 +157,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      ticket_status: "active" | "used" | "expired" | "cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
