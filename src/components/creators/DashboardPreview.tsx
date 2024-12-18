@@ -6,6 +6,9 @@ import {
   Database,
   ArrowUp,
 } from "lucide-react";
+import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
+import { LiveMetrics } from "@/components/dashboard/LiveMetrics";
+import { PerformanceMetrics } from "@/components/dashboard/PerformanceMetrics";
 
 export const DashboardPreview = () => {
   return (
@@ -81,12 +84,13 @@ export const DashboardPreview = () => {
             className="relative"
           >
             <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-2xl">
-              <img 
-                src="/dashboard-preview.png" 
-                alt="Eden Dashboard Preview" 
-                className="w-full rounded-xl"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-eden-dark/80 to-transparent" />
+              <div className="bg-eden-dark/90 backdrop-blur-sm p-6 rounded-xl">
+                <DashboardHeader />
+                <div className="mt-6">
+                  <PerformanceMetrics />
+                </div>
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-eden-dark/80 to-transparent pointer-events-none" />
             </div>
 
             <motion.div
