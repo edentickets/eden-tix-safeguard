@@ -10,14 +10,14 @@ import {
 
 const features = [
   {
-    icon: <Banknote className="w-6 h-6" />,
-    title: "Smart Revenue Share",
-    description: "Earn from both primary sales and resales with our innovative revenue sharing model. Finally capture value from the secondary market."
-  },
-  {
     icon: <Shield className="w-6 h-6" />,
     title: "Dynamic Security",
     description: "Real-time QR validation and proximity-based activation prevent unauthorized ticket transfers."
+  },
+  {
+    icon: <Banknote className="w-6 h-6" />,
+    title: "Secondary Market Revenue",
+    description: "Finally capture value from resales with automatic revenue sharing and industry-low fees."
   },
   {
     icon: <Users className="w-6 h-6" />,
@@ -56,8 +56,8 @@ export const ProblemSolution = () => {
             The Future of Event Ticketing
           </h2>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            Traditional ticketing platforms struggle with fraud, scalping, and revenue leakage. 
-            Eden solves these problems with smart digital security and real-time features.
+            Traditional ticketing platforms struggle with security and revenue leakage. 
+            Eden provides advanced protection while helping you earn from every ticket transfer.
           </p>
         </motion.div>
 
