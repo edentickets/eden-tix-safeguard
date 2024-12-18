@@ -7,7 +7,7 @@ const NFTTicketPreview = () => {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 1.5 }}
-      className="mt-12"
+      className="mt-8 mb-4" // Adjusted spacing here
     >
       <div className="relative w-full max-w-md mx-auto animate-float">
         <div className="absolute inset-0 bg-gradient-secondary opacity-20 blur-xl rounded-xl" />
