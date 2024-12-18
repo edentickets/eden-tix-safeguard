@@ -17,47 +17,51 @@ const HeroSection = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="relative max-w-7xl mx-auto text-center space-y-8"
+        className="relative max-w-7xl mx-auto text-center"
       >
         {/* Main Heading */}
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
-          <motion.span 
+        <div className="space-y-8">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
+            <motion.span 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="gradient-text"
+            >
+              Revolutionize Ticketing.
+            </motion.span>
+            <motion.span 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className="block text-white mt-2"
+            >
+              The Future of Events is Here
+            </motion.span>
+          </h1>
+
+          {/* NFT Ticket Preview - Positioned between heading and description */}
+          <div className="-mb-12 relative z-10">
+            <NFTTicketPreview />
+          </div>
+
+          {/* Description */}
+          <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="gradient-text"
+            transition={{ delay: 1 }}
+            className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed relative z-20 bg-eden-dark/80 backdrop-blur-sm rounded-lg p-4"
           >
-            Revolutionize Ticketing.
-          </motion.span>
-          <motion.span 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="block text-white mt-2"
-          >
-            The Future of Events is Here
-          </motion.span>
-        </h1>
+            Discover, buy, and resell tickets with confidence. Experience seamless ticketing 
+            with state of the art digital dynamic security and real-time alerts.
+          </motion.p>
 
-        {/* Description */}
-        <motion.p 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed"
-        >
-          Discover, buy, and resell tickets with confidence. Experience seamless ticketing 
-          with state of the art digital dynamic security and real-time alerts.
-        </motion.p>
+          {/* Feature Icons */}
+          <FeatureIcons />
 
-        {/* Feature Icons */}
-        <FeatureIcons />
-
-        {/* CTAs */}
-        <HeroCTAs />
-
-        {/* NFT Ticket Preview */}
-        <NFTTicketPreview />
+          {/* CTAs */}
+          <HeroCTAs />
+        </div>
       </motion.div>
     </div>
   );
