@@ -12,29 +12,13 @@ import { PerformanceMetrics } from "@/components/dashboard/PerformanceMetrics";
 
 export const DashboardPreview = () => {
   return (
-    <div className="max-w-7xl mx-auto px-4">
+    <div className="max-w-5xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-12"
-      >
-        <h2 className="text-4xl font-medium gradient-text mb-4">
-          Powerful Insights at Your Fingertips
-        </h2>
-        <p className="text-lg text-white/70 max-w-2xl mx-auto">
-          Make data-driven decisions with our comprehensive dashboard. Track sales, monitor trends, 
-          and maximize revenue from both primary and secondary markets.
-        </p>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="relative mx-auto max-w-5xl"
+        className="relative mx-auto"
       >
         <div className="relative rounded-lg overflow-hidden border border-white/10 shadow-2xl">
           <div className="bg-eden-dark/90 backdrop-blur-sm p-4 rounded-lg">

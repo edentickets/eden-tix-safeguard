@@ -52,10 +52,10 @@ export const Features = () => {
             </motion.div>
           ))}
         </div>
-      </div>
 
-      {/* Dashboard preview below feature cards */}
-      <DashboardPreview />
+        {/* Dashboard preview below feature cards */}
+        <DashboardPreview />
+      </div>
     </section>
   );
 };
