@@ -42,7 +42,8 @@ export const useEvent = (id?: string) => {
         .from('events')
         .select(`
           *,
-          creator:profiles(*)
+          creator:profiles(*),
+          tickets(*)
         `)
         .eq('id', id)
         .maybeSingle();
