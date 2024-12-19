@@ -1,24 +1,21 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { useProfile } from "@/hooks/use-profile";
 import { useProfileMutation } from "@/hooks/use-profile-mutation";
 import { useAuthState } from "@/hooks/use-auth-state";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Loader2, Upload, Instagram, Facebook, Twitter } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
+import { AvatarUpload } from "./AvatarUpload";
+import { SocialLinksForm } from "./SocialLinksForm";
+import { CreatorInfoForm } from "./CreatorInfoForm";
 
 export const ProfileForm = () => {
   const { user } = useAuthState();
   const { data: profile, isLoading } = useProfile(user);
   const { mutate: updateProfile, isPending } = useProfileMutation();
-  const { toast } = useToast();
-  const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
   const [formData, setFormData] = useState({
     username: profile?.username || "",
@@ -33,44 +30,6 @@ export const ProfileForm = () => {
       twitter: ""
     }
   });
-
-  const handleAvatarUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
-    try {
-      if (!event.target.files || !event.target.files[0]) return;
-      
-      const file = event.target.files[0];
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${user?.id}/${Date.now()}.${fileExt}`;
-      
-      setUploadingAvatar(true);
-      
-      const { error: uploadError, data } = await supabase.storage
-        .from('avatars')
-        .upload(fileName, file, { upsert: true });
-
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('avatars')
-        .getPublicUrl(fileName);
-
-      setFormData(prev => ({ ...prev, avatar_url: publicUrl }));
-      updateProfile({ ...formData, avatar_url: publicUrl });
-      
-      toast({
-        title: "Avatar updated",
-        description: "Your profile picture has been updated successfully.",
-      });
-    } catch (error) {
-      toast({
-        title: "Error uploading avatar",
-        description: "There was an error uploading your profile picture. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setUploadingAvatar(false);
-    }
-  }, [user, formData, updateProfile, toast]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,33 +47,12 @@ export const ProfileForm = () => {
   return (
     <Card className="p-6 bg-eden-light/30 backdrop-blur-sm border-eden-light/10">
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="flex flex-col items-center mb-6">
-          <Avatar className="w-24 h-24 mb-4">
-            <AvatarImage src={formData.avatar_url || undefined} alt={formData.full_name} />
-            <AvatarFallback>{formData.full_name?.[0]}</AvatarFallback>
-          </Avatar>
-          <div className="flex items-center gap-2">
-            <Input
-              type="file"
-              accept="image/*"
-              onChange={handleAvatarUpload}
-              className="hidden"
-              id="avatar-upload"
-              disabled={uploadingAvatar}
-            />
-            <Label
-              htmlFor="avatar-upload"
-              className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-md bg-eden-accent/20 text-eden-accent hover:bg-eden-accent/30 transition-colors"
-            >
-              {uploadingAvatar ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <Upload className="h-4 w-4" />
-              )}
-              Upload Photo
-            </Label>
-          </div>
-        </div>
+        <AvatarUpload
+          userId={user?.id || ''}
+          currentAvatarUrl={formData.avatar_url}
+          fullName={formData.full_name}
+          onAvatarUpdate={(url) => setFormData(prev => ({ ...prev, avatar_url: url }))}
+        />
 
         <div className="space-y-4">
           <div>
@@ -147,82 +85,18 @@ export const ProfileForm = () => {
           </div>
 
           {formData.is_creator && (
-            <>
-              <div>
-                <Label htmlFor="creator_tagline">Tagline</Label>
-                <Input
-                  id="creator_tagline"
-                  value={formData.creator_tagline}
-                  onChange={(e) => setFormData(prev => ({ ...prev, creator_tagline: e.target.value }))}
-                  className="bg-white/5 border-white/10"
-                  placeholder="Your catchy tagline as an event creator"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="creator_bio">Bio</Label>
-                <Textarea
-                  id="creator_bio"
-                  value={formData.creator_bio}
-                  onChange={(e) => setFormData(prev => ({ ...prev, creator_bio: e.target.value }))}
-                  className="bg-white/5 border-white/10"
-                  placeholder="Tell us about yourself and your events"
-                  rows={4}
-                />
-              </div>
-            </>
+            <CreatorInfoForm
+              tagline={formData.creator_tagline}
+              bio={formData.creator_bio}
+              onTaglineChange={(value) => setFormData(prev => ({ ...prev, creator_tagline: value }))}
+              onBioChange={(value) => setFormData(prev => ({ ...prev, creator_bio: value }))}
+            />
           )}
 
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Social Media Links</h3>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <Instagram className="w-5 h-5 text-gray-400" />
-                <Input
-                  placeholder="Instagram profile URL"
-                  value={formData.social_links.instagram}
-                  onChange={(e) => setFormData(prev => ({
-                    ...prev,
-                    social_links: {
-                      ...prev.social_links,
-                      instagram: e.target.value
-                    }
-                  }))}
-                  className="bg-white/5 border-white/10"
-                />
-              </div>
-              <div className="flex items-center gap-3">
-                <Facebook className="w-5 h-5 text-gray-400" />
-                <Input
-                  placeholder="Facebook profile URL"
-                  value={formData.social_links.facebook}
-                  onChange={(e) => setFormData(prev => ({
-                    ...prev,
-                    social_links: {
-                      ...prev.social_links,
-                      facebook: e.target.value
-                    }
-                  }))}
-                  className="bg-white/5 border-white/10"
-                />
-              </div>
-              <div className="flex items-center gap-3">
-                <Twitter className="w-5 h-5 text-gray-400" />
-                <Input
-                  placeholder="Twitter profile URL"
-                  value={formData.social_links.twitter}
-                  onChange={(e) => setFormData(prev => ({
-                    ...prev,
-                    social_links: {
-                      ...prev.social_links,
-                      twitter: e.target.value
-                    }
-                  }))}
-                  className="bg-white/5 border-white/10"
-                />
-              </div>
-            </div>
-          </div>
+          <SocialLinksForm
+            socialLinks={formData.social_links}
+            onChange={(links) => setFormData(prev => ({ ...prev, social_links: links }))}
+          />
         </div>
 
         <Button 
