@@ -9,14 +9,17 @@ import { Navbar } from "@/components/Navbar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuthState } from "@/hooks/use-auth-state";
 import { Event } from "@/types/event";
+import { Loader } from "lucide-react";
 
 const EventDetails = () => {
   const { id } = useParams();
   const { user } = useAuthState();
 
-  const { data: event, isLoading } = useQuery({
+  const { data: event, isLoading, error } = useQuery({
     queryKey: ["event", id],
     queryFn: async () => {
+      if (!id) throw new Error("Event ID is required");
+      
       const { data, error } = await supabase
         .from("events")
         .select(`
@@ -25,7 +28,7 @@ const EventDetails = () => {
         `)
         .eq("id", id)
         .maybeSingle();
-
+      
       if (error) throw error;
       if (!data) throw new Error("Event not found");
       
@@ -38,19 +41,17 @@ const EventDetails = () => {
     return (
       <div className="min-h-screen bg-eden-dark">
         <Navbar />
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <Skeleton className="h-[400px] w-full rounded-xl" />
-          <div className="mt-8 space-y-4">
-            <Skeleton className="h-8 w-1/3" />
-            <Skeleton className="h-4 w-2/3" />
-            <Skeleton className="h-4 w-1/2" />
+        <div className="flex items-center justify-center h-[calc(100vh-64px)]">
+          <div className="flex flex-col items-center gap-4">
+            <Loader className="w-8 h-8 animate-spin text-eden-primary" />
+            <p className="text-white">Loading event details...</p>
           </div>
         </div>
       </div>
     );
   }
 
-  if (!event) {
+  if (error || !event) {
     return (
       <div className="min-h-screen bg-eden-dark">
         <Navbar />
