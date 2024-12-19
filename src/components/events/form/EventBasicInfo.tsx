@@ -1,28 +1,11 @@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { FormItem, FormLabel, FormControl, FormMessage, FormField } from "@/components/ui/form";
 import { UseFormReturn } from "react-hook-form";
-import { z } from "zod";
-
-const eventBasicInfoSchema = z.object({
-  title: z.string().min(3, "Title must be at least 3 characters"),
-  description: z.string().optional(),
-  location: z.string().min(3, "Location must be at least 3 characters"),
-});
-
-export type EventBasicInfoSchema = z.infer<typeof eventBasicInfoSchema>;
+import { EventFormValues } from "../CreateEventForm";
 
 interface EventBasicInfoProps {
-  form: UseFormReturn<{
-    title: string;
-    description: string;
-    location: string;
-    startDate: Date;
-    endDate: Date;
-    totalTickets: number;
-    price: number;
-  }>;
+  form: UseFormReturn<EventFormValues>;
 }
 
 export const EventBasicInfo = ({ form }: EventBasicInfoProps) => {

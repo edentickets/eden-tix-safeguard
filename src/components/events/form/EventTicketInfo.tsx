@@ -1,25 +1,10 @@
 import { Input } from "@/components/ui/input";
 import { FormItem, FormLabel, FormControl, FormMessage, FormField } from "@/components/ui/form";
 import { UseFormReturn } from "react-hook-form";
-import { z } from "zod";
-
-const eventTicketSchema = z.object({
-  totalTickets: z.number().min(1, "Must have at least 1 ticket"),
-  price: z.number().min(0, "Price cannot be negative"),
-});
-
-export type EventTicketSchema = z.infer<typeof eventTicketSchema>;
+import { EventFormValues } from "../CreateEventForm";
 
 interface EventTicketInfoProps {
-  form: UseFormReturn<{
-    title: string;
-    description: string;
-    location: string;
-    startDate: Date;
-    endDate: Date;
-    totalTickets: number;
-    price: number;
-  }>;
+  form: UseFormReturn<EventFormValues>;
 }
 
 export const EventTicketInfo = ({ form }: EventTicketInfoProps) => {

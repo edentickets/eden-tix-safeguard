@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Form } from "@/components/ui/form";
 
-const eventFormSchema = z.object({
+export const eventFormSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters"),
   description: z.string().optional(),
   location: z.string().min(3, "Location must be at least 3 characters"),
@@ -28,10 +28,14 @@ const eventFormSchema = z.object({
   path: ["endDate"],
 });
 
-type EventFormValues = z.infer<typeof eventFormSchema>;
+export type EventFormValues = z.infer<typeof eventFormSchema>;
 
-const defaultValues: Partial<EventFormValues> = {
+const defaultValues: EventFormValues = {
+  title: "",
   description: "",
+  location: "",
+  startDate: new Date(),
+  endDate: new Date(),
   totalTickets: 1,
   price: 0,
 };

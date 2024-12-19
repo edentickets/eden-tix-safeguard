@@ -6,25 +6,10 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { UseFormReturn } from "react-hook-form";
-import { z } from "zod";
-
-const eventDateSchema = z.object({
-  startDate: z.date(),
-  endDate: z.date(),
-});
-
-export type EventDateSchema = z.infer<typeof eventDateSchema>;
+import { EventFormValues } from "../CreateEventForm";
 
 interface EventDatePickerProps {
-  form: UseFormReturn<{
-    title: string;
-    description: string;
-    location: string;
-    startDate: Date;
-    endDate: Date;
-    totalTickets: number;
-    price: number;
-  }>;
+  form: UseFormReturn<EventFormValues>;
 }
 
 export const EventDatePicker = ({ form }: EventDatePickerProps) => {
