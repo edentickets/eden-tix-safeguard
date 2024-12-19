@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useProfile } from "@/hooks/use-profile";
 import { useProfileMutation } from "@/hooks/use-profile-mutation";
 import { useAuthState } from "@/hooks/use-auth-state";
@@ -8,12 +8,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { Loader2 } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Loader2, Upload } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 export const ProfileForm = () => {
   const { user } = useAuthState();
   const { data: profile, isLoading } = useProfile(user);
   const { mutate: updateProfile, isPending } = useProfileMutation();
+  const { toast } = useToast();
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
   const [formData, setFormData] = useState({
     username: profile?.username || "",
@@ -21,7 +26,46 @@ export const ProfileForm = () => {
     is_creator: profile?.is_creator || false,
     creator_bio: profile?.creator_bio || "",
     creator_tagline: profile?.creator_tagline || "",
+    avatar_url: profile?.avatar_url || "",
   });
+
+  const handleAvatarUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      if (!event.target.files || !event.target.files[0]) return;
+      
+      const file = event.target.files[0];
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${user?.id}/${Date.now()}.${fileExt}`;
+      
+      setUploadingAvatar(true);
+      
+      const { error: uploadError, data } = await supabase.storage
+        .from('avatars')
+        .upload(fileName, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(fileName);
+
+      setFormData(prev => ({ ...prev, avatar_url: publicUrl }));
+      updateProfile({ ...formData, avatar_url: publicUrl });
+      
+      toast({
+        title: "Avatar updated",
+        description: "Your profile picture has been updated successfully.",
+      });
+    } catch (error) {
+      toast({
+        title: "Error uploading avatar",
+        description: "There was an error uploading your profile picture. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setUploadingAvatar(false);
+    }
+  }, [user, formData, updateProfile, toast]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,6 +83,34 @@ export const ProfileForm = () => {
   return (
     <Card className="p-6 bg-eden-light/30 backdrop-blur-sm border-eden-light/10">
       <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="flex flex-col items-center mb-6">
+          <Avatar className="w-24 h-24 mb-4">
+            <AvatarImage src={formData.avatar_url || undefined} alt={formData.full_name} />
+            <AvatarFallback>{formData.full_name?.[0]}</AvatarFallback>
+          </Avatar>
+          <div className="flex items-center gap-2">
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={handleAvatarUpload}
+              className="hidden"
+              id="avatar-upload"
+              disabled={uploadingAvatar}
+            />
+            <Label
+              htmlFor="avatar-upload"
+              className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-md bg-eden-accent/20 text-eden-accent hover:bg-eden-accent/30 transition-colors"
+            >
+              {uploadingAvatar ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Upload className="h-4 w-4" />
+              )}
+              Upload Photo
+            </Label>
+          </div>
+        </div>
+
         <div className="space-y-4">
           <div>
             <Label htmlFor="full_name">Full Name</Label>
