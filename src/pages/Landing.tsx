@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Navbar } from "@/components/Navbar";
 import HeroSection from "@/components/sections/HeroSection";
 import ProblemStatementSection from "@/components/sections/ProblemStatementSection";
 import FeaturesSection from "@/components/sections/FeaturesSection";
@@ -24,8 +23,6 @@ const Landing = () => {
 
   return (
     <div className="min-h-screen bg-eden-dark">
-      <Navbar />
-      
       <main>
         <HeroSection />
         <ProblemStatementSection />
