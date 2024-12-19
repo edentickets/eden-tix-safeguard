@@ -26,49 +26,104 @@ const problems = [
 ];
 
 const ProblemStatementSection = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 10
+      }
+    }
+  };
+
+  const iconVariants = {
+    hidden: { scale: 0.8, rotate: -10 },
+    visible: { 
+      scale: 1, 
+      rotate: 0,
+      transition: {
+        type: "spring",
+        stiffness: 200
+      }
+    },
+    hover: { 
+      scale: 1.1,
+      rotate: 5,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 10
+      }
+    }
+  };
+
   return (
     <section className="py-24 px-4 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-primary opacity-5" />
-      <div className="max-w-7xl mx-auto relative">
-        <div className="text-center space-y-4 mb-16">
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="max-w-7xl mx-auto relative"
+      >
+        <motion.div 
+          variants={containerVariants}
+          className="text-center space-y-4 mb-16"
+        >
           <motion.h2 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            variants={itemVariants}
             className="text-4xl md:text-5xl font-medium gradient-text"
           >
             Traditional Ticketing Is Broken
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            variants={itemVariants}
             className="text-xl text-white/70"
           >
             We're here to fix that
           </motion.p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <motion.div 
+          variants={containerVariants}
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
           {problems.map((problem, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+              className="h-full"
             >
-              <Card className="glass-card p-6 space-y-4 hover:border-eden-primary/30 transition-all duration-300">
-                <div className="text-eden-primary">{problem.icon}</div>
+              <Card className="glass-card p-6 space-y-4 hover:border-eden-primary/30 transition-all duration-300 h-full">
+                <motion.div 
+                  variants={iconVariants}
+                  whileHover="hover"
+                  className="text-eden-primary"
+                >
+                  {problem.icon}
+                </motion.div>
                 <h3 className="text-lg font-medium text-white">{problem.title}</h3>
                 <p className="text-white/70">{problem.description}</p>
               </Card>
             </motion.div>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };
