@@ -15,9 +15,8 @@ const EventDetails = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-eden-dark">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <Skeleton className="h-[400px] w-full rounded-xl" />
-          <div className="mt-8 space-y-4">
+        <div className="max-w-7xl mx-auto px-4 py-32">
+          <div className="space-y-4">
             <Skeleton className="h-8 w-1/3" />
             <Skeleton className="h-4 w-2/3" />
             <Skeleton className="h-4 w-1/2" />
@@ -58,7 +57,7 @@ const EventDetails = () => {
       <EventHero event={event} />
       <EventHighlights event={event} />
       <TicketTiers />
-      {user && <EventCTA event={event} userId={user.id} />}
+      <EventCTA event={event} isAuthenticated={!!user} />
     </main>
   );
 };

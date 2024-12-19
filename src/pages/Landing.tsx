@@ -32,7 +32,6 @@ const Landing = () => {
         <ClientsSection />
         <CTASection />
       </main>
-
       <AuthModal />
     </div>
   );

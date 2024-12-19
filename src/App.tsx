@@ -2,13 +2,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import { supabase } from "@/integrations/supabase/client";
 import { lazy, Suspense } from 'react';
-import { Navbar } from "@/components/Navbar";
-import Background3D from "@/components/Background3D";
 import { AuthProvider } from "@/contexts/auth-context";
+import { MainLayout } from "@/layouts/MainLayout";
 
 // Lazy load page components
 const Landing = lazy(() => import("./pages/Landing"));
@@ -32,21 +31,6 @@ const queryClient = new QueryClient({
   },
 });
 
-// Layout component with shared elements
-const Layout = () => (
-  <div className="min-h-screen bg-eden-dark overflow-hidden">
-    <Background3D />
-    <Navbar />
-    <Suspense fallback={
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-eden-primary" />
-      </div>
-    }>
-      <Outlet />
-    </Suspense>
-  </div>
-);
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <SessionContextProvider supabaseClient={supabase}>
@@ -56,7 +40,7 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <Routes>
-              <Route element={<Layout />}>
+              <Route element={<MainLayout />}>
                 <Route path="/" element={<Landing />} />
                 <Route path="/creators" element={<CreatorsLanding />} />
                 <Route path="/users" element={<UsersLanding />} />
@@ -65,6 +49,7 @@ const App = () => (
                 <Route path="/dashboard" element={<CreatorDashboard />} />
                 <Route path="/profile" element={<CreatorProfile />} />
                 <Route path="/user-profile" element={<UserProfile />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
               </Route>
             </Routes>
           </BrowserRouter>
