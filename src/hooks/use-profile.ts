@@ -9,6 +9,10 @@ interface Profile {
   avatar_url: string | null;
   created_at: string | null;
   updated_at: string | null;
+  is_creator: boolean | null;
+  creator_bio: string | null;
+  creator_tagline: string | null;
+  social_links: Record<string, string> | null;
 }
 
 export const useProfile = (user: User | null) => {
