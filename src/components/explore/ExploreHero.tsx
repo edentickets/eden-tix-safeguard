@@ -1,5 +1,7 @@
 import { SearchBar } from "./SearchBar";
 import { FilterSection } from "./FilterSection";
+import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
+import { motion } from "framer-motion";
 import {
   Pagination,
   PaginationContent,
@@ -18,6 +20,7 @@ interface ExploreHeroProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  isLoading?: boolean;
 }
 
 export const ExploreHero = ({
@@ -29,7 +32,25 @@ export const ExploreHero = ({
   currentPage,
   totalPages,
   onPageChange,
+  isLoading = false,
 }: ExploreHeroProps) => {
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <div className="relative py-20 overflow-hidden">
       <div className="absolute inset-0 bg-eden-dark">
@@ -37,29 +58,54 @@ export const ExploreHero = ({
         <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(68,68,68,.2)_50%,transparent_75%,transparent_100%)] bg-[length:20px_20px] animate-pulse" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+      >
+        <motion.h1
+          variants={itemVariants}
+          className="text-4xl md:text-5xl font-bold mb-6 gradient-text"
+        >
           Find Your Next Unforgettable Experience
-        </h1>
+        </motion.h1>
 
         <div className="max-w-2xl mx-auto space-y-8">
-          <SearchBar onSearchChange={onSearchChange} />
+          {isLoading ? (
+            <LoadingSkeleton className="h-14 w-full" />
+          ) : (
+            <motion.div variants={itemVariants}>
+              <SearchBar onSearchChange={onSearchChange} />
+            </motion.div>
+          )}
           
-          <FilterSection
-            onLocationChange={onLocationChange}
-            onEventTypeChange={onEventTypeChange}
-            onPriceRangeChange={onPriceRangeChange}
-            onSortChange={onSortChange}
-          />
+          {isLoading ? (
+            <LoadingSkeleton className="h-48 w-full" />
+          ) : (
+            <motion.div variants={itemVariants}>
+              <FilterSection
+                onLocationChange={onLocationChange}
+                onEventTypeChange={onEventTypeChange}
+                onPriceRangeChange={onPriceRangeChange}
+                onSortChange={onSortChange}
+              />
+            </motion.div>
+          )}
 
           {totalPages > 1 && (
-            <div className="mt-8">
+            <motion.div
+              variants={itemVariants}
+              className="mt-8"
+            >
               <Pagination>
                 <PaginationContent>
                   <PaginationItem>
                     <PaginationPrevious
                       onClick={() => onPageChange(currentPage - 1)}
-                      className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                      className={`transition-opacity duration-200 ${
+                        currentPage === 1 ? "pointer-events-none opacity-50" : ""
+                      }`}
                     />
                   </PaginationItem>
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -67,6 +113,7 @@ export const ExploreHero = ({
                       <PaginationLink
                         onClick={() => onPageChange(page)}
                         isActive={currentPage === page}
+                        className="transition-colors duration-200 hover:bg-eden-primary/20"
                       >
                         {page}
                       </PaginationLink>
@@ -75,15 +122,17 @@ export const ExploreHero = ({
                   <PaginationItem>
                     <PaginationNext
                       onClick={() => onPageChange(currentPage + 1)}
-                      className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+                      className={`transition-opacity duration-200 ${
+                        currentPage === totalPages ? "pointer-events-none opacity-50" : ""
+                      }`}
                     />
                   </PaginationItem>
                 </PaginationContent>
               </Pagination>
-            </div>
+            </motion.div>
           )}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
