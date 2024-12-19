@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { FormItem, FormLabel, FormControl, FormMessage, FormField } from "@/components/ui/form";
 import { UseFormReturn } from "react-hook-form";
-import { EventFormValues } from "../CreateEventForm";
+import { EventFormValues } from "./eventFormSchema";
 
 interface EventTicketInfoProps {
   form: UseFormReturn<EventFormValues>;

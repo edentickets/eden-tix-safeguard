@@ -6,7 +6,7 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { UseFormReturn } from "react-hook-form";
-import { EventFormValues } from "../CreateEventForm";
+import { EventFormValues } from "./eventFormSchema";
 
 interface EventDatePickerProps {
   form: UseFormReturn<EventFormValues>;

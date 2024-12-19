@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FormItem, FormLabel, FormControl, FormMessage, FormField } from "@/components/ui/form";
 import { UseFormReturn } from "react-hook-form";
-import { EventFormValues } from "../CreateEventForm";
+import { EventFormValues } from "./eventFormSchema";
 
 interface EventBasicInfoProps {
   form: UseFormReturn<EventFormValues>;
