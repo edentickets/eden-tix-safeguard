@@ -29,6 +29,13 @@ export const ProfileForm = () => {
     twitter: ""
   };
 
+  // Convert profile social_links from Record<string, string> to SocialLinks
+  const initialSocialLinks: SocialLinks = profile?.social_links ? {
+    instagram: profile.social_links.instagram || "",
+    facebook: profile.social_links.facebook || "",
+    twitter: profile.social_links.twitter || ""
+  } : defaultSocialLinks;
+
   const [formData, setFormData] = useState({
     username: profile?.username || "",
     full_name: profile?.full_name || "",
@@ -36,12 +43,22 @@ export const ProfileForm = () => {
     creator_bio: profile?.creator_bio || "",
     creator_tagline: profile?.creator_tagline || "",
     avatar_url: profile?.avatar_url || "",
-    social_links: (profile?.social_links as SocialLinks) || defaultSocialLinks
+    social_links: initialSocialLinks
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    updateProfile(formData);
+    // Convert SocialLinks back to Record<string, string> for the mutation
+    const socialLinksRecord: Record<string, string> = {
+      instagram: formData.social_links.instagram,
+      facebook: formData.social_links.facebook,
+      twitter: formData.social_links.twitter
+    };
+    
+    updateProfile({
+      ...formData,
+      social_links: socialLinksRecord
+    });
   };
 
   if (isLoading) {
