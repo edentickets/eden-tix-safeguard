@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { ExploreHero } from "@/components/explore/ExploreHero";
 import { EventGrid } from "@/components/explore/EventGrid";
+import { CategorySection } from "@/components/explore/CategorySection";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Event } from "@/types/event";
@@ -75,6 +76,7 @@ const Explore = () => {
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
+      <CategorySection />
       <EventGrid 
         title={filters.searchQuery ? "Search Results" : "All Events"} 
         events={filteredEvents} 

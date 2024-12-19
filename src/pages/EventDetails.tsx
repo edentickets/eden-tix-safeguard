@@ -24,9 +24,11 @@ const EventDetails = () => {
           creator:profiles(*)
         `)
         .eq("id", id)
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
+      if (!data) throw new Error("Event not found");
+      
       return data as Event;
     },
     enabled: !!id,
