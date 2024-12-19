@@ -1,78 +1,32 @@
-import React from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuthState } from "@/hooks/use-auth-state";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { UserStats } from "@/components/profile/UserStats";
 import { UserBio } from "@/components/profile/UserBio";
 import { UserTickets } from "@/components/profile/UserTickets";
 import { UserRewards } from "@/components/profile/UserRewards";
-import { EventGrid } from "@/components/explore/EventGrid";
-import { Edit2, Ticket, Users, Award, Bell } from "lucide-react";
-import { Event } from "@/types/event";
-
-// Mock user data
-const userData = {
-  username: "music_lover_99",
-  displayName: "Alex Thompson",
-  membershipStatus: "VIP Member",
-  avatar: "/placeholder.svg",
-  banner: "/placeholder.svg",
-  stats: {
-    ticketsPurchased: 24,
-    ticketsResold: 8,
-    rewardsPoints: 2500,
-    followingCount: 12
-  },
-  bio: "Passionate about music festivals and live events. Always looking for the next big show! 🎵✨",
-  followedCreators: [
-    {
-      id: "1",
-      name: "Rolling Loud",
-      image: "/placeholder.svg",
-      isFollowing: true
-    }
-  ]
-};
-
-// Mock upcoming events data
-const upcomingEvents: Event[] = [
-  {
-    id: "1",
-    creator_id: "1",
-    title: "Rolling Loud Miami 2025",
-    description: "The world's largest hip-hop festival returns to Miami",
-    location: "Hard Rock Stadium, Miami",
-    start_date: "2025-07-19T00:00:00Z",
-    end_date: "2025-07-21T00:00:00Z",
-    image_url: "/placeholder.svg",
-    total_tickets: 5000,
-    available_tickets: 2500,
-    price: 299,
-    organizer: "Rolling Loud",
-    rating: 4.9,
-    reviews: 856,
-    highlights: [
-      {
-        icon: "music",
-        title: "Live Performances",
-        description: "Over 100 artists across 3 days"
-      },
-      {
-        icon: "star",
-        title: "VIP Experience",
-        description: "Exclusive backstage access"
-      },
-      {
-        icon: "food",
-        title: "Food & Drinks",
-        description: "Curated selection of cuisine"
-      }
-    ]
-  }
-];
+import { ProfileForm } from "@/components/profile/ProfileForm";
+import { Edit2 } from "lucide-react";
+import { useProfile } from "@/hooks/use-profile";
 
 export default function UserProfile() {
+  const navigate = useNavigate();
+  const { user } = useAuthState();
+  const { data: profile } = useProfile(user);
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
+
+  if (!user || !profile) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen bg-eden-dark">
       {/* Hero Section */}
@@ -81,46 +35,43 @@ export default function UserProfile() {
         <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-eden-dark to-transparent">
           <div className="max-w-7xl mx-auto flex items-end gap-6">
             <Avatar className="w-24 h-24 border-4 border-eden-dark">
-              <AvatarImage src={userData.avatar} alt={userData.username} />
-              <AvatarFallback>AT</AvatarFallback>
+              <AvatarImage src={profile.avatar_url || undefined} alt={profile.username} />
+              <AvatarFallback>{profile.full_name?.[0] || user.email?.[0]}</AvatarFallback>
             </Avatar>
             <div className="flex-1 mb-2">
               <div className="flex items-center gap-3">
-                <h1 className="text-2xl font-bold text-white">{userData.displayName}</h1>
-                <Badge variant="secondary" className="bg-eden-accent/20 text-eden-accent">
-                  {userData.membershipStatus}
-                </Badge>
+                <h1 className="text-2xl font-bold text-white">{profile.full_name || 'Anonymous'}</h1>
+                {profile.is_creator && (
+                  <Badge variant="secondary" className="bg-eden-accent/20 text-eden-accent">
+                    Event Creator
+                  </Badge>
+                )}
               </div>
-              <p className="text-gray-400">@{userData.username}</p>
+              <p className="text-gray-400">@{profile.username || 'anonymous'}</p>
             </div>
-            <Button variant="outline" className="mb-2">
-              <Edit2 className="mr-2 h-4 w-4" />
-              Edit Profile
-            </Button>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-8 space-y-8">
-        {/* Stats Section */}
-        <UserStats stats={userData.stats} />
+        {/* Profile Form */}
+        <ProfileForm />
 
-        {/* Bio Section */}
-        <UserBio bio={userData.bio} followedCreators={userData.followedCreators} />
+        {/* Stats Section */}
+        <UserStats stats={{
+          ticketsPurchased: 0,
+          ticketsResold: 0,
+          rewardsPoints: 0,
+          followingCount: 0
+        }} />
 
         {/* Tickets Section */}
         <UserTickets />
 
         {/* Rewards Section */}
-        <UserRewards points={userData.stats.rewardsPoints} />
-
-        {/* Upcoming Events Section */}
-        <div>
-          <h2 className="text-2xl font-bold text-white mb-6">My Upcoming Events</h2>
-          <EventGrid title="" events={upcomingEvents} />
-        </div>
+        <UserRewards points={0} />
       </div>
     </div>
   );
-}
+};
