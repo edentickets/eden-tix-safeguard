@@ -4,13 +4,21 @@ import { Event } from "@/types/event";
 
 interface EventCTAProps {
   event: Event;
-  userId: string;
+  isAuthenticated: boolean;
 }
 
-export const EventCTA = ({ event, userId }: EventCTAProps) => {
+export const EventCTA = ({ event, isAuthenticated }: EventCTAProps) => {
   const { toast } = useToast();
 
   const handlePurchase = () => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to purchase tickets.",
+      });
+      return;
+    }
+    
     toast({
       title: "Coming Soon!",
       description: "Ticket purchasing will be available soon.",
@@ -18,6 +26,14 @@ export const EventCTA = ({ event, userId }: EventCTAProps) => {
   };
 
   const handleAlert = () => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Sign in required",
+        description: "Please sign in to set price alerts.",
+      });
+      return;
+    }
+
     toast({
       title: "Alert Set!",
       description: "We'll notify you about price changes.",
