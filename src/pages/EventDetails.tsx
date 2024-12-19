@@ -5,7 +5,6 @@ import { EventHero } from "@/components/event/EventHero";
 import { EventHighlights } from "@/components/event/EventHighlights";
 import { TicketTiers } from "@/components/event/TicketTiers";
 import { EventCTA } from "@/components/event/EventCTA";
-import { Navbar } from "@/components/Navbar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuthState } from "@/hooks/use-auth-state";
 import { Event } from "@/types/event";
@@ -24,7 +23,7 @@ const EventDetails = () => {
           creator:profiles(*)
         `)
         .eq("id", id)
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
       return data as Event;
@@ -35,7 +34,6 @@ const EventDetails = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-eden-dark">
-        <Navbar />
         <div className="max-w-7xl mx-auto px-4 py-8">
           <Skeleton className="h-[400px] w-full rounded-xl" />
           <div className="mt-8 space-y-4">
@@ -51,7 +49,6 @@ const EventDetails = () => {
   if (!event) {
     return (
       <div className="min-h-screen bg-eden-dark">
-        <Navbar />
         <div className="max-w-7xl mx-auto px-4 py-32 text-center">
           <h1 className="text-3xl font-bold text-white">Event not found</h1>
           <p className="mt-4 text-white/70">
@@ -63,15 +60,12 @@ const EventDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-eden-dark">
-      <Navbar />
-      <main>
-        <EventHero event={event} />
-        <EventHighlights event={event} />
-        <TicketTiers />
-        {user && <EventCTA event={event} userId={user.id} />}
-      </main>
-    </div>
+    <main>
+      <EventHero event={event} />
+      <EventHighlights event={event} />
+      <TicketTiers />
+      {user && <EventCTA event={event} userId={user.id} />}
+    </main>
   );
 };
 
