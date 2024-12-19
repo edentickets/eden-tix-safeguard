@@ -26,47 +26,132 @@ const vipFeatures = [
 ];
 
 const RewardsSection = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 10
+      }
+    }
+  };
+
+  const iconVariants = {
+    hidden: { scale: 0.8, rotate: -10 },
+    visible: {
+      scale: 1,
+      rotate: 0,
+      transition: {
+        type: "spring",
+        stiffness: 200
+      }
+    },
+    hover: {
+      scale: 1.2,
+      rotate: 10,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 8
+      }
+    }
+  };
+
+  const crownVariants = {
+    initial: { y: 0 },
+    float: {
+      y: [-5, 5, -5],
+      transition: {
+        duration: 3,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
+  };
+
   return (
     <section className="py-32 px-4 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-secondary opacity-5" />
-      <div className="max-w-7xl mx-auto relative">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="max-w-7xl mx-auto relative"
+      >
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          variants={containerVariants}
           className="text-center space-y-4 mb-16"
         >
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Crown className="w-8 h-8 text-eden-primary" />
-            <span className="text-sm font-medium text-eden-primary uppercase tracking-wider">VIP Members Only</span>
+            <motion.div
+              initial="initial"
+              animate="float"
+              variants={crownVariants}
+            >
+              <Crown className="w-8 h-8 text-eden-primary" />
+            </motion.div>
+            <motion.span
+              variants={itemVariants}
+              className="text-sm font-medium text-eden-primary uppercase tracking-wider"
+            >
+              VIP Members Only
+            </motion.span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-medium gradient-text">
+          <motion.h2
+            variants={itemVariants}
+            className="text-4xl md:text-6xl font-medium gradient-text"
+          >
             Join Our Elite Membership
-          </h2>
-          <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            Unlock exclusive benefits, priority access, and premium rewards as a VIP member. Experience events like never before.
-          </p>
+          </motion.h2>
+          <motion.p
+            variants={itemVariants}
+            className="text-xl text-white/70 max-w-2xl mx-auto"
+          >
+            Unlock exclusive benefits, priority access, and premium rewards as a VIP member. 
+            Experience events like never before.
+          </motion.p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <motion.div
+          variants={containerVariants}
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
           {vipFeatures.map((feature, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+              className="h-full"
             >
-              <Card className="glass-card p-6 space-y-4 hover:border-eden-primary/30 transition-all duration-300">
-                <div className="text-eden-primary">{feature.icon}</div>
+              <Card className="glass-card p-6 space-y-4 hover:border-eden-primary/30 transition-all duration-300 h-full">
+                <motion.div
+                  variants={iconVariants}
+                  whileHover="hover"
+                  className="text-eden-primary"
+                >
+                  {feature.icon}
+                </motion.div>
                 <h3 className="text-lg font-medium text-white">{feature.title}</h3>
                 <p className="text-white/70">{feature.description}</p>
               </Card>
             </motion.div>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };
