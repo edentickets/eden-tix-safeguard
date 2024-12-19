@@ -12,10 +12,22 @@ import { AvatarUpload } from "./AvatarUpload";
 import { SocialLinksForm } from "./SocialLinksForm";
 import { CreatorInfoForm } from "./CreatorInfoForm";
 
+interface SocialLinks {
+  instagram: string;
+  facebook: string;
+  twitter: string;
+}
+
 export const ProfileForm = () => {
   const { user } = useAuthState();
   const { data: profile, isLoading } = useProfile(user);
   const { mutate: updateProfile, isPending } = useProfileMutation();
+
+  const defaultSocialLinks: SocialLinks = {
+    instagram: "",
+    facebook: "",
+    twitter: ""
+  };
 
   const [formData, setFormData] = useState({
     username: profile?.username || "",
@@ -24,11 +36,7 @@ export const ProfileForm = () => {
     creator_bio: profile?.creator_bio || "",
     creator_tagline: profile?.creator_tagline || "",
     avatar_url: profile?.avatar_url || "",
-    social_links: profile?.social_links || {
-      instagram: "",
-      facebook: "",
-      twitter: ""
-    }
+    social_links: (profile?.social_links as SocialLinks) || defaultSocialLinks
   });
 
   const handleSubmit = (e: React.FormEvent) => {
