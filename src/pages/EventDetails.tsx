@@ -6,10 +6,12 @@ import { EventHighlights } from "@/components/event/EventHighlights";
 import { TicketTiers } from "@/components/event/TicketTiers";
 import { EventCTA } from "@/components/event/EventCTA";
 import { Navbar } from "@/components/Navbar";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useAuthState } from "@/hooks/use-auth-state";
 import { Event } from "@/types/event";
 import { Loader } from "lucide-react";
+
+// UUID validation regex
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -19,6 +21,7 @@ const EventDetails = () => {
     queryKey: ["event", id],
     queryFn: async () => {
       if (!id) throw new Error("Event ID is required");
+      if (!UUID_REGEX.test(id)) throw new Error("Invalid event ID format");
       
       const { data, error } = await supabase
         .from("events")
@@ -56,9 +59,15 @@ const EventDetails = () => {
       <div className="min-h-screen bg-eden-dark">
         <Navbar />
         <div className="max-w-7xl mx-auto px-4 py-32 text-center">
-          <h1 className="text-3xl font-bold text-white">Event not found</h1>
+          <h1 className="text-3xl font-bold text-white">
+            {!UUID_REGEX.test(id || '') 
+              ? "Invalid event ID format" 
+              : "Event not found"}
+          </h1>
           <p className="mt-4 text-white/70">
-            The event you're looking for doesn't exist or has been removed.
+            {!UUID_REGEX.test(id || '')
+              ? "The event ID provided is not in the correct format."
+              : "The event you're looking for doesn't exist or has been removed."}
           </p>
         </div>
       </div>
