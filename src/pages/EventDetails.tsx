@@ -1,35 +1,16 @@
 import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { useEvent } from "@/hooks/use-events";
 import { EventHero } from "@/components/event/EventHero";
 import { EventHighlights } from "@/components/event/EventHighlights";
 import { TicketTiers } from "@/components/event/TicketTiers";
 import { EventCTA } from "@/components/event/EventCTA";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuthState } from "@/hooks/use-auth-state";
-import { Event } from "@/types/event";
 
 const EventDetails = () => {
   const { id } = useParams();
   const { user } = useAuthState();
-
-  const { data: event, isLoading } = useQuery({
-    queryKey: ["event", id],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("events")
-        .select(`
-          *,
-          creator:profiles(*)
-        `)
-        .eq("id", id)
-        .maybeSingle();
-
-      if (error) throw error;
-      return data as Event;
-    },
-    enabled: !!id,
-  });
+  const { data: event, isLoading, error } = useEvent(id);
 
   if (isLoading) {
     return (
@@ -41,6 +22,19 @@ const EventDetails = () => {
             <Skeleton className="h-4 w-2/3" />
             <Skeleton className="h-4 w-1/2" />
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-eden-dark">
+        <div className="max-w-7xl mx-auto px-4 py-32 text-center">
+          <h1 className="text-3xl font-bold text-white">Error loading event</h1>
+          <p className="mt-4 text-white/70">
+            There was an error loading the event details. Please try again later.
+          </p>
         </div>
       </div>
     );
@@ -60,7 +54,7 @@ const EventDetails = () => {
   }
 
   return (
-    <main>
+    <main className="bg-eden-dark">
       <EventHero event={event} />
       <EventHighlights event={event} />
       <TicketTiers />

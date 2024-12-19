@@ -39,7 +39,7 @@ export const useEvent = (id?: string) => {
       if (!id) throw new Error('Event ID is required');
       
       const { data, error } = await supabase
-        .from("events")
+        .from('events')
         .select(`
           *,
           creator:profiles(*)
