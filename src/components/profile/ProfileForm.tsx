@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Loader2, Upload } from "lucide-react";
+import { Loader2, Upload, Instagram, Facebook, Twitter } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -27,6 +27,11 @@ export const ProfileForm = () => {
     creator_bio: profile?.creator_bio || "",
     creator_tagline: profile?.creator_tagline || "",
     avatar_url: profile?.avatar_url || "",
+    social_links: profile?.social_links || {
+      instagram: "",
+      facebook: "",
+      twitter: ""
+    }
   });
 
   const handleAvatarUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -167,6 +172,57 @@ export const ProfileForm = () => {
               </div>
             </>
           )}
+
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Social Media Links</h3>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <Instagram className="w-5 h-5 text-gray-400" />
+                <Input
+                  placeholder="Instagram profile URL"
+                  value={formData.social_links.instagram}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    social_links: {
+                      ...prev.social_links,
+                      instagram: e.target.value
+                    }
+                  }))}
+                  className="bg-white/5 border-white/10"
+                />
+              </div>
+              <div className="flex items-center gap-3">
+                <Facebook className="w-5 h-5 text-gray-400" />
+                <Input
+                  placeholder="Facebook profile URL"
+                  value={formData.social_links.facebook}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    social_links: {
+                      ...prev.social_links,
+                      facebook: e.target.value
+                    }
+                  }))}
+                  className="bg-white/5 border-white/10"
+                />
+              </div>
+              <div className="flex items-center gap-3">
+                <Twitter className="w-5 h-5 text-gray-400" />
+                <Input
+                  placeholder="Twitter profile URL"
+                  value={formData.social_links.twitter}
+                  onChange={(e) => setFormData(prev => ({
+                    ...prev,
+                    social_links: {
+                      ...prev.social_links,
+                      twitter: e.target.value
+                    }
+                  }))}
+                  className="bg-white/5 border-white/10"
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         <Button 
