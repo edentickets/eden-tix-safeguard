@@ -3,14 +3,12 @@ import { useProfile } from "@/hooks/use-profile";
 import { useProfileMutation } from "@/hooks/use-profile-mutation";
 import { useAuthState } from "@/hooks/use-auth-state";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
 import { AvatarUpload } from "./AvatarUpload";
 import { SocialLinksForm } from "./SocialLinksForm";
 import { CreatorInfoForm } from "./CreatorInfoForm";
+import { BasicInfoForm } from "./BasicInfoForm";
 
 interface SocialLinks {
   instagram: string;
@@ -79,50 +77,28 @@ export const ProfileForm = () => {
           onAvatarUpdate={(url) => setFormData(prev => ({ ...prev, avatar_url: url }))}
         />
 
-        <div className="space-y-4">
-          <div>
-            <Label htmlFor="full_name">Full Name</Label>
-            <Input
-              id="full_name"
-              value={formData.full_name}
-              onChange={(e) => setFormData(prev => ({ ...prev, full_name: e.target.value }))}
-              className="bg-white/5 border-white/10"
-            />
-          </div>
+        <BasicInfoForm
+          username={formData.username}
+          fullName={formData.full_name}
+          isCreator={formData.is_creator}
+          onUsernameChange={(value) => setFormData(prev => ({ ...prev, username: value }))}
+          onFullNameChange={(value) => setFormData(prev => ({ ...prev, full_name: value }))}
+          onIsCreatorChange={(checked) => setFormData(prev => ({ ...prev, is_creator: checked }))}
+        />
 
-          <div>
-            <Label htmlFor="username">Username</Label>
-            <Input
-              id="username"
-              value={formData.username}
-              onChange={(e) => setFormData(prev => ({ ...prev, username: e.target.value }))}
-              className="bg-white/5 border-white/10"
-            />
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <Switch
-              id="is_creator"
-              checked={formData.is_creator}
-              onCheckedChange={(checked) => setFormData(prev => ({ ...prev, is_creator: checked }))}
-            />
-            <Label htmlFor="is_creator">I want to create events</Label>
-          </div>
-
-          {formData.is_creator && (
-            <CreatorInfoForm
-              tagline={formData.creator_tagline}
-              bio={formData.creator_bio}
-              onTaglineChange={(value) => setFormData(prev => ({ ...prev, creator_tagline: value }))}
-              onBioChange={(value) => setFormData(prev => ({ ...prev, creator_bio: value }))}
-            />
-          )}
-
-          <SocialLinksForm
-            socialLinks={formData.social_links}
-            onChange={(links) => setFormData(prev => ({ ...prev, social_links: links }))}
+        {formData.is_creator && (
+          <CreatorInfoForm
+            tagline={formData.creator_tagline}
+            bio={formData.creator_bio}
+            onTaglineChange={(value) => setFormData(prev => ({ ...prev, creator_tagline: value }))}
+            onBioChange={(value) => setFormData(prev => ({ ...prev, creator_bio: value }))}
           />
-        </div>
+        )}
+
+        <SocialLinksForm
+          socialLinks={formData.social_links}
+          onChange={(links) => setFormData(prev => ({ ...prev, social_links: links }))}
+        />
 
         <Button 
           type="submit" 
