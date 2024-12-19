@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSession } from "@supabase/auth-helpers-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -7,23 +6,47 @@ import { useToast } from "@/hooks/use-toast";
 import { EventBasicInfo } from "./form/EventBasicInfo";
 import { EventDatePicker } from "./form/EventDatePicker";
 import { EventTicketInfo } from "./form/EventTicketInfo";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Form } from "@/components/ui/form";
+
+const eventFormSchema = z.object({
+  title: z.string().min(3, "Title must be at least 3 characters"),
+  description: z.string().optional(),
+  location: z.string().min(3, "Location must be at least 3 characters"),
+  startDate: z.date({
+    required_error: "Start date is required",
+  }),
+  endDate: z.date({
+    required_error: "End date is required",
+  }),
+  totalTickets: z.number().min(1, "Must have at least 1 ticket"),
+  price: z.number().min(0, "Price cannot be negative"),
+}).refine((data) => data.endDate >= data.startDate, {
+  message: "End date must be after start date",
+  path: ["endDate"],
+});
+
+type EventFormValues = z.infer<typeof eventFormSchema>;
+
+const defaultValues: Partial<EventFormValues> = {
+  description: "",
+  totalTickets: 1,
+  price: 0,
+};
 
 export const CreateEventForm = () => {
   const session = useSession();
   const navigate = useNavigate();
   const { toast } = useToast();
-  
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
-  const [totalTickets, setTotalTickets] = useState("");
-  const [price, setPrice] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const form = useForm<EventFormValues>({
+    resolver: zodResolver(eventFormSchema),
+    defaultValues,
+  });
+
+  const onSubmit = async (data: EventFormValues) => {
     if (!session?.user) {
       toast({
         title: "Authentication required",
@@ -33,79 +56,55 @@ export const CreateEventForm = () => {
       return;
     }
 
-    if (!startDate || !endDate) {
+    try {
+      const { data: eventData, error } = await supabase
+        .from("events")
+        .insert({
+          creator_id: session.user.id,
+          title: data.title,
+          description: data.description,
+          location: data.location,
+          start_date: data.startDate.toISOString(),
+          end_date: data.endDate.toISOString(),
+          total_tickets: data.totalTickets,
+          available_tickets: data.totalTickets,
+          price: data.price,
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
       toast({
-        title: "Missing dates",
-        description: "Please select both start and end dates",
-        variant: "destructive",
+        title: "Event created successfully",
+        description: "Your event has been created and is now live!",
       });
-      return;
-    }
 
-    setIsLoading(true);
-    const { data, error } = await supabase
-      .from("events")
-      .insert({
-        creator_id: session.user.id,
-        title,
-        description,
-        location,
-        start_date: startDate.toISOString(),
-        end_date: endDate.toISOString(),
-        total_tickets: parseInt(totalTickets),
-        available_tickets: parseInt(totalTickets),
-        price: parseFloat(price),
-      })
-      .select()
-      .single();
-
-    setIsLoading(false);
-
-    if (error) {
+      navigate(`/event/${eventData.id}`);
+    } catch (error: any) {
       toast({
         title: "Error creating event",
         description: error.message,
         variant: "destructive",
       });
-      return;
     }
-
-    toast({
-      title: "Event created successfully",
-      description: "Your event has been created and is now live!",
-    });
-
-    navigate(`/event/${data.id}`);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto">
-      <EventBasicInfo
-        title={title}
-        setTitle={setTitle}
-        description={description}
-        setDescription={setDescription}
-        location={location}
-        setLocation={setLocation}
-      />
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-w-2xl mx-auto">
+        <EventBasicInfo form={form} />
+        <EventDatePicker form={form} />
+        <EventTicketInfo form={form} />
 
-      <EventDatePicker
-        startDate={startDate}
-        setStartDate={setStartDate}
-        endDate={endDate}
-        setEndDate={setEndDate}
-      />
-
-      <EventTicketInfo
-        totalTickets={totalTickets}
-        setTotalTickets={setTotalTickets}
-        price={price}
-        setPrice={setPrice}
-      />
-
-      <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading ? "Creating Event..." : "Create Event"}
-      </Button>
-    </form>
+        <Button 
+          type="submit" 
+          className="w-full"
+          disabled={form.formState.isSubmitting}
+        >
+          {form.formState.isSubmitting ? "Creating Event..." : "Create Event"}
+        </Button>
+      </form>
+    </Form>
   );
 };

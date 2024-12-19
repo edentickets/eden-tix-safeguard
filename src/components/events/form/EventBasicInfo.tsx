@@ -1,60 +1,86 @@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { FormItem, FormLabel, FormControl, FormMessage, FormField } from "@/components/ui/form";
+import { UseFormReturn } from "react-hook-form";
+import { z } from "zod";
+
+const eventBasicInfoSchema = z.object({
+  title: z.string().min(3, "Title must be at least 3 characters"),
+  description: z.string().optional(),
+  location: z.string().min(3, "Location must be at least 3 characters"),
+});
+
+export type EventBasicInfoSchema = z.infer<typeof eventBasicInfoSchema>;
 
 interface EventBasicInfoProps {
-  title: string;
-  setTitle: (value: string) => void;
-  description: string;
-  setDescription: (value: string) => void;
-  location: string;
-  setLocation: (value: string) => void;
+  form: UseFormReturn<{
+    title: string;
+    description: string;
+    location: string;
+    startDate: Date;
+    endDate: Date;
+    totalTickets: number;
+    price: number;
+  }>;
 }
 
-export const EventBasicInfo = ({
-  title,
-  setTitle,
-  description,
-  setDescription,
-  location,
-  setLocation,
-}: EventBasicInfoProps) => {
+export const EventBasicInfo = ({ form }: EventBasicInfoProps) => {
   return (
     <div className="space-y-6">
-      <div className="space-y-2">
-        <Label htmlFor="title">Event Title</Label>
-        <Input
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-          placeholder="Enter event title"
-          className="bg-eden-light/10"
-        />
-      </div>
+      <FormField
+        control={form.control}
+        name="title"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Event Title</FormLabel>
+            <FormControl>
+              <Input
+                {...field}
+                placeholder="Enter event title"
+                className="bg-eden-light/10"
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
-      <div className="space-y-2">
-        <Label htmlFor="description">Description</Label>
-        <Textarea
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Describe your event"
-          className="min-h-[100px] bg-eden-light/10"
-        />
-      </div>
+      <FormField
+        control={form.control}
+        name="description"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Description</FormLabel>
+            <FormControl>
+              <Textarea
+                {...field}
+                placeholder="Describe your event"
+                className="min-h-[100px] bg-eden-light/10"
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
-      <div className="space-y-2">
-        <Label htmlFor="location">Location</Label>
-        <Input
-          id="location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          required
-          placeholder="Event location"
-          className="bg-eden-light/10"
-        />
-      </div>
+      <FormField
+        control={form.control}
+        name="location"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Location</FormLabel>
+            <FormControl>
+              <Input
+                {...field}
+                placeholder="Event location"
+                className="bg-eden-light/10"
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
     </div>
   );
 };

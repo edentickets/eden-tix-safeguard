@@ -1,50 +1,70 @@
 import { Input } from "@/components/ui/input";
+import { FormItem, FormLabel, FormControl, FormMessage, FormField } from "@/components/ui/form";
+import { UseFormReturn } from "react-hook-form";
+import { z } from "zod";
+
+const eventTicketSchema = z.object({
+  totalTickets: z.number().min(1, "Must have at least 1 ticket"),
+  price: z.number().min(0, "Price cannot be negative"),
+});
+
+export type EventTicketSchema = z.infer<typeof eventTicketSchema>;
 
 interface EventTicketInfoProps {
-  totalTickets: string;
-  setTotalTickets: (value: string) => void;
-  price: string;
-  setPrice: (value: string) => void;
+  form: UseFormReturn<{
+    title: string;
+    description: string;
+    location: string;
+    startDate: Date;
+    endDate: Date;
+    totalTickets: number;
+    price: number;
+  }>;
 }
 
-export const EventTicketInfo = ({
-  totalTickets,
-  setTotalTickets,
-  price,
-  setPrice,
-}: EventTicketInfoProps) => {
+export const EventTicketInfo = ({ form }: EventTicketInfoProps) => {
   return (
     <div className="grid grid-cols-2 gap-4">
-      <div className="space-y-2">
-        <label htmlFor="totalTickets" className="text-sm font-medium text-white">
-          Total Tickets
-        </label>
-        <Input
-          id="totalTickets"
-          type="number"
-          value={totalTickets}
-          onChange={(e) => setTotalTickets(e.target.value)}
-          required
-          min="1"
-          placeholder="Number of tickets"
-        />
-      </div>
+      <FormField
+        control={form.control}
+        name="totalTickets"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Total Tickets</FormLabel>
+            <FormControl>
+              <Input
+                type="number"
+                {...field}
+                onChange={(e) => field.onChange(Number(e.target.value))}
+                min="1"
+                placeholder="Number of tickets"
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
-      <div className="space-y-2">
-        <label htmlFor="price" className="text-sm font-medium text-white">
-          Price per Ticket ($)
-        </label>
-        <Input
-          id="price"
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-          min="0"
-          step="0.01"
-          placeholder="Ticket price"
-        />
-      </div>
+      <FormField
+        control={form.control}
+        name="price"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Price per Ticket ($)</FormLabel>
+            <FormControl>
+              <Input
+                type="number"
+                {...field}
+                onChange={(e) => field.onChange(Number(e.target.value))}
+                min="0"
+                step="0.01"
+                placeholder="Ticket price"
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
     </div>
   );
 };
