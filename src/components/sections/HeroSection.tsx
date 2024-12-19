@@ -3,6 +3,9 @@ import Background3D from "@/components/Background3D";
 import FeatureIcons from "@/components/hero/FeatureIcons";
 import HeroCTAs from "@/components/hero/HeroCTAs";
 import NFTTicketPreview from "@/components/hero/NFTTicketPreview";
+import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
+import { ErrorMessage } from "@/components/ui/error-message";
+import { Suspense, lazy } from "react";
 
 const HeroSection = () => {
   return (
@@ -21,7 +24,13 @@ const HeroSection = () => {
         className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-eden-accent/20 via-eden-primary/10 to-transparent"
       />
       
-      <Background3D />
+      <Suspense fallback={
+        <div className="absolute inset-0 flex items-center justify-center">
+          <LoadingSkeleton className="w-full h-full" />
+        </div>
+      }>
+        <Background3D />
+      </Suspense>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -68,24 +77,34 @@ const HeroSection = () => {
           </motion.p>
 
           {/* NFT Ticket Preview */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-            className="relative z-10"
-          >
-            <NFTTicketPreview />
-          </motion.div>
+          <Suspense fallback={
+            <LoadingSkeleton className="h-64 w-full max-w-md mx-auto" />
+          }>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 1.2 }}
+              className="relative z-10"
+            >
+              <NFTTicketPreview />
+            </motion.div>
+          </Suspense>
 
           {/* Feature Icons */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.4 }}
-            className="relative z-0"
-          >
-            <FeatureIcons />
-          </motion.div>
+          <Suspense fallback={
+            <div className="flex justify-center space-x-8">
+              <LoadingSkeleton className="w-16 h-16" count={3} />
+            </div>
+          }>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.4 }}
+              className="relative z-0"
+            >
+              <FeatureIcons />
+            </motion.div>
+          </Suspense>
 
           {/* CTAs */}
           <motion.div
