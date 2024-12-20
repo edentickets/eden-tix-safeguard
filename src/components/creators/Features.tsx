@@ -1,29 +1,29 @@
 import { motion } from "framer-motion";
-import { BarChart3, Shield, Ticket, Users } from "lucide-react";
+import { BarChart3, Shield, Ticket, Users, TrendingUp, Gift } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { DashboardPreview } from "./DashboardPreview";
 
 export const Features = () => {
   const features = [
     {
-      icon: <Shield className="w-8 h-8" />,
-      title: "Secure Ticketing",
-      description: "Dynamic QR codes with time-based validation ensure maximum security"
+      icon: <Shield className="w-8 h-8 text-eden-primary" />,
+      title: "Dynamic Security",
+      description: "Real-time QR validation and proximity-based activation prevent unauthorized transfers"
     },
     {
-      icon: <Users className="w-8 h-8" />,
-      title: "Community-Driven",
-      description: "Connect with event organizers and attendees in a trusted marketplace"
+      icon: <TrendingUp className="w-8 h-8 text-eden-secondary" />,
+      title: "Revenue Growth",
+      description: "Capture value from every resale with automatic revenue sharing and smart pricing"
     },
     {
-      icon: <Ticket className="w-8 h-8" />,
-      title: "Smart Features",
-      description: "Automated check-ins, instant transfers, and real-time updates"
+      icon: <Users className="w-8 h-8 text-eden-accent" />,
+      title: "Growing Community",
+      description: "Access a thriving marketplace of event enthusiasts ready to discover your events"
     },
     {
-      icon: <BarChart3 className="w-8 h-8" />,
-      title: "Market Insights",
-      description: "Make informed decisions with comprehensive analytics and trends"
+      icon: <Gift className="w-8 h-8 text-eden-primary" />,
+      title: "Creator Benefits",
+      description: "Unlock exclusive tools and priority support as your events grow"
     }
   ];
 
@@ -36,7 +36,7 @@ export const Features = () => {
           transition={{ duration: 0.5 }}
           className="text-4xl md:text-6xl font-medium text-center mb-16 gradient-text"
         >
-          The Future of Event Management
+          Powerful Tools for Growth
         </motion.h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
@@ -62,14 +62,14 @@ export const Features = () => {
           ))}
         </div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
           className="text-center mb-24"
         >
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            Join thousands of event creators who trust Eden for their ticketing needs. 
+            Join thousands of successful event creators who have transformed their business with Eden.
             Experience the next generation of event management.
           </p>
         </motion.div>
