@@ -4,7 +4,7 @@ interface TicketTierData {
   id: string;
   title: string;
   price: number;
-  description: string;
+  description?: string; // Made optional to match database schema
 }
 
 interface TicketTierProps {
