@@ -59,13 +59,33 @@
 }
 
 .glass-card {
-  @apply bg-eden-light/30 backdrop-blur-md border border-white/10 shadow-xl rounded-xl transition-all duration-300 hover:bg-eden-light/40;
+  @apply bg-eden-light/30 backdrop-blur-md border border-white/10 shadow-xl rounded-xl transition-all duration-300 hover:bg-eden-light/40 hover:border-eden-primary/30 animate-fade-in-scale hover:animate-border-glow;
 }
 
 .gradient-text {
-  @apply bg-clip-text text-transparent bg-gradient-primary;
+  @apply bg-clip-text text-transparent bg-gradient-primary animate-pulse;
 }
 
 .btn-gradient {
-  @apply bg-gradient-secondary hover:opacity-90 transition-opacity;
+  @apply bg-gradient-secondary hover:opacity-90 transition-opacity animate-glow;
+}
+
+.glow-effect {
+  @apply relative;
+}
+
+.glow-effect::before {
+  @apply content-[''] absolute -inset-0.5 bg-glow-conic rounded-xl blur opacity-30 transition-opacity duration-300;
+}
+
+.glow-effect:hover::before {
+  @apply opacity-50;
+}
+
+.hover-lift {
+  @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+}
+
+.animate-in {
+  @apply animate-fade-in-scale;
 }
