@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { BarChart3, Shield, Ticket, Users } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { DashboardPreview } from "./DashboardPreview";
 
 export const Features = () => {
   const features = [
@@ -27,19 +28,18 @@ export const Features = () => {
   ];
 
   return (
-    <section className="py-32 px-4 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-secondary opacity-5" />
-      <div className="max-w-7xl mx-auto relative">
-        <motion.h2 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+    <section className="py-24 relative">
+      <div className="container mx-auto px-4">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="text-4xl md:text-6xl font-medium text-center mb-16 gradient-text"
         >
-          The Future of Event Ticketing
+          The Future of Event Management
         </motion.h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
           {features.map((feature, index) => (
             <motion.div
               key={index}
@@ -66,13 +66,16 @@ export const Features = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-24 text-center"
+          className="text-center mb-24"
         >
-          <p className="text-xl text-white/70 max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-white/70 max-w-2xl mx-auto">
             Join thousands of event creators who trust Eden for their ticketing needs. 
             Experience the next generation of event management.
           </p>
         </motion.div>
+
+        {/* Dashboard preview */}
+        <DashboardPreview />
       </div>
     </section>
   );
