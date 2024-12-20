@@ -2,7 +2,7 @@ import { EventCard } from "./EventCard";
 
 const events = [
   {
-    id: 1,
+    id: "1",
     title: "Summer Music Festival 2024",
     date: "Aug 15-17, 2024",
     location: "Central Park, NY",
@@ -12,7 +12,7 @@ const events = [
     revenue: 125000,
   },
   {
-    id: 2,
+    id: "2",
     title: "Tech Conference 2024",
     date: "Sep 5-7, 2024",
     location: "Convention Center, SF",
@@ -22,7 +22,7 @@ const events = [
     revenue: 0,
   },
   {
-    id: 3,
+    id: "3",
     title: "New Year's Eve Party",
     date: "Dec 31, 2024",
     location: "Grand Hotel, Miami",
