@@ -7,6 +7,8 @@ import UsersLanding from "@/pages/UsersLanding";
 import Explore from "@/pages/Explore";
 import Event from "@/pages/Event";
 import FAQ from "@/pages/FAQ";
+import Terms from "@/pages/Terms";
+import Privacy from "@/pages/Privacy";
 import UserProfile from "@/pages/UserProfile";
 import CreatorDashboard from "@/pages/CreatorDashboard";
 import EventsManagement from "@/pages/dashboard/EventsManagement";
@@ -52,6 +54,8 @@ const AppContent = () => {
           <Route path="/users" element={<UsersLanding />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="/event/:id" element={<Event />} />
           <Route path="/event/:id/check-in" element={<CheckInInterface />} />
           
