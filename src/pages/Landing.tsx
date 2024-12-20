@@ -1,7 +1,7 @@
-import { HeroSection } from "@/components/sections/HeroSection";
+import HeroSection from "@/components/sections/HeroSection";
 import { Features } from "@/components/creators/Features";
-import { ClientsSection } from "@/components/sections/ClientsSection";
-import { RewardsSection } from "@/components/sections/RewardsSection";
+import ClientsSection from "@/components/sections/ClientsSection";
+import RewardsSection from "@/components/sections/RewardsSection";
 import { CTASection } from "@/components/creators/CTASection";
 
 const Landing = () => {
