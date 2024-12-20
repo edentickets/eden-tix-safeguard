@@ -40,12 +40,14 @@ export const ContactCreatorDialog = ({ creatorId, eventTitle, organizer }: Conta
 
     setIsLoading(true);
     try {
-      const { error } = await supabase.from("messages").insert({
-        from_user_id: user.id,
-        to_user_id: creatorId,
-        event_title: eventTitle,
-        message: message.trim(),
-      });
+      const { error } = await supabase
+        .from("messages")
+        .insert({
+          from_user_id: user.id,
+          to_user_id: creatorId,
+          event_title: eventTitle,
+          message: message.trim(),
+        });
 
       if (error) throw error;
 
