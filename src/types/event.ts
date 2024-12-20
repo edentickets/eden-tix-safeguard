@@ -36,20 +36,17 @@ export const formatEventDate = (start_date: string, end_date: string): string =>
   const startDate = new Date(start_date);
   const endDate = new Date(end_date);
   
-  if (startDate.toDateString() === endDate.toDateString()) {
-    return startDate.toLocaleDateString('en-US', { 
-      month: 'long', 
-      day: 'numeric', 
-      year: 'numeric' 
-    });
-  }
-  
-  return `${startDate.toLocaleDateString('en-US', { 
-    month: 'long', 
-    day: 'numeric'
-  })} - ${endDate.toLocaleDateString('en-US', { 
+  const formatOptions: Intl.DateTimeFormatOptions = { 
     month: 'long', 
     day: 'numeric', 
-    year: 'numeric'
-  })}`;
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  };
+  
+  if (startDate.toDateString() === endDate.toDateString()) {
+    return startDate.toLocaleDateString('en-US', formatOptions);
+  }
+  
+  return `${startDate.toLocaleDateString('en-US', formatOptions)} - ${endDate.toLocaleDateString('en-US', formatOptions)}`;
 };
