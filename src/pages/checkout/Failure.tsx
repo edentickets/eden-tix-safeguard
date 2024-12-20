@@ -1,43 +1,38 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { Card } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { XCircle, RotateCcw } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { XCircle, ArrowRight } from "lucide-react";
 
 export default function CheckoutFailure() {
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const eventId = searchParams.get("event_id");
 
   return (
-    <div className="min-h-screen bg-eden-dark flex items-center justify-center">
-      <Card className="p-8 max-w-md w-full bg-eden-light/10">
-        <div className="flex flex-col items-center gap-6">
-          <XCircle className="h-16 w-16 text-red-500" />
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-white mb-2">
-              Payment Failed
-            </h2>
-            <p className="text-gray-400">
-              We couldn't process your payment. Please try again or choose a different payment method.
-            </p>
-          </div>
-          <div className="flex gap-4 w-full">
-            <Button 
-              className="flex-1" 
-              variant="default"
-              onClick={() => navigate(eventId ? `/event/${eventId}` : "/explore")}
-            >
-              <RotateCcw className="mr-2 h-4 w-4" />
-              Try Again
-            </Button>
-            <Button 
-              className="flex-1" 
-              variant="outline"
-              onClick={() => navigate("/explore")}
-            >
-              Browse Events
-            </Button>
-          </div>
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <Card className="max-w-lg w-full p-8 space-y-6 text-center">
+        <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+          <XCircle className="w-8 h-8 text-red-600" />
+        </div>
+        
+        <h1 className="text-2xl font-bold">Payment Failed</h1>
+        <p className="text-gray-500">
+          We couldn't process your payment. Please try again or contact support if the problem persists.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+          <Button 
+            onClick={() => window.history.back()} 
+            className="flex-1"
+          >
+            Try Again
+          </Button>
+          <Button 
+            variant="outline" 
+            onClick={() => navigate("/explore")}
+            className="flex-1 group"
+          >
+            Browse Other Events
+            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+          </Button>
         </div>
       </Card>
     </div>
