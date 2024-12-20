@@ -25,12 +25,12 @@ export const EventCTA = ({ event, userId }: EventCTAProps) => {
   };
 
   return (
-    <section className="py-16 px-4">
+    <section className="py-16 px-4 bg-gray-50">
       <div className="max-w-7xl mx-auto text-center space-y-6">
-        <h2 className="text-3xl font-bold text-white">
+        <h2 className="text-2xl font-semibold text-gray-900">
           Your {event.title} Experience Starts Here
         </h2>
-        <p className="text-gray-300">
+        <p className="text-gray-600">
           Tickets are selling fast. Secure yours now or set price alerts for your perfect pass.
         </p>
         <div className="flex justify-center gap-4">
