@@ -10,11 +10,16 @@ export const useEventQuery = (eventId?: string) => {
       
       const { data, error } = await supabase
         .from("events")
-        .select("*")
+        .select(`
+          *,
+          ticket_tiers (*)
+        `)
         .eq("id", eventId)
-        .single();
+        .maybeSingle();
       
       if (error) throw error;
+      if (!data) throw new Error("Event not found");
+      
       return data as Event;
     },
     enabled: !!eventId,
