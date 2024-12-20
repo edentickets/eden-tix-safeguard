@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import Background3D from "@/components/Background3D";
-import { HeroSection } from "@/components/hero/HeroSection";
+import HeroSection from "@/components/sections/HeroSection";
 import { FeaturesSection } from "@/components/users/FeaturesSection";
 import { UserRewardsSection } from "@/components/users/UserRewardsSection";
 import CTASection from "@/components/sections/CTASection";
