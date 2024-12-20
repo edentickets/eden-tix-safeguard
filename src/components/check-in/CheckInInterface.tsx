@@ -24,8 +24,8 @@ export const CheckInInterface = () => {
       <QRScanner 
         eventId={id}
         onScanSuccess={() => {
-          // Trigger a refresh of the stats
-          window.location.reload();
+          // Instead of reloading the page, we can rely on the refetchInterval
+          // in CheckInStats to update the data automatically
         }}
       />
     </div>
