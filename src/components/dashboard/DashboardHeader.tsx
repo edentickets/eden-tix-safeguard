@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { PlusCircle, BarChart2, TrendingUp } from "lucide-react";
-import { LiveMetrics } from "./LiveMetrics";
 import { motion } from "framer-motion";
 
 export function DashboardHeader() {
@@ -53,7 +52,6 @@ export function DashboardHeader() {
             </Button>
           </div>
         </div>
-        <LiveMetrics />
       </motion.div>
     </div>
   );
