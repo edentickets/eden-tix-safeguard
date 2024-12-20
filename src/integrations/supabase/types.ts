@@ -238,6 +238,50 @@ export type Database = {
         }
         Relationships: []
       }
+      promoter_payouts: {
+        Row: {
+          amount: number
+          created_at: string | null
+          id: string
+          payout_details: Json | null
+          payout_method: string | null
+          promoter_id: string
+          status: string
+          stripe_payout_id: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          id?: string
+          payout_details?: Json | null
+          payout_method?: string | null
+          promoter_id: string
+          status?: string
+          stripe_payout_id?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          id?: string
+          payout_details?: Json | null
+          payout_method?: string | null
+          promoter_id?: string
+          status?: string
+          stripe_payout_id?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "promoter_payouts_promoter_id_fkey"
+            columns: ["promoter_id"]
+            isOneToOne: false
+            referencedRelation: "promoters"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       promoter_referral_links: {
         Row: {
           created_at: string | null

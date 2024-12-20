@@ -1,4 +1,4 @@
-import { MetricCard } from "@/components/dashboard/MetricCard";
+import { MetricCard } from "@/components/dashboard/metrics/MetricCard";
 import { DollarSign, Clock, ArrowUpRight, Wallet } from "lucide-react";
 
 export function PayoutMetrics() {
