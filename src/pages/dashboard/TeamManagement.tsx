@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { PromotersList } from "@/components/dashboard/promoters/PromotersList";
+import { GuestListTab } from "@/components/dashboard/promoters/GuestListTab";
 import { useProfile } from "@/hooks/use-profile";
 import { usePromoters } from "@/hooks/use-promoters";
+import { useGuestLists } from "@/hooks/use-guest-lists";
 import { useSession } from "@supabase/auth-helpers-react";
 import { motion } from "framer-motion";
 import {
@@ -21,6 +23,9 @@ export default function TeamManagement() {
   const session = useSession();
   const { data: profile } = useProfile(session?.user ?? null);
   const { data: promoters, isLoading } = usePromoters(profile?.id);
+  const { data: guestLists, isLoading: isLoadingGuestLists } = useGuestLists(
+    promoters?.[0]?.id
+  );
 
   return (
     <DashboardLayout>
@@ -72,7 +77,7 @@ export default function TeamManagement() {
         <Tabs defaultValue="promoters" className="space-y-6">
           <TabsList className="bg-eden-light/20">
             <TabsTrigger value="promoters">Promoters</TabsTrigger>
-            <TabsTrigger value="invites">Pending Invites</TabsTrigger>
+            <TabsTrigger value="guest-lists">Guest Lists</TabsTrigger>
             <TabsTrigger value="activity">Activity Log</TabsTrigger>
           </TabsList>
 
@@ -80,15 +85,11 @@ export default function TeamManagement() {
             <PromotersList promoters={promoters ?? []} isLoading={isLoading} />
           </TabsContent>
 
-          <TabsContent value="invites">
-            <Card className="p-6 bg-eden-light/10">
-              <h3 className="text-xl font-semibold text-white mb-4">
-                Pending Invites
-              </h3>
-              <p className="text-gray-400">
-                View and manage pending promoter invitations.
-              </p>
-            </Card>
+          <TabsContent value="guest-lists">
+            <GuestListTab
+              guestLists={guestLists ?? []}
+              isLoading={isLoadingGuestLists}
+            />
           </TabsContent>
 
           <TabsContent value="activity">
