@@ -5,7 +5,7 @@ import Landing from "@/pages/Landing";
 import CreatorsLanding from "@/pages/CreatorsLanding";
 import UsersLanding from "@/pages/UsersLanding";
 import Explore from "@/pages/Explore";
-import Event from "@/pages/Event";
+import EventDetails from "@/pages/EventDetails";
 import UserProfile from "@/pages/UserProfile";
 import EventsManagement from "@/pages/dashboard/EventsManagement";
 import CheckoutSuccess from "@/pages/checkout/Success";
@@ -29,7 +29,7 @@ export default function App() {
           <Route path="/creators" element={<CreatorsLanding />} />
           <Route path="/users" element={<UsersLanding />} />
           <Route path="/explore" element={<Explore />} />
-          <Route path="/event/:id" element={<Event />} />
+          <Route path="/event/:id" element={<EventDetails />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/dashboard/events" element={<EventsManagement />} />
           <Route path="/checkout/success" element={<CheckoutSuccess />} />
