@@ -10,7 +10,7 @@ export const usePromoters = (creatorId?: string) => {
         .from("promoters")
         .select(`
           *,
-          profile:profiles(
+          profile:profiles!promoters_profile_id_fkey(
             full_name,
             avatar_url,
             username
