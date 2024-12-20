@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FormItem, FormLabel, FormControl, FormMessage, FormField } from "@/components/ui/form";
-import { UseFormReturn } from "react-hook-form";
+import { UseFormReturn, useFieldArray } from "react-hook-form";
 import { EventFormValues } from "./eventFormSchema";
 import { PlusCircle, Trash2 } from "lucide-react";
 
@@ -11,7 +11,10 @@ interface EventTicketInfoProps {
 }
 
 export const EventTicketInfo = ({ form }: EventTicketInfoProps) => {
-  const { fields, append, remove } = form.control._fields.ticketTiers;
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "ticketTiers"
+  });
 
   return (
     <div className="space-y-6">
