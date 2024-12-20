@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Plus, Minus, Lock } from "lucide-react";
+import { Plus, Minus, Bell } from "lucide-react";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
+import { format } from "date-fns";
 
 interface TicketTier {
   id: string;
@@ -55,6 +56,13 @@ export const TicketTiers = ({ tiers }: TicketTiersProps) => {
     toast({
       title: "Added to cart!",
       description: `${quantity} ${tier.title} ticket${quantity > 1 ? 's' : ''} added to cart`,
+    });
+  };
+
+  const handleSetAlert = () => {
+    toast({
+      title: "Price Alert Set",
+      description: "We'll notify you when prices change for this event.",
     });
   };
 
@@ -132,9 +140,10 @@ export const TicketTiers = ({ tiers }: TicketTiersProps) => {
             <Button
               variant="outline"
               className="w-full py-6 text-[var(--event-text,#FFFFFF)]/70 border-[var(--event-text,#FFFFFF)]/10 hover:bg-[var(--event-text,#FFFFFF)]/5"
+              onClick={handleSetAlert}
             >
-              <Lock className="w-4 h-4 mr-2" />
-              Unlock Hidden Tickets
+              <Bell className="w-4 h-4 mr-2" />
+              Set Price Alert
             </Button>
           </motion.div>
         </div>

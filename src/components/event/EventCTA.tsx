@@ -3,6 +3,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Event } from "@/types/event";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { Mail } from "lucide-react";
 
 interface EventCTAProps {
   event: Event;
@@ -47,26 +48,27 @@ export const EventCTA = ({ event, userId }: EventCTAProps) => {
     }
   };
 
-  const handleAlert = () => {
+  const handleContactCreator = () => {
+    // You might want to implement a modal or redirect to a contact form
     toast({
-      title: "Alert Set!",
-      description: "We'll notify you about price changes.",
+      title: "Contact Creator",
+      description: "Opening contact form...",
     });
   };
 
   return (
-    <section className="py-16 px-4 bg-gray-50">
+    <section className="py-16 px-4 bg-[var(--event-background,#121212)]">
       <div className="max-w-7xl mx-auto text-center space-y-6">
-        <h2 className="text-2xl font-semibold text-gray-900">
+        <h2 className="text-2xl font-semibold text-[var(--event-heading,#FFFFFF)]">
           Your {event.title} Experience Starts Here
         </h2>
-        <p className="text-gray-600">
-          Tickets are selling fast. Secure yours now or set price alerts for your perfect pass.
+        <p className="text-[var(--event-text,#FFFFFF)]/70">
+          Tickets are selling fast. Secure yours now or contact the creator for more information.
         </p>
         <div className="flex justify-center gap-4">
           <Button
             size="lg"
-            className="bg-eden-secondary hover:bg-eden-secondary/90"
+            className="bg-[var(--event-primary,#D4AF37)] hover:bg-[var(--event-primary,#D4AF37)]/90"
             onClick={handlePurchase}
             disabled={isLoading}
           >
@@ -75,10 +77,11 @@ export const EventCTA = ({ event, userId }: EventCTAProps) => {
           <Button
             size="lg"
             variant="outline"
-            className="border-eden-primary text-eden-primary hover:bg-eden-primary/10"
-            onClick={handleAlert}
+            className="border-[var(--event-primary,#D4AF37)] text-[var(--event-primary,#D4AF37)] hover:bg-[var(--event-primary,#D4AF37)]/10"
+            onClick={handleContactCreator}
           >
-            Set Price Alerts
+            <Mail className="w-4 h-4 mr-2" />
+            Contact Creator
           </Button>
         </div>
       </div>
