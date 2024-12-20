@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { User, Star } from "lucide-react";
+import { User, MapPin, Calendar } from "lucide-react";
 import { Event } from "@/types/event";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
@@ -18,15 +18,13 @@ export const EventHero = ({ event }: EventHeroProps) => {
   const session = useSession();
 
   useEffect(() => {
-    // Set custom event theme colors
-    document.documentElement.style.setProperty('--event-primary', event.primary_color || '#8B5CF6');
-    document.documentElement.style.setProperty('--event-secondary', event.secondary_color || '#10B981');
-    document.documentElement.style.setProperty('--event-background', event.background_color || '#1A1F2C');
-    document.documentElement.style.setProperty('--event-text', event.text_color || 'white');
-    document.documentElement.style.setProperty('--event-heading', event.heading_color || 'white');
+    document.documentElement.style.setProperty('--event-primary', event.primary_color || '#D4AF37');
+    document.documentElement.style.setProperty('--event-secondary', event.secondary_color || '#000000');
+    document.documentElement.style.setProperty('--event-background', event.background_color || '#121212');
+    document.documentElement.style.setProperty('--event-text', event.text_color || '#FFFFFF');
+    document.documentElement.style.setProperty('--event-heading', event.heading_color || '#FFFFFF');
 
     return () => {
-      // Clean up custom properties
       document.documentElement.style.removeProperty('--event-primary');
       document.documentElement.style.removeProperty('--event-secondary');
       document.documentElement.style.removeProperty('--event-background');
@@ -35,109 +33,86 @@ export const EventHero = ({ event }: EventHeroProps) => {
     };
   }, [event]);
 
-  const handleAlert = () => {
-    toast({
-      title: "Alert Set!",
-      description: "We'll notify you about price changes.",
-    });
-  };
-
   return (
-    <div className="relative h-[60vh] w-full overflow-hidden">
+    <div className="relative min-h-[80vh] w-full overflow-hidden bg-[var(--event-background,#121212)]">
       {event.promo_banner_url && (
         <>
           <div 
-            className="absolute inset-0 bg-cover bg-center"
+            className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{ 
               backgroundImage: `url(${event.promo_banner_url})`,
-              filter: 'blur(30px)',
-              transform: 'scale(1.1)',
-              opacity: 0.3
+              filter: 'blur(50px)',
+              transform: 'scale(1.2)',
             }} 
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-[var(--event-primary,#8B5CF6)]/30 to-[var(--event-background,#1A1F2C)] backdrop-blur-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--event-background,#121212)]/80 to-[var(--event-background,#121212)]" />
         </>
       )}
       
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-        className="absolute inset-0 flex flex-col justify-end p-8 max-w-7xl mx-auto"
-      >
-        <div className="flex items-end gap-8">
-          <div className="space-y-4 flex-1">
+      <div className="relative container mx-auto px-4 py-16">
+        <div className="flex flex-col md:flex-row items-start gap-8 pt-20">
+          <div className="flex-1 space-y-6">
+            <div className="flex items-center gap-2">
+              {event.organizer && (
+                <div className="flex items-center gap-2 text-[var(--event-text,#FFFFFF)]/80">
+                  <User className="w-5 h-5" />
+                  <span>{event.organizer}</span>
+                </div>
+              )}
+            </div>
+
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              className="text-3xl md:text-5xl font-bold text-[var(--event-heading,white)]"
+              transition={{ delay: 0.2 }}
+              className="text-4xl md:text-6xl font-bold text-[var(--event-heading,#FFFFFF)]"
             >
               {event.title}
             </motion.h1>
+
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="flex flex-wrap gap-6 text-[var(--event-text,#E5E7EB)]"
+              transition={{ delay: 0.3 }}
+              className="flex flex-wrap gap-6 text-[var(--event-text,#FFFFFF)]/80"
             >
-              <EventDateTime startDate={event.start_date} endDate={event.end_date} />
-              <EventLocation location={event.location} />
-              {event.description && (
-                <div className="flex items-center gap-2 hover:text-[var(--event-primary,#8B5CF6)] transition-colors w-full">
-                  <User className="w-5 h-5" />
-                  {event.description}
-                </div>
-              )}
-              {event.organizer && (
-                <div className="flex items-center gap-2 hover:text-[var(--event-primary,#8B5CF6)] transition-colors">
-                  <User className="w-5 h-5" />
-                  {event.organizer}
-                </div>
-              )}
+              <div className="flex items-center gap-2">
+                <Calendar className="w-5 h-5" />
+                <EventDateTime startDate={event.start_date} endDate={event.end_date} />
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-5 h-5" />
+                <EventLocation location={event.location} />
+              </div>
             </motion.div>
-            {event.rating && event.reviews && (
-              <motion.div 
+
+            {event.description && (
+              <motion.p 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-                className="flex items-center gap-2 text-yellow-400"
+                transition={{ delay: 0.4 }}
+                className="text-lg text-[var(--event-text,#FFFFFF)]/70 max-w-2xl"
               >
-                <Star className="w-5 h-5 fill-current" />
-                <span>{event.rating}/5</span>
-                <span className="text-[var(--event-text,#E5E7EB)]">({event.reviews} reviews)</span>
-              </motion.div>
+                {event.description}
+              </motion.p>
             )}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.5 }}
-              className="flex gap-4 mt-6"
-            >
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-[var(--event-primary,#8B5CF6)] text-[var(--event-primary,#8B5CF6)] hover:bg-[var(--event-primary,#8B5CF6)]/10"
-                onClick={handleAlert}
-              >
-                Set Price Alerts
-              </Button>
-            </motion.div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="hidden md:block"
-          >
-            <EventImageUpload 
-              event={event} 
-              isCreator={session?.user?.id === event.creator_id}
-            />
-          </motion.div>
+          {session?.user?.id === event.creator_id && (
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+              className="shrink-0"
+            >
+              <EventImageUpload 
+                event={event} 
+                isCreator={true}
+              />
+            </motion.div>
+          )}
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };
