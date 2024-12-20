@@ -1,10 +1,11 @@
 import Background3D from "@/components/Background3D";
 import { HeroSection } from "@/components/creators/HeroSection";
-import { ProblemSolution } from "@/components/creators/ProblemSolution";
-import { Features } from "@/components/creators/Features";
-import { CTASection } from "@/components/creators/CTASection";
+import { HowItWorks } from "@/components/creators/HowItWorks";
+import { RevenueModel } from "@/components/creators/RevenueModel";
+import { TrustedCreators } from "@/components/creators/TrustedCreators";
+import { BenefitsSection } from "@/components/creators/BenefitsSection";
 import { PricingSection } from "@/components/creators/PricingSection";
-import { TestimonialsSection } from "@/components/creators/TestimonialsSection";
+import { CTASection } from "@/components/creators/CTASection";
 import ClientsSection from "@/components/sections/ClientsSection";
 
 const CreatorsLanding = () => {
@@ -13,9 +14,10 @@ const CreatorsLanding = () => {
       <Background3D />
       <HeroSection />
       <ClientsSection />
-      <ProblemSolution />
-      <Features />
-      <TestimonialsSection />
+      <HowItWorks />
+      <RevenueModel />
+      <TrustedCreators />
+      <BenefitsSection />
       <PricingSection />
       <CTASection />
     </div>
