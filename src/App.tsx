@@ -21,6 +21,7 @@ import Promotions from "./pages/dashboard/Promotions";
 import TeamManagement from "./pages/dashboard/TeamManagement";
 import Payouts from "./pages/dashboard/Payouts";
 import Settings from "./pages/dashboard/Settings";
+import CreateEvent from "./pages/dashboard/CreateEvent";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,6 +48,7 @@ const App = () => (
             <Route path="/event/:id" element={<EventDetails />} />
             <Route path="/dashboard" element={<CreatorDashboard />} />
             <Route path="/dashboard/events" element={<EventsManagement />} />
+            <Route path="/dashboard/events/create" element={<CreateEvent />} />
             <Route path="/dashboard/analytics" element={<SalesAnalytics />} />
             <Route path="/dashboard/audience" element={<AudienceInsights />} />
             <Route path="/dashboard/resale" element={<ResaleActivity />} />

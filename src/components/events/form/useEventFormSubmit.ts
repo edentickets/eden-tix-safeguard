@@ -36,6 +36,7 @@ export const useEventFormSubmit = ({ onSuccess }: UseEventFormSubmitProps = {}) 
           total_tickets: data.totalTickets,
           available_tickets: data.totalTickets,
           price: data.price,
+          image_url: data.imageUrl,
         })
         .select()
         .single();
