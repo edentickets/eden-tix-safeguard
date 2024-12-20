@@ -12,12 +12,19 @@ export const CheckInStats = ({ eventId }: CheckInStatsProps) => {
   const { data: stats, error, isLoading } = useQuery({
     queryKey: ['check-in-stats', eventId],
     queryFn: async () => {
+      if (!eventId) throw new Error('Event ID is required');
+
       const { data: tickets, error } = await supabase
         .from('tickets')
         .select('status, last_checked_in_at')
         .eq('event_id', eventId);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching tickets:', error);
+        throw error;
+      }
+
+      if (!tickets) return { total: 0, checkedIn: 0, remaining: 0 };
 
       const total = tickets.length;
       const checkedIn = tickets.filter(t => t.last_checked_in_at).length;
@@ -28,8 +35,7 @@ export const CheckInStats = ({ eventId }: CheckInStatsProps) => {
         remaining: total - checkedIn
       };
     },
-    refetchInterval: 5000, // Refresh every 5 seconds
-    enabled: Boolean(eventId), // Only run query if eventId exists
+    enabled: Boolean(eventId),
   });
 
   if (error) {
