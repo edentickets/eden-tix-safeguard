@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Html5QrcodeScanner } from 'html5-qrcode';
+import { Html5QrcodeScanner, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -73,7 +73,7 @@ export const QRScanner = ({ eventId, onScanSuccess }: QRScannerProps) => {
           fps: 10, 
           qrbox: { width: 250, height: 250 },
           aspectRatio: 1,
-          formatsToSupport: ['QR_CODE'],
+          formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
         },
         false
       );

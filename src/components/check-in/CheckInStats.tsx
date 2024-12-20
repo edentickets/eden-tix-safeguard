@@ -2,13 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Card } from '@/components/ui/card';
 import { Users, UserCheck, UserMinus } from 'lucide-react';
+import { ErrorMessage } from '@/components/ui/error-message';
 
 interface CheckInStatsProps {
   eventId: string;
 }
 
 export const CheckInStats = ({ eventId }: CheckInStatsProps) => {
-  const { data: stats } = useQuery({
+  const { data: stats, error, isLoading } = useQuery({
     queryKey: ['check-in-stats', eventId],
     queryFn: async () => {
       const { data: tickets, error } = await supabase
@@ -28,7 +29,16 @@ export const CheckInStats = ({ eventId }: CheckInStatsProps) => {
       };
     },
     refetchInterval: 5000, // Refresh every 5 seconds
+    enabled: Boolean(eventId), // Only run query if eventId exists
   });
+
+  if (error) {
+    return <ErrorMessage message="Failed to load check-in stats" />;
+  }
+
+  if (isLoading) {
+    return <div>Loading stats...</div>;
+  }
 
   return (
     <div className="grid grid-cols-3 gap-4 mb-6">

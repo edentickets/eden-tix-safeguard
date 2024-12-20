@@ -1,14 +1,18 @@
 import { useParams } from 'react-router-dom';
 import { QRScanner } from './QRScanner';
 import { CheckInStats } from './CheckInStats';
+import { ErrorMessage } from '@/components/ui/error-message';
 
 export const CheckInInterface = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
 
   if (!id) {
     return (
       <div className="max-w-2xl mx-auto p-4">
-        <h2 className="text-2xl font-bold mb-6">Error: Event ID not found</h2>
+        <ErrorMessage 
+          title="Error" 
+          message="Event ID not found" 
+        />
       </div>
     );
   }
