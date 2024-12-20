@@ -6,11 +6,11 @@ import { EventHighlights } from "@/components/event/EventHighlights";
 import { EventCTA } from "@/components/event/EventCTA";
 import { TicketTiers } from "@/components/event/TicketTiers";
 import { Navbar } from "@/components/Navbar";
-import { useAuth } from "@/hooks/use-auth-state";
+import { useAuthState } from "@/hooks/use-auth-state";
 
 export default function Event() {
   const { id } = useParams();
-  const { user } = useAuth();
+  const { user } = useAuthState();
 
   const { data: event, isLoading } = useQuery({
     queryKey: ["event", id],
