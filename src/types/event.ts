@@ -23,6 +23,7 @@ export interface Event {
   heading_color?: string;
   ticket_tiers?: Array<{
     id: string;
+    event_id: string;  // Added this field
     title: string;
     description?: string;
     price: number;
