@@ -15,7 +15,6 @@ interface ExploreHeroProps {
   onSearchChange: (value: string) => void;
   onLocationChange: (value: string) => void;
   onEventTypeChange: (value: string) => void;
-  onPriceRangeChange: (value: [number, number]) => void;
   onSortChange: (value: string) => void;
   currentPage: number;
   totalPages: number;
@@ -27,7 +26,6 @@ export const ExploreHero = ({
   onSearchChange,
   onLocationChange,
   onEventTypeChange,
-  onPriceRangeChange,
   onSortChange,
   currentPage,
   totalPages,
@@ -52,10 +50,9 @@ export const ExploreHero = ({
   };
 
   return (
-    <div className="relative py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-eden-dark">
-        <div className="absolute inset-0 bg-gradient-to-r from-eden-primary/20 to-eden-secondary/20 opacity-50" />
-        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(68,68,68,.2)_50%,transparent_75%,transparent_100%)] bg-[length:20px_20px] animate-pulse" />
+    <div className="relative py-20">
+      <div className="absolute inset-0 bg-gradient-to-b from-eden-dark via-eden-dark/95 to-eden-dark">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.15),transparent_50%)]" />
       </div>
 
       <motion.div
@@ -87,7 +84,6 @@ export const ExploreHero = ({
               <FilterSection
                 onLocationChange={onLocationChange}
                 onEventTypeChange={onEventTypeChange}
-                onPriceRangeChange={onPriceRangeChange}
                 onSortChange={onSortChange}
               />
             </motion.div>

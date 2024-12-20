@@ -5,30 +5,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
-import { useState } from "react";
 import { motion } from "framer-motion";
 
 interface FilterSectionProps {
   onLocationChange: (value: string) => void;
   onEventTypeChange: (value: string) => void;
-  onPriceRangeChange: (value: [number, number]) => void;
   onSortChange: (value: string) => void;
 }
 
 export const FilterSection = ({
   onLocationChange,
   onEventTypeChange,
-  onPriceRangeChange,
   onSortChange,
 }: FilterSectionProps) => {
-  const [priceRange, setPriceRange] = useState([0]);
-
-  const handlePriceRangeChange = (value: number[]) => {
-    setPriceRange(value);
-    onPriceRangeChange([0, value[0]]);
-  };
-
   const selectVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
@@ -90,22 +79,6 @@ export const FilterSection = ({
           </Select>
         </motion.div>
       </div>
-
-      <motion.div
-        variants={selectVariants}
-        className="space-y-2"
-      >
-        <label className="block text-white text-sm mb-2">
-          Price Range: Up to ${priceRange[0]}
-        </label>
-        <Slider
-          defaultValue={[500]}
-          max={1000}
-          step={50}
-          onValueChange={handlePriceRangeChange}
-          className="mt-2"
-        />
-      </motion.div>
     </motion.div>
   );
 };
