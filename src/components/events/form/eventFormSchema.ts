@@ -18,6 +18,11 @@ export const eventFormSchema = z.object({
     required_error: "End date is required",
   }),
   imageUrl: z.string().optional(),
+  primaryColor: z.string().optional(),
+  secondaryColor: z.string().optional(),
+  backgroundColor: z.string().optional(),
+  textColor: z.string().optional(),
+  headingColor: z.string().optional(),
   ticketTiers: z.array(ticketTierSchema).min(1, "At least one ticket tier is required"),
 }).refine((data) => data.endDate >= data.startDate, {
   message: "End date must be after start date",
@@ -34,6 +39,11 @@ export const defaultValues: EventFormValues = {
   startDate: new Date(),
   endDate: new Date(),
   imageUrl: "",
+  primaryColor: "#D4AF37",
+  secondaryColor: "#000000",
+  backgroundColor: "#121212",
+  textColor: "#FFFFFF",
+  headingColor: "#FFFFFF",
   ticketTiers: [{
     title: "",
     description: "",
