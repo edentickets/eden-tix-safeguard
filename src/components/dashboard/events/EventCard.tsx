@@ -20,6 +20,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { EventAttendees } from "@/components/events/EventAttendees";
 
 interface EventCardProps {
   event: {
@@ -102,6 +103,7 @@ export function EventCard({ event, index }: EventCardProps) {
                 {event.location}
               </div>
             </div>
+            <EventAttendees eventId={event.id} />
           </div>
 
           <div className="flex items-center gap-8">
