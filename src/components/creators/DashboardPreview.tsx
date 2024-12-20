@@ -41,16 +41,41 @@ export const DashboardPreview = () => {
           <div className="flex items-center gap-3">
             <div className="flex -space-x-2">
               {[1, 2, 3].map((i) => (
-                <div
+                <motion.div
                   key={i}
-                  className="w-8 h-8 rounded-full bg-gradient-to-br from-eden-primary/80 to-eden-accent/80 border-2 border-eden-dark"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    duration: 0.3,
+                    delay: i * 0.1,
+                    type: "spring",
+                    stiffness: 200
+                  }}
+                  className="w-8 h-8 rounded-full bg-gradient-to-br from-eden-primary/80 to-eden-accent/80 border-2 border-eden-dark animate-pulse"
                 />
               ))}
             </div>
-            <span className="text-sm text-white/90">
+            <motion.span
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: 0.4 }}
+              className="text-sm text-white/90"
+            >
               +3 new team members joined
-            </span>
+            </motion.span>
           </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="absolute -top-2 -left-2 bg-eden-secondary/20 backdrop-blur-sm px-3 py-1.5 rounded-full border border-eden-secondary/30 shadow-xl"
+        >
+          <span className="text-xs font-medium text-eden-secondary">
+            Preview Mode
+          </span>
         </motion.div>
       </motion.div>
     </div>
