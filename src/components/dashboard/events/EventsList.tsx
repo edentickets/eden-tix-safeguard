@@ -2,8 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { EventCard } from "./EventCard";
 import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
+import { useToast } from "@/hooks/use-toast";
 
 export function EventsList() {
+  const { toast } = useToast();
+  
   const { data: events, isLoading, error } = useQuery({
     queryKey: ["dashboard-events"],
     queryFn: async () => {
@@ -15,7 +18,16 @@ export function EventsList() {
         `)
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching events:', error);
+        toast({
+          title: "Error loading events",
+          description: "There was a problem loading your events. Please try again.",
+          variant: "destructive",
+        });
+        throw error;
+      }
+
       return data || [];
     },
   });
