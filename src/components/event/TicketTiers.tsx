@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
 import { useParams } from "react-router-dom";
+import { Plus, Minus } from "lucide-react";
+import { useState } from "react";
 
 interface TicketTierData {
   id: string;
@@ -10,53 +12,41 @@ interface TicketTierData {
   description?: string;
 }
 
-interface TicketTierProps {
-  title: string;
-  price: number;
-  benefits: string;
-  icon: string;
-  index: number;
-}
-
 interface TicketTiersProps {
   tiers: TicketTierData[];
 }
 
-const TicketTier = ({ title, price, benefits, icon, index }: TicketTierProps) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
-    className="glass-card p-6 space-y-4 hover:scale-105 transition-transform duration-300 relative overflow-hidden"
-  >
-    <div className="absolute inset-0 bg-gradient-to-br from-eden-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-    <div className="flex items-center gap-2">
-      <span className="text-2xl animate-float">{icon}</span>
-      <h3 className="text-xl font-bold text-white">{title}</h3>
-    </div>
-    <div className="text-3xl font-bold text-eden-primary">${price}</div>
-    <p className="text-gray-300">{benefits}</p>
-    <Button className="w-full bg-eden-primary hover:bg-eden-primary/90 relative overflow-hidden">
-      <span className="relative z-10">Buy Now</span>
-      <div className="absolute inset-0 bg-gradient-to-r from-eden-primary/0 via-white/10 to-eden-primary/0 opacity-0 hover:opacity-100 transition-opacity duration-500 transform translate-x-[-100%] hover:translate-x-[100%]" />
-    </Button>
-  </motion.div>
-);
-
 export const TicketTiers = ({ tiers }: TicketTiersProps) => {
   const { id: eventId } = useParams();
   const { addToCart } = useCart();
-  const tierIcons = ["🎟", "🥂", "🏆"];
+  const [quantities, setQuantities] = useState<Record<string, number>>(
+    Object.fromEntries(tiers.map(tier => [tier.id, 1]))
+  );
+
+  const handleQuantityChange = (tierId: string, increment: boolean) => {
+    setQuantities(prev => ({
+      ...prev,
+      [tierId]: Math.max(1, prev[tierId] + (increment ? 1 : -1))
+    }));
+  };
 
   const handleAddToCart = (tier: TicketTierData) => {
     if (!eventId) return;
     
-    addToCart({
-      eventId,
-      tierId: tier.id,
-      title: tier.title,
-      price: tier.price,
-    });
+    for (let i = 0; i < quantities[tier.id]; i++) {
+      addToCart({
+        eventId,
+        tierId: tier.id,
+        title: tier.title,
+        price: tier.price,
+      });
+    }
+    
+    // Reset quantity after adding to cart
+    setQuantities(prev => ({
+      ...prev,
+      [tier.id]: 1
+    }));
   };
 
   return (
@@ -64,9 +54,13 @@ export const TicketTiers = ({ tiers }: TicketTiersProps) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="relative py-16 px-4 bg-eden-dark overflow-hidden isolate"
+      className="relative py-16 px-4 overflow-hidden isolate"
+      style={{
+        background: 'var(--event-background, #1A1F2C)',
+        color: 'var(--event-text, white)'
+      }}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-eden-primary/10 via-eden-secondary/5 to-eden-dark animate-gradient-shift -z-10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[var(--event-primary,#8B5CF6)]/10 via-[var(--event-secondary,#10B981)]/5 to-transparent animate-gradient-shift -z-10" />
       <div className="absolute inset-0 backdrop-blur-3xl -z-10" />
       
       <div className="max-w-7xl mx-auto">
@@ -74,7 +68,8 @@ export const TicketTiers = ({ tiers }: TicketTiersProps) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-2xl font-semibold text-white mb-8"
+          className="text-2xl font-semibold mb-8"
+          style={{ color: 'var(--event-heading, white)' }}
         >
           Choose Your Ticket
         </motion.h2>
@@ -85,20 +80,51 @@ export const TicketTiers = ({ tiers }: TicketTiersProps) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
-              className="glass-card p-6"
+              className="glass-card p-6 relative group"
+              style={{
+                '--card-glow': 'var(--event-primary, #8B5CF6)',
+              } as React.CSSProperties}
             >
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">{tierIcons[index]}</span>
-                <h3 className="text-xl font-semibold text-white">{tier.title}</h3>
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--event-primary,#8B5CF6)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
+              <div className="relative z-10">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-xl font-semibold" style={{ color: 'var(--event-heading, white)' }}>{tier.title}</h3>
+                </div>
+                <div className="text-3xl font-bold mt-4" style={{ color: 'var(--event-primary, #8B5CF6)' }}>${tier.price}</div>
+                <p className="text-gray-300 mt-2">{tier.description || "Access to event"}</p>
+                
+                <div className="flex items-center gap-4 mt-6">
+                  <div className="flex items-center gap-2">
+                    <Button 
+                      variant="outline"
+                      size="icon"
+                      onClick={() => handleQuantityChange(tier.id, false)}
+                      className="h-8 w-8"
+                    >
+                      <Minus className="h-4 w-4" />
+                    </Button>
+                    <span className="w-8 text-center">{quantities[tier.id]}</span>
+                    <Button 
+                      variant="outline"
+                      size="icon"
+                      onClick={() => handleQuantityChange(tier.id, true)}
+                      className="h-8 w-8"
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <Button 
+                    className="flex-1"
+                    style={{
+                      backgroundColor: 'var(--event-primary, #8B5CF6)',
+                      color: 'white'
+                    }}
+                    onClick={() => handleAddToCart(tier)}
+                  >
+                    Add to Cart
+                  </Button>
+                </div>
               </div>
-              <div className="text-3xl font-bold text-eden-primary mt-4">${tier.price}</div>
-              <p className="text-gray-300 mt-2">{tier.description || "Access to event"}</p>
-              <Button 
-                className="w-full bg-eden-primary hover:bg-eden-primary/90 mt-6"
-                onClick={() => handleAddToCart(tier)}
-              >
-                Add to Cart
-              </Button>
             </motion.div>
           ))}
         </div>

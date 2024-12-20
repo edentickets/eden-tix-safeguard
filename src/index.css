@@ -66,8 +66,23 @@
   @apply content-[''] absolute -inset-[1px] bg-gradient-to-br from-white/5 to-transparent rounded-xl opacity-0 transition-opacity duration-300;
 }
 
+.glass-card::after {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(circle, var(--card-glow) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: -1;
+  filter: blur(20px);
+}
+
 .glass-card:hover::before {
   @apply opacity-100;
+}
+
+.glass-card:hover::after {
+  opacity: 0.15;
 }
 
 .btn-gradient {

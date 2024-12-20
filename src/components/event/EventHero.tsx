@@ -7,6 +7,7 @@ import { useSession } from "@supabase/auth-helpers-react";
 import { EventDateTime } from "./hero/EventDateTime";
 import { EventLocation } from "./hero/EventLocation";
 import { EventImageUpload } from "./hero/EventImageUpload";
+import { useEffect } from "react";
 
 interface EventHeroProps {
   event: Event;
@@ -16,6 +17,24 @@ export const EventHero = ({ event }: EventHeroProps) => {
   const { toast } = useToast();
   const session = useSession();
 
+  useEffect(() => {
+    // Set custom event theme colors
+    document.documentElement.style.setProperty('--event-primary', event.primary_color || '#8B5CF6');
+    document.documentElement.style.setProperty('--event-secondary', event.secondary_color || '#10B981');
+    document.documentElement.style.setProperty('--event-background', event.background_color || '#1A1F2C');
+    document.documentElement.style.setProperty('--event-text', event.text_color || 'white');
+    document.documentElement.style.setProperty('--event-heading', event.heading_color || 'white');
+
+    return () => {
+      // Clean up custom properties
+      document.documentElement.style.removeProperty('--event-primary');
+      document.documentElement.style.removeProperty('--event-secondary');
+      document.documentElement.style.removeProperty('--event-background');
+      document.documentElement.style.removeProperty('--event-text');
+      document.documentElement.style.removeProperty('--event-heading');
+    };
+  }, [event]);
+
   const handleAlert = () => {
     toast({
       title: "Alert Set!",
@@ -24,8 +43,22 @@ export const EventHero = ({ event }: EventHeroProps) => {
   };
 
   return (
-    <div className="relative h-[60vh] w-full">
-      <div className="absolute inset-0 bg-gradient-to-br from-eden-primary/5 to-transparent opacity-20 backdrop-blur-xl" />
+    <div className="relative h-[60vh] w-full overflow-hidden">
+      {event.promo_banner_url && (
+        <>
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ 
+              backgroundImage: `url(${event.promo_banner_url})`,
+              filter: 'blur(30px)',
+              transform: 'scale(1.1)',
+              opacity: 0.3
+            }} 
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-[var(--event-primary,#8B5CF6)]/30 to-[var(--event-background,#1A1F2C)] backdrop-blur-3xl" />
+        </>
+      )}
+      
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
