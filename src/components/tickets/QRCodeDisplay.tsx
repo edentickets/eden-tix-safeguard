@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "@/hooks/use-toast";
-import { QRCodeSVG } from "qrcode.react"; // Changed from default import to named import
+import { QRCodeSVG } from "qrcode.react";
 
 interface QRCodeDisplayProps {
   ticketId: string;
@@ -76,8 +76,8 @@ export const QRCodeDisplay = ({ ticketId, eventId }: QRCodeDisplayProps) => {
       }
     };
 
-    const interval = setInterval(generateQR, 30000);
-    generateQR();
+    const interval = setInterval(generateQR, 30000); // Generate new QR code every 30 seconds
+    generateQR(); // Generate initial QR code
 
     return () => clearInterval(interval);
   }, [ticketId, eventId]);
