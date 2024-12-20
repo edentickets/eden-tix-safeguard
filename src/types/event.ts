@@ -15,6 +15,14 @@ export interface Event {
   rating?: number;
   reviews?: number;
   organizer?: string;
+  ticket_tiers?: Array<{
+    id: string;
+    title: string;
+    description?: string;
+    price: number;
+    total_tickets: number;
+    available_tickets: number;
+  }>;
   highlights?: Array<{
     icon: string;
     title: string;
