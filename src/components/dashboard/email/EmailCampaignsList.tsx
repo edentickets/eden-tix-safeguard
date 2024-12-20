@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 interface EmailCampaign {
   id: string;
@@ -19,6 +20,7 @@ interface EmailCampaign {
 
 export const EmailCampaignsList = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
 
   const { data: campaigns, isLoading } = useQuery({
@@ -35,10 +37,7 @@ export const EmailCampaignsList = () => {
   });
 
   const handleCreateCampaign = () => {
-    toast({
-      title: "Coming Soon",
-      description: "Email campaign creation will be available soon!",
-    });
+    navigate("/dashboard/create-campaign");
   };
 
   return (
