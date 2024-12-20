@@ -22,25 +22,26 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { EventAttendees } from "@/components/events/EventAttendees";
 import { VerificationBadge } from "@/components/profile/VerificationBadge";
+import { formatEventDate } from "@/types/event";
 
 interface EventCardProps {
   event: {
     id: string;
     title: string;
-    date: string;
+    start_date: string;
+    end_date: string;
     location: string;
-    status: string;
-    soldTickets: number;
-    totalTickets: number;
-    revenue: number;
+    available_tickets: number;
+    total_tickets: number;
+    price: number;
     creator?: {
       is_verified?: boolean;
     };
   };
-  index: number;
+  index?: number;
 }
 
-export function EventCard({ event, index }: EventCardProps) {
+export function EventCard({ event, index = 0 }: EventCardProps) {
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -76,6 +77,19 @@ export function EventCard({ event, index }: EventCardProps) {
     }
   };
 
+  const getEventStatus = () => {
+    const now = new Date();
+    const startDate = new Date(event.start_date);
+    const endDate = new Date(event.end_date);
+
+    if (now > endDate) return "Ended";
+    if (event.available_tickets === 0) return "Sold Out";
+    return "On Sale";
+  };
+
+  const status = getEventStatus();
+  const revenue = (event.total_tickets - event.available_tickets) * event.price;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -91,19 +105,19 @@ export function EventCard({ event, index }: EventCardProps) {
                 <VerificationBadge className="h-4 w-4" />
               )}
               <span className={`px-2 py-1 rounded-full text-xs ${
-                event.status === "On Sale" 
+                status === "On Sale" 
                   ? "bg-green-500/20 text-green-400"
-                  : event.status === "Draft"
-                  ? "bg-gray-500/20 text-gray-400"
-                  : "bg-blue-500/20 text-blue-400"
+                  : status === "Sold Out"
+                  ? "bg-red-500/20 text-red-400"
+                  : "bg-gray-500/20 text-gray-400"
               }`}>
-                {event.status}
+                {status}
               </span>
             </div>
             <div className="flex items-center gap-4 text-sm text-gray-400">
               <div className="flex items-center gap-1">
                 <Calendar className="w-4 h-4" />
-                {event.date}
+                {formatEventDate(event.start_date, event.end_date)}
               </div>
               <div className="flex items-center gap-1">
                 <MapPin className="w-4 h-4" />
@@ -118,13 +132,13 @@ export function EventCard({ event, index }: EventCardProps) {
               <div className="text-center">
                 <div className="text-sm text-gray-400">Tickets Sold</div>
                 <div className="text-lg font-semibold text-white">
-                  {event.soldTickets}/{event.totalTickets}
+                  {event.total_tickets - event.available_tickets}/{event.total_tickets}
                 </div>
               </div>
               <div className="text-center">
                 <div className="text-sm text-gray-400">Revenue</div>
                 <div className="text-lg font-semibold text-white">
-                  ${event.revenue.toLocaleString()}
+                  ${revenue.toLocaleString()}
                 </div>
               </div>
             </div>

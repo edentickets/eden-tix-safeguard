@@ -6,16 +6,19 @@ import { Event } from "@/types/event";
 const CreatorProfile = () => {
   // Placeholder data - would come from API in production
   const creator = {
-    name: "Rolling Loud",
-    tagline: "We Create Unforgettable Moments",
+    id: "1",
+    full_name: "Rolling Loud",
+    avatar_url: "/placeholder.svg",
+    creator_tagline: "We Create Unforgettable Moments",
+    is_verified: true,
+    verification_date: new Date().toISOString(),
+    // Additional UI-only properties
     category: "Music Festivals & Concerts",
     location: "Miami, FL",
     followers: "125K",
     rating: 4.8,
     reviewCount: 1250,
-    verified: true,
     bio: "Since 2015, we've been curating the biggest hip-hop festivals worldwide. Join us for an unforgettable experience with the hottest artists in the game.",
-    avatar: "/placeholder.svg",
     banner: "/placeholder.svg",
     socialLinks: {
       instagram: "https://instagram.com/rollingloud",
