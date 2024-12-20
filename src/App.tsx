@@ -6,6 +6,7 @@ import CreatorsLanding from "@/pages/CreatorsLanding";
 import UsersLanding from "@/pages/UsersLanding";
 import Explore from "@/pages/Explore";
 import Event from "@/pages/Event";
+import FAQ from "@/pages/FAQ";
 import UserProfile from "@/pages/UserProfile";
 import CreatorDashboard from "@/pages/CreatorDashboard";
 import EventsManagement from "@/pages/dashboard/EventsManagement";
@@ -50,6 +51,7 @@ const AppContent = () => {
           <Route path="/creators" element={<CreatorsLanding />} />
           <Route path="/users" element={<UsersLanding />} />
           <Route path="/explore" element={<Explore />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="/event/:id" element={<Event />} />
           <Route path="/event/:id/check-in" element={<CheckInInterface />} />
           
