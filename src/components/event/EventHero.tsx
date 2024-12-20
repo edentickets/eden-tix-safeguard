@@ -20,7 +20,7 @@ export const EventHero = ({ event }: EventHeroProps) => {
 
   return (
     <div className="relative h-[60vh] w-full">
-      <div className="absolute inset-0 bg-gradient-secondary opacity-20 backdrop-blur-xl" />
+      <div className="absolute inset-0 bg-gradient-to-br from-eden-primary/5 to-transparent opacity-20 backdrop-blur-xl" />
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

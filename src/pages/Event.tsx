@@ -14,11 +14,11 @@ export default function Event() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-eden-dark">
         <div className="flex items-center justify-center h-[calc(100vh-64px)]">
           <div className="flex flex-col items-center gap-4">
             <Loader className="w-8 h-8 animate-spin text-eden-primary" />
-            <p className="text-gray-600">Loading event details...</p>
+            <p className="text-gray-400">Loading event details...</p>
           </div>
         </div>
       </div>
@@ -27,10 +27,10 @@ export default function Event() {
 
   if (error || !event) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-eden-dark">
         <div className="max-w-7xl mx-auto px-4 py-32 text-center">
-          <h1 className="text-3xl font-bold text-gray-900">Event not found</h1>
-          <p className="mt-4 text-gray-600">
+          <h1 className="text-3xl font-bold text-white">Event not found</h1>
+          <p className="mt-4 text-gray-400">
             The event you're looking for doesn't exist or has been removed.
           </p>
         </div>
@@ -39,7 +39,7 @@ export default function Event() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-eden-dark">
       <main>
         <EventHero event={event} />
         <EventHighlights event={event} />
