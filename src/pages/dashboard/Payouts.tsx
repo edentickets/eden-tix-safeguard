@@ -9,7 +9,7 @@ import {
   Clock,
   ArrowUpRight,
   Wallet,
-  Bank,
+  Building2,
   RefreshCcw,
 } from "lucide-react";
 
@@ -44,7 +44,7 @@ export default function Payouts() {
             </p>
           </div>
           <Button className="bg-eden-primary hover:bg-eden-primary/90">
-            <Bank className="w-4 h-4 mr-2" />
+            <Building2 className="w-4 h-4 mr-2" />
             Update Payment Info
           </Button>
         </div>
