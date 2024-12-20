@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Edit2, BarChart2, Calendar, MapPin } from "lucide-react";
+import { Edit2, BarChart2, Calendar, MapPin, QrCode } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
@@ -54,6 +54,14 @@ export function EventItem({ event, index }: EventItemProps) {
             </div>
           </div>
           <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => navigate(`/event/${event.id}/check-in`)}
+            >
+              <QrCode className="h-4 w-4 mr-2" />
+              Check-in
+            </Button>
             <Button 
               variant="outline" 
               size="sm"

@@ -22,15 +22,17 @@ import CheckoutSuccess from "@/pages/checkout/Success";
 import CheckoutFailure from "@/pages/checkout/Failure";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthModal } from "@/components/auth/AuthModal";
+import { CheckInInterface } from "@/components/check-in/CheckInInterface";
 
 // Wrapper component to handle navbar visibility
 const AppContent = () => {
   const location = useLocation();
   const isEventPage = location.pathname.startsWith('/event/');
+  const isCheckInPage = location.pathname.includes('/check-in');
 
   return (
     <div className="min-h-screen bg-eden-dark text-white flex flex-col">
-      {!isEventPage && <Navbar />}
+      {!isEventPage && !isCheckInPage && <Navbar />}
       <div className="flex-1">
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -38,6 +40,7 @@ const AppContent = () => {
           <Route path="/users" element={<UsersLanding />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/event/:id" element={<Event />} />
+          <Route path="/event/:id/check-in" element={<CheckInInterface />} />
           <Route path="/profile" element={<UserProfile />} />
           
           {/* Dashboard Routes */}
@@ -58,7 +61,7 @@ const AppContent = () => {
           <Route path="/checkout/failure" element={<CheckoutFailure />} />
         </Routes>
       </div>
-      <Footer />
+      {!isCheckInPage && <Footer />}
       <AuthModal />
       <Toaster />
     </div>
