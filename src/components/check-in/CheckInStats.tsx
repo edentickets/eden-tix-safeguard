@@ -14,7 +14,6 @@ export const CheckInStats = ({ eventId }: CheckInStatsProps) => {
     queryFn: async () => {
       if (!eventId) throw new Error('Event ID is required');
 
-      // Log the eventId to verify it's being passed correctly
       console.log('Fetching tickets for event:', eventId);
 
       const { data: tickets, error } = await supabase
