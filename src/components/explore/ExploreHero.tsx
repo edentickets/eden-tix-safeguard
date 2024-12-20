@@ -2,14 +2,9 @@ import { SearchBar } from "./SearchBar";
 import { FilterSection } from "./FilterSection";
 import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
 import { motion } from "framer-motion";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
+import { HeroBackground } from "./HeroBackground";
+import { HeroTitle } from "./HeroTitle";
+import { ExplorePagination } from "./ExplorePagination";
 
 interface ExploreHeroProps {
   onSearchChange: (value: string) => void;
@@ -51,11 +46,7 @@ export const ExploreHero = ({
 
   return (
     <div className="relative py-20 overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-eden-dark via-eden-dark/95 to-eden-dark" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.15),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
-      </div>
+      <HeroBackground />
 
       <motion.div
         variants={containerVariants}
@@ -63,12 +54,7 @@ export const ExploreHero = ({
         animate="visible"
         className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
       >
-        <motion.h1
-          variants={itemVariants}
-          className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-primary"
-        >
-          Find Your Next Unforgettable Experience
-        </motion.h1>
+        <HeroTitle variants={itemVariants} />
 
         <div className="max-w-2xl mx-auto space-y-8">
           {isLoading ? (
@@ -91,44 +77,12 @@ export const ExploreHero = ({
             </motion.div>
           )}
 
-          {totalPages > 1 && (
-            <motion.div
-              variants={itemVariants}
-              className="mt-8"
-            >
-              <Pagination>
-                <PaginationContent>
-                  <PaginationItem>
-                    <PaginationPrevious
-                      onClick={() => onPageChange(currentPage - 1)}
-                      className={`transition-opacity duration-200 ${
-                        currentPage === 1 ? "pointer-events-none opacity-50" : ""
-                      }`}
-                    />
-                  </PaginationItem>
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <PaginationItem key={page}>
-                      <PaginationLink
-                        onClick={() => onPageChange(page)}
-                        isActive={currentPage === page}
-                        className="transition-colors duration-200 hover:bg-eden-primary/20"
-                      >
-                        {page}
-                      </PaginationLink>
-                    </PaginationItem>
-                  ))}
-                  <PaginationItem>
-                    <PaginationNext
-                      onClick={() => onPageChange(currentPage + 1)}
-                      className={`transition-opacity duration-200 ${
-                        currentPage === totalPages ? "pointer-events-none opacity-50" : ""
-                      }`}
-                    />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
-            </motion.div>
-          )}
+          <ExplorePagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+            variants={itemVariants}
+          />
         </div>
       </motion.div>
     </div>
