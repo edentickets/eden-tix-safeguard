@@ -8,13 +8,12 @@ const corsHeaders = {
 }
 
 serve(async (req) => {
-  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders })
   }
 
   try {
-    const { eventId, quantity = 1 } = await req.json()
+    const { eventId, quantity = 1, email } = await req.json()
 
     // Initialize Supabase client
     const supabaseClient = createClient(
@@ -22,12 +21,12 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_ANON_KEY') ?? '',
     )
 
-    // Get user from auth header
-    const authHeader = req.headers.get('Authorization')!
-    const { data: { user } } = await supabaseClient.auth.getUser(authHeader.replace('Bearer ', ''))
-    
-    if (!user?.email) {
-      throw new Error('User not authenticated')
+    // Get user from auth header if available
+    let userId = null
+    const authHeader = req.headers.get('Authorization')
+    if (authHeader) {
+      const { data: { user } } = await supabaseClient.auth.getUser(authHeader.replace('Bearer ', ''))
+      userId = user?.id
     }
 
     // Get event details
@@ -48,7 +47,7 @@ serve(async (req) => {
 
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
-      customer_email: user.email,
+      customer_email: userId ? undefined : email, // Only set for guest checkout
       line_items: [
         {
           price_data: {
@@ -68,8 +67,14 @@ serve(async (req) => {
       cancel_url: `${req.headers.get('origin')}/checkout/failure?event_id=${eventId}`,
       metadata: {
         eventId,
-        userId: user.id,
+        userId,
         quantity,
+      },
+      // Add authentication if user is not logged in
+      custom_text: {
+        submit: {
+          message: 'You\'ll be able to create an account after payment to access your tickets.',
+        },
       },
     })
 

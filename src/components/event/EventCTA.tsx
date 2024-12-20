@@ -1,20 +1,50 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Event } from "@/types/event";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface EventCTAProps {
   event: Event;
-  userId: string;
+  userId?: string;
 }
 
 export const EventCTA = ({ event, userId }: EventCTAProps) => {
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handlePurchase = () => {
-    toast({
-      title: "Coming Soon!",
-      description: "Ticket purchasing will be available soon.",
-    });
+  const handlePurchase = async () => {
+    setIsLoading(true);
+    try {
+      // If user is not logged in, we'll collect email during Stripe checkout
+      const response = await fetch('/api/create-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(userId && { 
+            Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}` 
+          }),
+        },
+        body: JSON.stringify({
+          eventId: event.id,
+          quantity: 1,
+        }),
+      });
+
+      const { url, error } = await response.json();
+      
+      if (error) throw new Error(error);
+      if (url) window.location.href = url;
+      
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Could not initiate checkout. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleAlert = () => {
@@ -38,8 +68,9 @@ export const EventCTA = ({ event, userId }: EventCTAProps) => {
             size="lg"
             className="bg-eden-secondary hover:bg-eden-secondary/90"
             onClick={handlePurchase}
+            disabled={isLoading}
           >
-            Buy Tickets
+            {isLoading ? "Processing..." : "Buy Tickets"}
           </Button>
           <Button
             size="lg"
