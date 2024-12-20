@@ -5,45 +5,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Minus, Plus, X, Shield, CreditCard, PaypalIcon } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
 import { useState } from "react";
-
-const SecurityDialog = () => (
-  <Dialog>
-    <DialogTrigger asChild>
-      <Button variant="ghost" size="sm" className="w-full flex items-center gap-2 text-sm text-gray-600">
-        <Shield className="h-4 w-4" />
-        How are my tickets protected?
-      </Button>
-    </DialogTrigger>
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>Secure Ticketing Technology</DialogTitle>
-        <DialogDescription className="space-y-4 pt-4">
-          <p>
-            Your tickets are protected by our advanced security features:
-          </p>
-          <ul className="list-disc pl-4 space-y-2">
-            <li>Dynamic QR codes that update every 30 seconds</li>
-            <li>Blockchain-verified ownership records</li>
-            <li>Secure transfer and resale capabilities</li>
-            <li>Real-time validation at event check-in</li>
-          </ul>
-          <p className="text-sm text-gray-500 mt-4">
-            All transactions are processed securely through our payment partners, ensuring your financial information stays safe.
-          </p>
-        </DialogDescription>
-      </DialogHeader>
-    </DialogContent>
-  </Dialog>
-);
+import { SecurityDialog } from "./SecurityDialog";
+import { CartItem } from "./CartItem";
+import { PaymentMethodSelector } from "./PaymentMethodSelector";
 
 export function CartDropdown() {
   const { items, removeFromCart, updateQuantity, total } = useCart();
@@ -66,7 +36,6 @@ export function CartDropdown() {
         return;
       }
 
-      // Group items by event
       const eventItems = items.reduce((acc, item) => {
         if (!acc[item.eventId]) {
           acc[item.eventId] = [];
@@ -122,38 +91,12 @@ export function CartDropdown() {
           <>
             <div className="max-h-96 overflow-auto">
               {items.map((item) => (
-                <div key={`${item.eventId}-${item.tierId}`} className="p-4 border-b border-gray-100 last:border-0">
-                  <div className="flex justify-between items-start mb-2">
-                    <div>
-                      <h4 className="font-medium">{item.title}</h4>
-                      <p className="text-sm text-gray-500">${item.price}</p>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => removeFromCart(item.eventId, item.tierId)}
-                    >
-                      <X className="h-4 w-4" />
-                    </Button>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => updateQuantity(item.eventId, item.tierId, item.quantity - 1)}
-                    >
-                      <Minus className="h-3 w-3" />
-                    </Button>
-                    <span className="w-8 text-center">{item.quantity}</span>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => updateQuantity(item.eventId, item.tierId, item.quantity + 1)}
-                    >
-                      <Plus className="h-3 w-3" />
-                    </Button>
-                  </div>
-                </div>
+                <CartItem
+                  key={`${item.eventId}-${item.tierId}`}
+                  item={item}
+                  onRemove={removeFromCart}
+                  onUpdateQuantity={updateQuantity}
+                />
               ))}
             </div>
             <div className="p-4 border-t border-gray-100">
@@ -163,40 +106,10 @@ export function CartDropdown() {
               </div>
               <div className="space-y-4">
                 <SecurityDialog />
-                <RadioGroup
+                <PaymentMethodSelector
                   value={paymentMethod}
-                  onValueChange={(value) => setPaymentMethod(value as 'stripe' | 'paypal')}
-                  className="grid grid-cols-2 gap-4"
-                >
-                  <div>
-                    <RadioGroupItem
-                      value="stripe"
-                      id="stripe"
-                      className="peer sr-only"
-                    />
-                    <Label
-                      htmlFor="stripe"
-                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-transparent p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                    >
-                      <CreditCard className="mb-2 h-6 w-6" />
-                      <span className="text-sm font-medium">Card</span>
-                    </Label>
-                  </div>
-                  <div>
-                    <RadioGroupItem
-                      value="paypal"
-                      id="paypal"
-                      className="peer sr-only"
-                    />
-                    <Label
-                      htmlFor="paypal"
-                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-transparent p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                    >
-                      <PaypalIcon className="mb-2 h-6 w-6" />
-                      <span className="text-sm font-medium">PayPal</span>
-                    </Label>
-                  </div>
-                </RadioGroup>
+                  onChange={setPaymentMethod}
+                />
                 <Button className="w-full" onClick={handleCheckout}>
                   Checkout
                 </Button>
