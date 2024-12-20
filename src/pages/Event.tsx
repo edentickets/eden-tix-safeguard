@@ -43,7 +43,7 @@ export default function Event() {
       <Navbar />
       <EventHero event={event} />
       <EventHighlights event={event} />
-      <TicketTiers event={event} />
+      <TicketTiers tiers={event.ticket_tiers} />
       <EventCTA event={event} userId={user?.id || ''} />
     </div>
   );

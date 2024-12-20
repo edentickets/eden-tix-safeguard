@@ -1,10 +1,21 @@
 import { Button } from "@/components/ui/button";
 
+interface TicketTierData {
+  id: string;
+  title: string;
+  price: number;
+  description: string;
+}
+
 interface TicketTierProps {
   title: string;
   price: number;
   benefits: string;
   icon: string;
+}
+
+interface TicketTiersProps {
+  tiers: TicketTierData[];
 }
 
 const TicketTier = ({ title, price, benefits, icon }: TicketTierProps) => (
@@ -21,30 +32,23 @@ const TicketTier = ({ title, price, benefits, icon }: TicketTierProps) => (
   </div>
 );
 
-export const TicketTiers = () => {
+export const TicketTiers = ({ tiers }: TicketTiersProps) => {
+  const tierIcons = ["🎟", "🥂", "🏆"];
+
   return (
     <section className="py-16 px-4">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-white mb-8">Choose Your Ticket</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <TicketTier
-            icon="🎟"
-            title="General Admission"
-            price={299}
-            benefits="Access to all performances and GA areas"
-          />
-          <TicketTier
-            icon="🥂"
-            title="VIP Pass"
-            price={799}
-            benefits="Exclusive VIP zones, premium restrooms, express entry"
-          />
-          <TicketTier
-            icon="🏆"
-            title="Ultra VIP Experience"
-            price={2499}
-            benefits="Backstage access, artist meet-and-greet, free drinks, exclusive lounge"
-          />
+          {tiers.map((tier, index) => (
+            <TicketTier
+              key={tier.id}
+              icon={tierIcons[index] || "🎫"}
+              title={tier.title}
+              price={tier.price}
+              benefits={tier.description || "Access to event"}
+            />
+          ))}
         </div>
       </div>
     </section>
