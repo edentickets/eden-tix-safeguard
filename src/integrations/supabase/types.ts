@@ -69,6 +69,44 @@ export type Database = {
           },
         ]
       }
+      email_preferences: {
+        Row: {
+          created_at: string | null
+          event_reminders: boolean | null
+          id: string
+          marketing_emails: boolean | null
+          profile_id: string
+          purchase_confirmations: boolean | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_reminders?: boolean | null
+          id?: string
+          marketing_emails?: boolean | null
+          profile_id: string
+          purchase_confirmations?: boolean | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_reminders?: boolean | null
+          id?: string
+          marketing_emails?: boolean | null
+          profile_id?: string
+          purchase_confirmations?: boolean | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_preferences_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       event_attendees: {
         Row: {
           created_at: string | null
@@ -443,6 +481,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          analytics_consent: boolean | null
           avatar_url: string | null
           created_at: string | null
           creator_bio: string | null
@@ -453,12 +492,14 @@ export type Database = {
           is_verified: boolean | null
           loyalty_points: number | null
           onboarding_completed: boolean | null
+          preferred_payment_method: string | null
           social_links: Json | null
           updated_at: string | null
           username: string | null
           verification_date: string | null
         }
         Insert: {
+          analytics_consent?: boolean | null
           avatar_url?: string | null
           created_at?: string | null
           creator_bio?: string | null
@@ -469,12 +510,14 @@ export type Database = {
           is_verified?: boolean | null
           loyalty_points?: number | null
           onboarding_completed?: boolean | null
+          preferred_payment_method?: string | null
           social_links?: Json | null
           updated_at?: string | null
           username?: string | null
           verification_date?: string | null
         }
         Update: {
+          analytics_consent?: boolean | null
           avatar_url?: string | null
           created_at?: string | null
           creator_bio?: string | null
@@ -485,6 +528,7 @@ export type Database = {
           is_verified?: boolean | null
           loyalty_points?: number | null
           onboarding_completed?: boolean | null
+          preferred_payment_method?: string | null
           social_links?: Json | null
           updated_at?: string | null
           username?: string | null

@@ -5,12 +5,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Minus, Plus, X, Shield, CreditCard } from "lucide-react";
+import { ShoppingCart, Minus, Plus, X, Shield, CreditCard, PaypalIcon } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
 
 const SecurityDialog = () => (
   <Dialog>
@@ -47,6 +50,7 @@ export function CartDropdown() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [searchParams] = useSearchParams();
+  const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'paypal'>('stripe');
   const referralCode = searchParams.get('ref');
 
   const handleCheckout = async () => {
@@ -77,7 +81,8 @@ export function CartDropdown() {
       const { data, error } = await supabase.functions.invoke('create-checkout', {
         body: { 
           events: eventItems,
-          referralCode: referralCode // Pass referral code if available
+          referralCode,
+          paymentMethod 
         }
       });
 
@@ -156,12 +161,42 @@ export function CartDropdown() {
                 <span className="font-medium">Total:</span>
                 <span className="font-bold">${total.toFixed(2)}</span>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-4">
                 <SecurityDialog />
-                <div className="flex items-center gap-2 text-sm text-gray-600 justify-center mb-4">
-                  <CreditCard className="h-4 w-4" />
-                  <span>Secure payment with cards & digital wallets</span>
-                </div>
+                <RadioGroup
+                  value={paymentMethod}
+                  onValueChange={(value) => setPaymentMethod(value as 'stripe' | 'paypal')}
+                  className="grid grid-cols-2 gap-4"
+                >
+                  <div>
+                    <RadioGroupItem
+                      value="stripe"
+                      id="stripe"
+                      className="peer sr-only"
+                    />
+                    <Label
+                      htmlFor="stripe"
+                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-transparent p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                    >
+                      <CreditCard className="mb-2 h-6 w-6" />
+                      <span className="text-sm font-medium">Card</span>
+                    </Label>
+                  </div>
+                  <div>
+                    <RadioGroupItem
+                      value="paypal"
+                      id="paypal"
+                      className="peer sr-only"
+                    />
+                    <Label
+                      htmlFor="paypal"
+                      className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-transparent p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                    >
+                      <PaypalIcon className="mb-2 h-6 w-6" />
+                      <span className="text-sm font-medium">PayPal</span>
+                    </Label>
+                  </div>
+                </RadioGroup>
                 <Button className="w-full" onClick={handleCheckout}>
                   Checkout
                 </Button>

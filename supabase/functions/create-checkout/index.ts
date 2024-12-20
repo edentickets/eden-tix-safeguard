@@ -14,7 +14,7 @@ serve(async (req) => {
   }
 
   try {
-    const { eventId, quantity = 1, referralCode } = await req.json()
+    const { eventId, quantity = 1, referralCode, paymentMethod = 'stripe' } = await req.json()
 
     // Initialize Supabase client
     const supabaseClient = createClient(
@@ -57,17 +57,54 @@ serve(async (req) => {
       }
     }
 
-    // Initialize Stripe
-    const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') || '', {
-      apiVersion: '2023-10-16',
-    })
-
     // Calculate commission if promoter exists
     const basePrice = event.price
     const commission = promoter ? (basePrice * (promoter.commission_rate / 100)) : 0
     console.log('Commission calculation:', { basePrice, rate: promoter?.commission_rate, commission })
 
-    // Create Stripe checkout session
+    if (paymentMethod === 'paypal') {
+      // Create PayPal order
+      const response = await fetch('https://api-m.sandbox.paypal.com/v2/checkout/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${Deno.env.get('PAYPAL_ACCESS_TOKEN')}`,
+        },
+        body: JSON.stringify({
+          intent: 'CAPTURE',
+          purchase_units: [{
+            amount: {
+              currency_code: 'USD',
+              value: (event.price * quantity).toString(),
+            },
+            description: `Tickets for ${event.title}`,
+          }],
+          application_context: {
+            return_url: `${req.headers.get('origin')}/checkout/success`,
+            cancel_url: `${req.headers.get('origin')}/checkout/failure?event_id=${eventId}`,
+          },
+        }),
+      });
+
+      const paypalOrder = await response.json();
+      
+      return new Response(
+        JSON.stringify({ 
+          provider: 'paypal',
+          url: paypalOrder.links.find((link: any) => link.rel === 'approve').href 
+        }),
+        { 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          status: 200,
+        }
+      )
+    }
+
+    // Default to Stripe checkout
+    const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') || '', {
+      apiVersion: '2023-10-16',
+    })
+
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items: [
@@ -93,12 +130,11 @@ serve(async (req) => {
         promoterId: promoter?.id,
         commission,
       },
-      // If user is not logged in, collect minimal information
       customer_creation: userId ? undefined : 'always',
       phone_number_collection: {
         enabled: true,
       },
-      customer_email: userId ? undefined : null, // Collect email during checkout for guest users
+      customer_email: userId ? undefined : null,
       custom_text: {
         submit: {
           message: 'You can use either email or phone number to access your tickets after payment.',
@@ -107,7 +143,7 @@ serve(async (req) => {
     })
 
     return new Response(
-      JSON.stringify({ url: session.url }),
+      JSON.stringify({ provider: 'stripe', url: session.url }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 200,
