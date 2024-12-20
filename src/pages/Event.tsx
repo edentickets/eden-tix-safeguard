@@ -6,6 +6,7 @@ import { EventCTA } from "@/components/event/EventCTA";
 import { TicketTiers } from "@/components/event/TicketTiers";
 import { useAuthState } from "@/hooks/use-auth-state";
 import { Loader } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 export default function Event() {
   const { id } = useParams();
@@ -40,10 +41,27 @@ export default function Event() {
 
   return (
     <div className="min-h-screen bg-eden-dark">
-      <main>
+      <main className="relative">
         <EventHero event={event} />
-        <EventHighlights event={event} />
-        <TicketTiers tiers={event.ticket_tiers || []} />
+        <div className="max-w-7xl mx-auto px-4 space-y-16 py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 space-y-12">
+              <div className="prose prose-invert max-w-none">
+                <h2 className="text-2xl font-bold">About This Event</h2>
+                <p className="text-gray-300 whitespace-pre-wrap">
+                  {event.description}
+                </p>
+              </div>
+              <Separator className="bg-eden-light/20" />
+              <EventHighlights event={event} />
+            </div>
+            <div className="lg:col-span-1">
+              <div className="sticky top-24">
+                <TicketTiers tiers={event.ticket_tiers || []} />
+              </div>
+            </div>
+          </div>
+        </div>
         {user && <EventCTA event={event} userId={user.id} />}
       </main>
     </div>

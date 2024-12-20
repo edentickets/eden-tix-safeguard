@@ -1,56 +1,83 @@
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Check } from "lucide-react";
 
 interface TicketTierData {
   id: string;
   title: string;
   price: number;
   description?: string;
-}
-
-interface TicketTierProps {
-  title: string;
-  price: number;
-  benefits: string;
-  icon: string;
+  total_tickets: number;
+  available_tickets: number;
 }
 
 interface TicketTiersProps {
   tiers: TicketTierData[];
 }
 
-const TicketTier = ({ title, price, benefits, icon }: TicketTierProps) => (
-  <div className="glass-card p-6 space-y-4 hover:scale-105 transition-transform duration-300">
-    <div className="flex items-center gap-2">
-      <span className="text-2xl">{icon}</span>
-      <h3 className="text-xl font-bold">{title}</h3>
-    </div>
-    <div className="text-3xl font-bold text-eden-primary">${price}</div>
-    <p className="text-gray-300">{benefits}</p>
-    <Button className="w-full bg-eden-primary hover:bg-eden-primary/90">
-      Buy Now
-    </Button>
-  </div>
-);
-
 export const TicketTiers = ({ tiers }: TicketTiersProps) => {
-  const tierIcons = ["🎟", "🥂", "🏆"];
+  const { toast } = useToast();
+
+  const handlePurchase = (tier: TicketTierData) => {
+    toast({
+      title: "Coming Soon!",
+      description: "Ticket purchasing will be available soon.",
+    });
+  };
+
+  if (!tiers.length) return null;
 
   return (
-    <section className="py-16 px-4">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-white mb-8">Choose Your Ticket</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {tiers.map((tier, index) => (
-            <TicketTier
-              key={tier.id}
-              icon={tierIcons[index] || "🎫"}
-              title={tier.title}
-              price={tier.price}
-              benefits={tier.description || "Access to event"}
-            />
+    <div id="tickets" className="space-y-6">
+      <div className="sticky top-24 space-y-6">
+        <h2 className="text-2xl font-bold text-white">Select Tickets</h2>
+        <div className="space-y-4">
+          {tiers.map((tier) => (
+            <Card key={tier.id} className="p-6 bg-eden-light/10 backdrop-blur-sm border-eden-light/20">
+              <div className="space-y-4">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-white">
+                      {tier.title}
+                    </h3>
+                    {tier.available_tickets > 0 ? (
+                      <p className="text-sm text-eden-accent">
+                        {tier.available_tickets} tickets remaining
+                      </p>
+                    ) : (
+                      <Badge variant="destructive">Sold Out</Badge>
+                    )}
+                  </div>
+                  <span className="text-2xl font-bold text-white">
+                    ${tier.price}
+                  </span>
+                </div>
+
+                {tier.description && (
+                  <div className="space-y-2">
+                    {tier.description.split('\n').map((benefit, index) => (
+                      <div key={index} className="flex items-start gap-2">
+                        <Check className="w-5 h-5 text-eden-secondary mt-0.5" />
+                        <span className="text-gray-300">{benefit}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <Button
+                  className="w-full bg-eden-secondary hover:bg-eden-secondary/90 disabled:bg-gray-600"
+                  onClick={() => handlePurchase(tier)}
+                  disabled={tier.available_tickets === 0}
+                >
+                  {tier.available_tickets > 0 ? "Select" : "Sold Out"}
+                </Button>
+              </div>
+            </Card>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
