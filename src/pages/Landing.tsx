@@ -1,7 +1,6 @@
 import HeroSection from "@/components/sections/HeroSection";
 import { Features } from "@/components/creators/Features";
 import ClientsSection from "@/components/sections/ClientsSection";
-import RewardsSection from "@/components/sections/RewardsSection";
 import { CTASection } from "@/components/creators/CTASection";
 
 const Landing = () => {
@@ -10,7 +9,6 @@ const Landing = () => {
       <HeroSection />
       <Features />
       <ClientsSection />
-      <RewardsSection />
       <CTASection />
     </div>
   );
