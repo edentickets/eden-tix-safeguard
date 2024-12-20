@@ -49,8 +49,12 @@ export const TicketTiers = ({ tiers }: TicketTiersProps) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="py-16 px-4 bg-eden-dark"
+      className="relative py-16 px-4 bg-eden-dark overflow-hidden isolate"
     >
+      {/* Moving gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-eden-primary/10 via-eden-secondary/5 to-eden-dark animate-gradient-shift -z-10" />
+      <div className="absolute inset-0 backdrop-blur-3xl -z-10" />
+      
       <div className="max-w-7xl mx-auto">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
@@ -67,7 +71,7 @@ export const TicketTiers = ({ tiers }: TicketTiersProps) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
-              className="glass-card"
+              className="glass-card p-6"
             >
               <div className="flex items-center gap-2">
                 <span className="text-2xl">{tierIcons[index]}</span>
