@@ -8,17 +8,26 @@ import { Form } from "@/components/ui/form";
 import { eventFormSchema, defaultValues, EventFormValues } from "./form/eventFormSchema";
 import { useEventFormSubmit } from "./form/useEventFormSubmit";
 
-export const CreateEventForm = () => {
+interface CreateEventFormProps {
+  onSuccess?: () => void;
+}
+
+export const CreateEventForm = ({ onSuccess }: CreateEventFormProps) => {
   const form = useForm<EventFormValues>({
     resolver: zodResolver(eventFormSchema),
     defaultValues,
   });
 
-  const { onSubmit } = useEventFormSubmit();
+  const { onSubmit } = useEventFormSubmit({
+    onSuccess: () => {
+      form.reset();
+      onSuccess?.();
+    },
+  });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-w-2xl mx-auto">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <EventBasicInfo form={form} />
         <EventDatePicker form={form} />
         <EventTicketInfo form={form} />

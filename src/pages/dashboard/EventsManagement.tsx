@@ -18,6 +18,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { CreateEventForm } from "@/components/events/CreateEventForm";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+
+export default function EventsManagement() {
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
 const events = [
   {
@@ -52,7 +58,6 @@ const events = [
   },
 ];
 
-export default function EventsManagement() {
   return (
     <DashboardLayout>
       <div className="space-y-8">
@@ -61,11 +66,25 @@ export default function EventsManagement() {
             <h1 className="text-3xl font-bold text-white mb-2">Events Management</h1>
             <p className="text-gray-400">Create and manage your events</p>
           </div>
-          <Button className="bg-eden-primary hover:bg-eden-primary/90">
+          <Button 
+            className="bg-eden-primary hover:bg-eden-primary/90"
+            onClick={() => setIsCreateModalOpen(true)}
+          >
             <PlusCircle className="w-4 h-4 mr-2" />
             Create Event
           </Button>
         </div>
+
+        <Dialog open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen}>
+          <DialogContent className="max-w-3xl bg-eden-dark border-eden-light/20">
+            <div className="py-6">
+              <h2 className="text-2xl font-bold text-white mb-6 text-center">
+                Create New Event
+              </h2>
+              <CreateEventForm onSuccess={() => setIsCreateModalOpen(false)} />
+            </div>
+          </DialogContent>
+        </Dialog>
 
         <div className="grid gap-4">
           {events.map((event, index) => (

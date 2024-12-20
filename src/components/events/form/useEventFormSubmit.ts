@@ -4,7 +4,11 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { EventFormValues } from "./eventFormSchema";
 
-export const useEventFormSubmit = () => {
+interface UseEventFormSubmitProps {
+  onSuccess?: () => void;
+}
+
+export const useEventFormSubmit = ({ onSuccess }: UseEventFormSubmitProps = {}) => {
   const session = useSession();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -43,6 +47,7 @@ export const useEventFormSubmit = () => {
         description: "Your event has been created and is now live!",
       });
 
+      onSuccess?.();
       navigate(`/event/${eventData.id}`);
     } catch (error: any) {
       toast({
