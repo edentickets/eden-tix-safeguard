@@ -1,4 +1,3 @@
-import { Navbar } from "@/components/Navbar";
 import Background3D from "@/components/Background3D";
 import { HeroSection } from "@/components/users/HeroSection";
 import { FeaturesSection } from "@/components/users/FeaturesSection";
@@ -9,7 +8,6 @@ import CTASection from "@/components/sections/CTASection";
 const UsersLanding = () => {
   return (
     <div className="min-h-screen bg-eden-dark">
-      <Navbar />
       <Background3D />
       <HeroSection />
       <FeaturesSection />
