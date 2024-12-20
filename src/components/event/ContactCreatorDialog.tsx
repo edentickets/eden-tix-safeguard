@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuthState } from "@/hooks/use-auth-state";
 
 interface ContactCreatorDialogProps {
   creatorId: string;
@@ -16,8 +17,18 @@ export const ContactCreatorDialog = ({ creatorId, eventTitle, organizer }: Conta
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuthState();
 
   const handleSubmit = async () => {
+    if (!user) {
+      toast({
+        title: "Error",
+        description: "You must be logged in to send messages",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!message.trim()) {
       toast({
         title: "Error",
@@ -30,6 +41,7 @@ export const ContactCreatorDialog = ({ creatorId, eventTitle, organizer }: Conta
     setIsLoading(true);
     try {
       const { error } = await supabase.from("messages").insert({
+        from_user_id: user.id,
         to_user_id: creatorId,
         event_title: eventTitle,
         message: message.trim(),
