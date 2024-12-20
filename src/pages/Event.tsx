@@ -1,51 +1,64 @@
 import { useParams } from "react-router-dom";
-import { useEventQuery } from "@/hooks/use-event-query";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import { EventHero } from "@/components/event/EventHero";
 import { EventHighlights } from "@/components/event/EventHighlights";
 import { EventCTA } from "@/components/event/EventCTA";
-import { TicketTiers } from "@/components/event/TicketTiers";
+import { EventSocialShare } from "@/components/event/EventSocialShare";
 import { useAuthState } from "@/hooks/use-auth-state";
-import { Loader } from "lucide-react";
 
 export default function Event() {
   const { id } = useParams();
   const { user } = useAuthState();
-  const { data: event, isLoading, error } = useEventQuery(id);
+
+  const { data: event, isLoading } = useQuery({
+    queryKey: ["event", id],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("events")
+        .select(`
+          *,
+          creator:profiles(*)
+        `)
+        .eq("id", id)
+        .single();
+
+      if (error) throw error;
+      return data;
+    },
+  });
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-eden-dark">
-        <div className="flex items-center justify-center h-[calc(100vh-64px)]">
-          <div className="flex flex-col items-center gap-4">
-            <Loader className="w-8 h-8 animate-spin text-eden-primary" />
-            <p className="text-gray-400">Loading event details...</p>
-          </div>
-        </div>
+      <div className="min-h-screen bg-eden-dark animate-pulse">
+        <div className="h-96 bg-eden-light/10" />
       </div>
     );
   }
 
-  if (error || !event) {
+  if (!event) {
     return (
-      <div className="min-h-screen bg-eden-dark">
-        <div className="max-w-7xl mx-auto px-4 py-32 text-center">
-          <h1 className="text-3xl font-bold text-white">Event not found</h1>
-          <p className="mt-4 text-gray-400">
-            The event you're looking for doesn't exist or has been removed.
-          </p>
-        </div>
+      <div className="min-h-screen bg-eden-dark flex items-center justify-center">
+        <p className="text-white">Event not found</p>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-eden-dark">
-      <main>
-        <EventHero event={event} />
-        <EventHighlights event={event} />
-        <TicketTiers tiers={event.ticket_tiers || []} />
-        {user && <EventCTA event={event} userId={user.id} />}
-      </main>
+      <EventHero event={event} />
+      
+      <div className="max-w-7xl mx-auto px-4 py-12 space-y-12">
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="md:col-span-2">
+            <EventHighlights event={event} />
+          </div>
+          <div className="space-y-6">
+            <EventCTA event={event} userId={user?.id} />
+            <EventSocialShare event={event} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
