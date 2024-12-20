@@ -1,8 +1,8 @@
-import { HeroSection } from "@/components/sections/HeroSection";
-import { FeaturesSection } from "@/components/sections/FeaturesSection";
-import { RewardsSection } from "@/components/sections/RewardsSection";
-import { CTASection } from "@/components/sections/CTASection";
-import { ClientsSection } from "@/components/sections/ClientsSection";
+import HeroSection from "@/components/sections/HeroSection";
+import FeaturesSection from "@/components/sections/FeaturesSection";
+import RewardsSection from "@/components/sections/RewardsSection";
+import CTASection from "@/components/sections/CTASection";
+import ClientsSection from "@/components/sections/ClientsSection";
 import { Navbar } from "@/components/Navbar";
 
 const Landing = () => {
