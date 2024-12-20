@@ -59,22 +59,30 @@
 }
 
 .glass-card {
-  @apply bg-[var(--event-background,#121212)]/80 backdrop-blur-md border border-[var(--event-primary,#D4AF37)]/20 shadow-lg rounded-xl transition-all duration-300 hover:bg-[var(--event-background,#121212)]/90 hover:border-[var(--event-primary,#D4AF37)]/30 relative;
+  @apply bg-black/80 backdrop-blur-md border shadow-lg rounded-xl transition-all duration-300 relative;
+  border-color: rgba(var(--event-primary), 0.2);
+  background-color: rgba(var(--event-background), 0.8);
+}
+
+.glass-card:hover {
+  border-color: rgba(var(--event-primary), 0.3);
+  background-color: rgba(var(--event-background), 0.9);
 }
 
 .glass-card::before {
-  @apply content-[''] absolute -inset-[1px] bg-gradient-to-r from-[var(--event-primary,#D4AF37)]/5 to-transparent rounded-xl opacity-0 transition-opacity duration-300;
+  @apply content-[''] absolute -inset-[1px] rounded-xl opacity-0 transition-opacity duration-300;
+  background: linear-gradient(to right, rgba(var(--event-primary), 0.05), transparent);
 }
 
 .glass-card::after {
   content: '';
   position: absolute;
   inset: -20px;
-  background: radial-gradient(circle, var(--event-primary, #D4AF37) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.3s;
   z-index: -1;
   filter: blur(20px);
+  background: radial-gradient(circle, rgba(var(--event-primary), 1) 0%, transparent 70%);
 }
 
 .glass-card:hover::before {
