@@ -2,7 +2,7 @@ import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { EmailCampaignsList } from "@/components/dashboard/email/EmailCampaignsList";
 import CreateCampaign from "@/pages/dashboard/CreateCampaign";
-import { Landing } from "@/pages/Landing"; // Make sure this import exists
+import Landing from "@/pages/Landing"; // Changed to default import
 
 const router = createBrowserRouter([
   {
