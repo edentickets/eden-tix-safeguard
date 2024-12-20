@@ -7,6 +7,7 @@ import { WaitlistButton } from "@/components/event/WaitlistButton";
 
 interface TicketTier {
   id: string;
+  event_id: string;  // Added this property
   title: string;
   description?: string;
   price: number;
