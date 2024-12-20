@@ -16,6 +16,11 @@ export interface Event {
   rating?: number;
   reviews?: number;
   organizer?: string;
+  primary_color?: string;
+  secondary_color?: string;
+  background_color?: string;
+  text_color?: string;
+  heading_color?: string;
   ticket_tiers?: Array<{
     id: string;
     title: string;

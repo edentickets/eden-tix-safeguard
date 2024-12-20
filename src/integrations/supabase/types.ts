@@ -12,48 +12,63 @@ export type Database = {
       events: {
         Row: {
           available_tickets: number
+          background_color: string | null
           created_at: string | null
           creator_id: string | null
           description: string | null
           end_date: string
+          heading_color: string | null
           id: string
           image_url: string | null
           location: string
           price: number
+          primary_color: string | null
           promo_banner_url: string | null
+          secondary_color: string | null
           start_date: string
+          text_color: string | null
           title: string
           total_tickets: number
           updated_at: string | null
         }
         Insert: {
           available_tickets: number
+          background_color?: string | null
           created_at?: string | null
           creator_id?: string | null
           description?: string | null
           end_date: string
+          heading_color?: string | null
           id?: string
           image_url?: string | null
           location: string
           price: number
+          primary_color?: string | null
           promo_banner_url?: string | null
+          secondary_color?: string | null
           start_date: string
+          text_color?: string | null
           title: string
           total_tickets: number
           updated_at?: string | null
         }
         Update: {
           available_tickets?: number
+          background_color?: string | null
           created_at?: string | null
           creator_id?: string | null
           description?: string | null
           end_date?: string
+          heading_color?: string | null
           id?: string
           image_url?: string | null
           location?: string
           price?: number
+          primary_color?: string | null
           promo_banner_url?: string | null
+          secondary_color?: string | null
           start_date?: string
+          text_color?: string | null
           title?: string
           total_tickets?: number
           updated_at?: string | null

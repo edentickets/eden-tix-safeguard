@@ -71,7 +71,7 @@ export const EventHero = ({ event }: EventHeroProps) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="text-3xl md:text-5xl font-bold text-white"
+              className="text-3xl md:text-5xl font-bold text-[var(--event-heading,white)]"
             >
               {event.title}
             </motion.h1>
@@ -79,18 +79,18 @@ export const EventHero = ({ event }: EventHeroProps) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.5 }}
-              className="flex flex-wrap gap-6 text-gray-200"
+              className="flex flex-wrap gap-6 text-[var(--event-text,#E5E7EB)]"
             >
               <EventDateTime startDate={event.start_date} endDate={event.end_date} />
               <EventLocation location={event.location} />
               {event.description && (
-                <div className="flex items-center gap-2 hover:text-eden-primary transition-colors w-full">
+                <div className="flex items-center gap-2 hover:text-[var(--event-primary,#8B5CF6)] transition-colors w-full">
                   <User className="w-5 h-5" />
                   {event.description}
                 </div>
               )}
               {event.organizer && (
-                <div className="flex items-center gap-2 hover:text-eden-primary transition-colors">
+                <div className="flex items-center gap-2 hover:text-[var(--event-primary,#8B5CF6)] transition-colors">
                   <User className="w-5 h-5" />
                   {event.organizer}
                 </div>
@@ -105,7 +105,7 @@ export const EventHero = ({ event }: EventHeroProps) => {
               >
                 <Star className="w-5 h-5 fill-current" />
                 <span>{event.rating}/5</span>
-                <span className="text-gray-300">({event.reviews} reviews)</span>
+                <span className="text-[var(--event-text,#E5E7EB)]">({event.reviews} reviews)</span>
               </motion.div>
             )}
             <motion.div 
@@ -117,7 +117,7 @@ export const EventHero = ({ event }: EventHeroProps) => {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-eden-primary text-eden-primary hover:bg-eden-primary/10"
+                className="border-[var(--event-primary,#8B5CF6)] text-[var(--event-primary,#8B5CF6)] hover:bg-[var(--event-primary,#8B5CF6)]/10"
                 onClick={handleAlert}
               >
                 Set Price Alerts
