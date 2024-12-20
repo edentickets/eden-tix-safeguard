@@ -39,6 +39,12 @@ export const Footer = () => {
               >
                 PRIVACY POLICY
               </Link>
+              <Link 
+                to="/faq" 
+                className="text-white/60 hover:text-white transition-colors"
+              >
+                FAQ
+              </Link>
             </div>
 
             <Link 
