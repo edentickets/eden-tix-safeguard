@@ -9,6 +9,7 @@ import { Navbar } from "@/components/Navbar";
 import { useAuthState } from "@/hooks/use-auth-state";
 import { Event } from "@/types/event";
 import { Loader } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 // UUID validation regex
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -16,6 +17,7 @@ const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12
 const EventDetails = () => {
   const { id } = useParams();
   const { user } = useAuthState();
+  const { toast } = useToast();
 
   const { data: event, isLoading, error } = useQuery({
     queryKey: ["event", id],
@@ -23,22 +25,35 @@ const EventDetails = () => {
       if (!id) throw new Error("Event ID is required");
       if (!UUID_REGEX.test(id)) throw new Error("Invalid event ID format");
       
+      console.log("Fetching event with ID:", id); // Debug log
+      
       const { data, error } = await supabase
         .from("events")
         .select(`
           *,
-          creator:profiles(*),
           ticket_tiers(*)
         `)
         .eq("id", id)
-        .maybeSingle();
+        .single();
       
-      if (error) throw error;
+      if (error) {
+        console.error("Supabase error:", error); // Debug log
+        throw error;
+      }
+      
       if (!data) throw new Error("Event not found");
       
       return data as Event;
     },
-    enabled: !!id,
+    retry: 1,
+    onError: (error: any) => {
+      console.error("Query error:", error); // Debug log
+      toast({
+        title: "Error loading event",
+        description: error.message || "Could not load event details. Please try again.",
+        variant: "destructive",
+      });
+    },
   });
 
   if (isLoading) {
