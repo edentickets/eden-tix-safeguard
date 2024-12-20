@@ -7,6 +7,7 @@ export interface Event {
   start_date: string;
   end_date: string;
   image_url?: string;
+  promo_banner_url?: string;
   total_tickets: number;
   available_tickets: number;
   price: number;

@@ -15,13 +15,13 @@ export const EventDescription = ({ event }: EventDescriptionProps) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="py-16 px-4"
+      className="py-16 px-4 bg-white"
     >
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-2xl font-semibold text-gray-900 mb-6">About This Event</h2>
-        <div className="prose prose-gray max-w-none">
+        <h2 className="text-2xl font-semibold text-eden-dark mb-6">About This Event</h2>
+        <div className="prose prose-eden max-w-none">
           {event.description.split('\n').map((paragraph, index) => (
-            <p key={index} className="text-gray-600 mb-4">
+            <p key={index} className="text-eden-gray mb-4 leading-relaxed">
               {paragraph}
             </p>
           ))}
