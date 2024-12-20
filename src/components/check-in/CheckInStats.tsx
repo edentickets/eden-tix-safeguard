@@ -14,6 +14,9 @@ export const CheckInStats = ({ eventId }: CheckInStatsProps) => {
     queryFn: async () => {
       if (!eventId) throw new Error('Event ID is required');
 
+      // Log the eventId to verify it's being passed correctly
+      console.log('Fetching tickets for event:', eventId);
+
       const { data: tickets, error } = await supabase
         .from('tickets')
         .select('status, last_checked_in_at')
@@ -36,6 +39,7 @@ export const CheckInStats = ({ eventId }: CheckInStatsProps) => {
       };
     },
     enabled: Boolean(eventId),
+    refetchInterval: 5000, // Refresh every 5 seconds
   });
 
   if (error) {
@@ -43,7 +47,15 @@ export const CheckInStats = ({ eventId }: CheckInStatsProps) => {
   }
 
   if (isLoading) {
-    return <div>Loading stats...</div>;
+    return (
+      <div className="grid grid-cols-3 gap-4 mb-6 animate-pulse">
+        {[...Array(3)].map((_, i) => (
+          <Card key={i} className="p-4 bg-eden-dark/50 border-eden-accent/20">
+            <div className="h-16 bg-gray-700/50 rounded" />
+          </Card>
+        ))}
+      </div>
+    );
   }
 
   return (
