@@ -1,4 +1,4 @@
-import { Bell, Shield, Ticket } from "lucide-react";
+import { Bell, Shield, Ticket, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
 import { PriceAlertNotification } from "@/components/hero/PriceAlertNotification";
 
@@ -7,7 +7,7 @@ export const FeaturesSection = () => {
     <section className="py-20 bg-eden-dark/95">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl md:text-5xl font-bold text-center mb-16 gradient-text">
-          Never Miss a Great Deal Again
+          Never Miss Your Perfect Ticket
         </h2>
         
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -22,20 +22,29 @@ export const FeaturesSection = () => {
             </div>
 
             <div className="glass-card p-8 space-y-4">
-              <Shield className="w-12 h-12 text-eden-secondary" />
-              <h3 className="text-xl font-semibold text-white">Secure Purchases</h3>
+              <TrendingUp className="w-12 h-12 text-eden-secondary" />
+              <h3 className="text-xl font-semibold text-white">Optimal Resale Pricing</h3>
               <p className="text-white/70">
-                Buy with confidence knowing every transaction is protected. Our secure platform 
-                ensures your tickets are authentic and your payment is safe.
+                Get the best value for your tickets with our dynamic pricing algorithm. 
+                Our platform analyzes market demand to help you set the perfect resale price.
               </p>
             </div>
 
             <div className="glass-card p-8 space-y-4">
-              <Ticket className="w-12 h-12 text-eden-accent" />
-              <h3 className="text-xl font-semibold text-white">Easy Transfers</h3>
+              <Shield className="w-12 h-12 text-eden-accent" />
+              <h3 className="text-xl font-semibold text-white">Secure Transactions</h3>
               <p className="text-white/70">
-                Need to transfer your ticket? Do it instantly through our app with just a few taps. 
-                No paperwork, no hassle.
+                Buy and sell with confidence knowing every transaction is protected. 
+                Our secure platform ensures your tickets are authentic and your payment is safe.
+              </p>
+            </div>
+
+            <div className="glass-card p-8 space-y-4">
+              <Ticket className="w-12 h-12 text-eden-primary" />
+              <h3 className="text-xl font-semibold text-white">Sold Out? Not for You</h3>
+              <p className="text-white/70">
+                Access tickets even after they're sold out through our verified resale marketplace. 
+                Set alerts for specific events and be first in line when tickets become available.
               </p>
             </div>
           </div>
