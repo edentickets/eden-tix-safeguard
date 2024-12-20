@@ -1,0 +1,3 @@
+project_id = "mnuxntzgginiujjsuztb"
+[functions.scramble-qr-codes]
+verify_jwt = true

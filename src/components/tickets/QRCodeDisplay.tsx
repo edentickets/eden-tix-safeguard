@@ -4,29 +4,21 @@ import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "@/hooks/use-toast";
 import { QRCodeSVG } from "qrcode.react";
+import { Card } from "@/components/ui/card";
+import { Loader2 } from "lucide-react";
 
 interface QRCodeDisplayProps {
   ticketId: string;
   eventId: string;
+  eventStartTime: string;
 }
 
-export const QRCodeDisplay = ({ ticketId, eventId }: QRCodeDisplayProps) => {
+export const QRCodeDisplay = ({ ticketId, eventId, eventStartTime }: QRCodeDisplayProps) => {
   const [qrValue, setQrValue] = useState<string>("");
+  const [isVisible, setIsVisible] = useState(false);
+  const [timeUntilStart, setTimeUntilStart] = useState<string>("");
 
-  const { data: ticket, isLoading } = useQuery({
-    queryKey: ["ticket", ticketId],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("tickets")
-        .select("*")
-        .eq("id", ticketId)
-        .single();
-
-      if (error) throw error;
-      return data;
-    },
-  });
-
+  // Subscribe to QR code updates
   useEffect(() => {
     const channel = supabase
       .channel(`ticket-${ticketId}`)
@@ -42,6 +34,10 @@ export const QRCodeDisplay = ({ ticketId, eventId }: QRCodeDisplayProps) => {
           const newTicket = payload.new;
           if (newTicket.current_qr_code !== qrValue) {
             setQrValue(newTicket.current_qr_code || "");
+            toast({
+              title: "QR Code Updated",
+              description: "Your ticket's QR code has been refreshed for security.",
+            });
           }
         }
       )
@@ -52,49 +48,75 @@ export const QRCodeDisplay = ({ ticketId, eventId }: QRCodeDisplayProps) => {
     };
   }, [ticketId, qrValue]);
 
+  // Check visibility based on event start time
   useEffect(() => {
-    const generateQR = async () => {
-      try {
-        const response = await fetch("/api/generate-qr", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ticketId, eventId }),
-        });
+    const checkVisibility = () => {
+      const now = new Date();
+      const start = new Date(eventStartTime);
+      const diffInMinutes = (start.getTime() - now.getTime()) / (1000 * 60);
 
-        if (!response.ok) {
-          throw new Error("Failed to generate QR code");
+      if (diffInMinutes <= 30 && diffInMinutes > -240) { // Visible 30 min before until 4 hours after
+        setIsVisible(true);
+        if (diffInMinutes > 0) {
+          setTimeUntilStart(`Available in ${Math.ceil(diffInMinutes)} minutes`);
+        } else {
+          setTimeUntilStart("Available now");
         }
-
-        const data = await response.json();
-        setQrValue(data.qrCode);
-      } catch (error) {
-        toast({
-          title: "Error",
-          description: "Failed to generate QR code. Please try again.",
-          variant: "destructive",
-        });
+      } else if (diffInMinutes > 30) {
+        setIsVisible(false);
+        setTimeUntilStart(`Available ${Math.floor(diffInMinutes / 60)} hours ${Math.floor(diffInMinutes % 60)} minutes before event`);
+      } else {
+        setIsVisible(false);
+        setTimeUntilStart("Ticket expired");
       }
     };
 
-    const interval = setInterval(generateQR, 30000); // Generate new QR code every 30 seconds
-    generateQR(); // Generate initial QR code
-
+    checkVisibility();
+    const interval = setInterval(checkVisibility, 60000); // Check every minute
     return () => clearInterval(interval);
-  }, [ticketId, eventId]);
+  }, [eventStartTime]);
+
+  const { isLoading } = useQuery({
+    queryKey: ["ticket-qr", ticketId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("tickets")
+        .select("current_qr_code")
+        .eq("id", ticketId)
+        .single();
+
+      if (error) throw error;
+      if (data?.current_qr_code) {
+        setQrValue(data.current_qr_code);
+      }
+      return data;
+    },
+  });
 
   if (isLoading) {
     return <Skeleton className="w-64 h-64" />;
   }
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-lg">
-      {qrValue ? (
-        <QRCodeSVG value={qrValue} size={256} level="H" />
+    <Card className="p-6 bg-white rounded-lg shadow-lg">
+      {isVisible ? (
+        qrValue ? (
+          <div className="space-y-4">
+            <QRCodeSVG value={qrValue} size={256} level="H" />
+            <p className="text-sm text-gray-500 text-center">
+              QR code refreshes every 5 minutes for security
+            </p>
+          </div>
+        ) : (
+          <div className="w-64 h-64 flex items-center justify-center bg-gray-100 rounded-lg">
+            <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
+          </div>
+        )
       ) : (
         <div className="w-64 h-64 flex items-center justify-center bg-gray-100 rounded-lg">
-          <p className="text-gray-500">Loading QR code...</p>
+          <p className="text-gray-500 text-center px-4">{timeUntilStart}</p>
         </div>
       )}
-    </div>
+    </Card>
   );
 };
