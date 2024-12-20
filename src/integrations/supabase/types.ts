@@ -20,6 +20,7 @@ export type Database = {
           image_url: string | null
           location: string
           price: number
+          promo_banner_url: string | null
           start_date: string
           title: string
           total_tickets: number
@@ -35,6 +36,7 @@ export type Database = {
           image_url?: string | null
           location: string
           price: number
+          promo_banner_url?: string | null
           start_date: string
           title: string
           total_tickets: number
@@ -50,6 +52,7 @@ export type Database = {
           image_url?: string | null
           location?: string
           price?: number
+          promo_banner_url?: string | null
           start_date?: string
           title?: string
           total_tickets?: number
