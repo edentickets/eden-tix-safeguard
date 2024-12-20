@@ -46,15 +46,19 @@ const EventDetails = () => {
       return data as Event;
     },
     retry: 1,
-    onError: (error: any) => {
-      console.error("Query error:", error); // Debug log
-      toast({
-        title: "Error loading event",
-        description: error.message || "Could not load event details. Please try again.",
-        variant: "destructive",
-      });
+    meta: {
+      errorMessage: "Could not load event details. Please try again.",
     },
   });
+
+  // Handle error with toast outside of the query
+  if (error) {
+    toast({
+      title: "Error loading event",
+      description: error.message || "Could not load event details. Please try again.",
+      variant: "destructive",
+    });
+  }
 
   if (isLoading) {
     return (
