@@ -55,9 +55,12 @@ serve(async (req) => {
       const session = event.data.object
 
       // Get metadata from the session
-      const { eventId, userId, quantity } = session.metadata
+      const { eventId, userId, quantity, promoterId, commission } = session.metadata
 
       console.log(`Processing successful payment for event ${eventId}, user ${userId}, quantity ${quantity}`)
+      if (promoterId) {
+        console.log(`Processing commission for promoter ${promoterId}: $${commission}`)
+      }
 
       // Create tickets in the database
       for (let i = 0; i < parseInt(quantity); i++) {
@@ -68,6 +71,9 @@ serve(async (req) => {
             owner_id: userId,
             status: 'active',
             purchase_price: session.amount_total / 100 / parseInt(quantity), // Convert from cents and divide by quantity
+            payment_status: 'completed',
+            payment_method: session.payment_method_types[0],
+            payment_intent_id: session.payment_intent,
           })
           .select()
           .single()
@@ -78,6 +84,24 @@ serve(async (req) => {
         }
 
         console.log('Created ticket:', ticket)
+
+        // If there's a promoter, create a promoter sale record
+        if (promoterId && ticket) {
+          const { error: saleError } = await supabaseAdmin
+            .from('promoter_sales')
+            .insert({
+              promoter_id: promoterId,
+              ticket_id: ticket.id,
+              commission_amount: parseFloat(commission),
+            })
+
+          if (saleError) {
+            console.error('Error creating promoter sale:', saleError)
+            throw saleError
+          }
+
+          console.log('Created promoter sale record for ticket:', ticket.id)
+        }
 
         // Update available tickets count
         const { error: eventError } = await supabaseAdmin

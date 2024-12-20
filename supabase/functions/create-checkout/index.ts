@@ -14,7 +14,7 @@ serve(async (req) => {
   }
 
   try {
-    const { eventId, quantity = 1 } = await req.json()
+    const { eventId, quantity = 1, referralCode } = await req.json()
 
     // Initialize Supabase client
     const supabaseClient = createClient(
@@ -33,7 +33,7 @@ serve(async (req) => {
     // Get event details
     const { data: event } = await supabaseClient
       .from('events')
-      .select('*')
+      .select('*, ticket_tiers(*)')
       .eq('id', eventId)
       .single()
 
@@ -41,10 +41,31 @@ serve(async (req) => {
       throw new Error('Event not found')
     }
 
+    // If referral code is provided, get promoter details
+    let promoter = null
+    if (referralCode) {
+      const { data: referralLink } = await supabaseClient
+        .from('promoter_referral_links')
+        .select('*, promoters(*)')
+        .eq('unique_code', referralCode)
+        .eq('event_id', eventId)
+        .single()
+
+      if (referralLink) {
+        promoter = referralLink.promoters
+        console.log('Found promoter:', promoter)
+      }
+    }
+
     // Initialize Stripe
     const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') || '', {
       apiVersion: '2023-10-16',
     })
+
+    // Calculate commission if promoter exists
+    const basePrice = event.price
+    const commission = promoter ? (basePrice * (promoter.commission_rate / 100)) : 0
+    console.log('Commission calculation:', { basePrice, rate: promoter?.commission_rate, commission })
 
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
@@ -69,6 +90,8 @@ serve(async (req) => {
         eventId,
         userId,
         quantity,
+        promoterId: promoter?.id,
+        commission,
       },
       // If user is not logged in, collect minimal information
       customer_creation: userId ? undefined : 'always',

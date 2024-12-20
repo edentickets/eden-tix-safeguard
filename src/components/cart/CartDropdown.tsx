@@ -5,9 +5,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Minus, Plus, X, Shield, CreditCard, Bitcoin } from "lucide-react";
+import { ShoppingCart, Minus, Plus, X, Shield, CreditCard } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -46,6 +46,8 @@ export function CartDropdown() {
   const { items, removeFromCart, updateQuantity, total } = useCart();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
+  const referralCode = searchParams.get('ref');
 
   const handleCheckout = async () => {
     try {
@@ -73,7 +75,10 @@ export function CartDropdown() {
       }, {} as Record<string, { tierId: string; quantity: number; }[]>);
 
       const { data, error } = await supabase.functions.invoke('create-checkout', {
-        body: { events: eventItems }
+        body: { 
+          events: eventItems,
+          referralCode: referralCode // Pass referral code if available
+        }
       });
 
       if (error) throw error;
