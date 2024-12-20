@@ -18,11 +18,11 @@ export const EventHero = ({ event }: EventHeroProps) => {
   const session = useSession();
 
   useEffect(() => {
-    document.documentElement.style.setProperty('--event-primary', event.primary_color || '139, 92, 246');
-    document.documentElement.style.setProperty('--event-secondary', event.secondary_color || '16, 185, 129');
-    document.documentElement.style.setProperty('--event-background', event.background_color || '26, 31, 44');
-    document.documentElement.style.setProperty('--event-text', event.text_color || '255, 255, 255');
-    document.documentElement.style.setProperty('--event-heading', event.heading_color || '255, 255, 255');
+    document.documentElement.style.setProperty('--event-primary', event.primary_color || '#D4AF37');
+    document.documentElement.style.setProperty('--event-secondary', event.secondary_color || '#000000');
+    document.documentElement.style.setProperty('--event-background', event.background_color || '#121212');
+    document.documentElement.style.setProperty('--event-text', event.text_color || '#FFFFFF');
+    document.documentElement.style.setProperty('--event-heading', event.heading_color || '#FFFFFF');
 
     return () => {
       document.documentElement.style.removeProperty('--event-primary');
@@ -34,11 +34,7 @@ export const EventHero = ({ event }: EventHeroProps) => {
   }, [event]);
 
   return (
-    <div className="relative min-h-[80vh] w-full overflow-hidden bg-eden-dark">
-      {/* Moving Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-secondary animate-gradient-shift" />
-      
-      {/* Promo Banner Background */}
+    <div className="relative min-h-[80vh] w-full overflow-hidden bg-[var(--event-background,#121212)]">
       {event.promo_banner_url && (
         <>
           <div 
@@ -49,7 +45,7 @@ export const EventHero = ({ event }: EventHeroProps) => {
               transform: 'scale(1.2)',
             }} 
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-eden-dark/80 to-eden-dark" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--event-background,#121212)]/80 to-[var(--event-background,#121212)]" />
         </>
       )}
       
@@ -58,7 +54,7 @@ export const EventHero = ({ event }: EventHeroProps) => {
           <div className="flex-1 space-y-6">
             <div className="flex items-center gap-2">
               {event.organizer && (
-                <div className="flex items-center gap-2 text-white/80">
+                <div className="flex items-center gap-2 text-[var(--event-text,#FFFFFF)]/80">
                   <User className="w-5 h-5" />
                   <span>{event.organizer}</span>
                 </div>
@@ -69,7 +65,7 @@ export const EventHero = ({ event }: EventHeroProps) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-4xl md:text-6xl font-bold text-white"
+              className="text-4xl md:text-6xl font-bold text-[var(--event-heading,#FFFFFF)]"
             >
               {event.title}
             </motion.h1>
@@ -78,7 +74,7 @@ export const EventHero = ({ event }: EventHeroProps) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="flex flex-wrap gap-6 text-white/80"
+              className="flex flex-wrap gap-6 text-[var(--event-text,#FFFFFF)]/80"
             >
               <div className="flex items-center gap-2">
                 <Calendar className="w-5 h-5" />
@@ -95,7 +91,7 @@ export const EventHero = ({ event }: EventHeroProps) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="text-lg text-white/70 max-w-2xl"
+                className="text-lg text-[var(--event-text,#FFFFFF)]/70 max-w-2xl"
               >
                 {event.description}
               </motion.p>
