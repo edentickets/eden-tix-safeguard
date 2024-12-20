@@ -59,6 +59,64 @@ export interface Database {
           updated_at?: string | null
         }
       }
+      event_attendees: {
+        Row: {
+          id: string
+          event_id: string
+          profile_id: string
+          ticket_id: string | null
+          status: string
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          event_id: string
+          profile_id: string
+          ticket_id?: string | null
+          status?: string
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          event_id?: string
+          profile_id?: string
+          ticket_id?: string | null
+          status?: string
+          created_at?: string | null
+          updated_at?: string | null
+        }
+      }
+      referrals: {
+        Row: {
+          id: string
+          referrer_id: string
+          referred_id: string
+          status: string
+          reward_points: number | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          referrer_id: string
+          referred_id: string
+          status?: string
+          reward_points?: number | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          referrer_id?: string
+          referred_id?: string
+          status?: string
+          reward_points?: number | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+      }
       guest_list_entries: {
         Row: {
           checked_in_at: string | null
@@ -281,7 +339,7 @@ export interface Database {
           commission_rate?: number
           created_at?: string | null
           creator_id: string
-          id?: string
+          id: string
           profile_id: string
           updated_at?: string | null
         }
