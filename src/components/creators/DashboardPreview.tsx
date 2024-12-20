@@ -7,7 +7,6 @@ import {
   ArrowUp,
 } from "lucide-react";
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
-import { LiveMetrics } from "@/components/dashboard/LiveMetrics";
 import { PerformanceMetrics } from "@/components/dashboard/PerformanceMetrics";
 
 export const DashboardPreview = () => {
