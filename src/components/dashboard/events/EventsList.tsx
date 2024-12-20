@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { EventCard } from "./EventCard";
-import { Loader2 } from "lucide-react";
+import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
 
 export function EventsList() {
   const { data: events, isLoading, error } = useQuery({
@@ -22,15 +22,20 @@ export function EventsList() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <Loader2 className="w-8 h-8 animate-spin text-eden-primary" />
+      <div className="space-y-4">
+        <LoadingSkeleton 
+          count={3} 
+          className="h-[120px] w-full rounded-xl animate-pulse bg-eden-light/10"
+        >
+          <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        </LoadingSkeleton>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="text-center py-8">
+      <div className="text-center py-8 animate-fade-in">
         <p className="text-red-400">Error loading events. Please try again later.</p>
       </div>
     );
@@ -38,7 +43,7 @@ export function EventsList() {
 
   if (!events?.length) {
     return (
-      <div className="text-center py-8">
+      <div className="text-center py-8 animate-fade-in">
         <p className="text-gray-400">No events found. Create your first event to get started!</p>
       </div>
     );
@@ -47,20 +52,21 @@ export function EventsList() {
   return (
     <div className="grid gap-4">
       {events.map((event, index) => (
-        <EventCard 
-          key={event.id} 
-          event={{
-            id: event.id,
-            title: event.title,
-            date: new Date(event.start_date).toLocaleDateString(),
-            location: event.location,
-            status: "On Sale", // You might want to add a status field to your events table
-            soldTickets: event.total_tickets - event.available_tickets,
-            totalTickets: event.total_tickets,
-            revenue: (event.total_tickets - event.available_tickets) * event.price
-          }} 
-          index={index} 
-        />
+        <div key={event.id} className="animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
+          <EventCard 
+            event={{
+              id: event.id,
+              title: event.title,
+              date: new Date(event.start_date).toLocaleDateString(),
+              location: event.location,
+              status: "On Sale", // You might want to add a status field to your events table
+              soldTickets: event.total_tickets - event.available_tickets,
+              totalTickets: event.total_tickets,
+              revenue: (event.total_tickets - event.available_tickets) * event.price
+            }} 
+            index={index} 
+          />
+        </div>
       ))}
     </div>
   );
