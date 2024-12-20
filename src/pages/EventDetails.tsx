@@ -27,7 +27,8 @@ const EventDetails = () => {
         .from("events")
         .select(`
           *,
-          creator:profiles(*)
+          creator:profiles(*),
+          ticket_tiers(*)
         `)
         .eq("id", id)
         .maybeSingle();
@@ -80,7 +81,7 @@ const EventDetails = () => {
       <main>
         <EventHero event={event} />
         <EventHighlights event={event} />
-        <TicketTiers />
+        <TicketTiers tiers={event.ticket_tiers || []} />
         {user && <EventCTA event={event} userId={user.id} />}
       </main>
     </div>
