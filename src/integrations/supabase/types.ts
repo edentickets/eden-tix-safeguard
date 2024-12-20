@@ -121,6 +121,63 @@ export type Database = {
           },
         ]
       }
+      event_categories: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          name: string
+          slug: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name: string
+          slug: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name?: string
+          slug?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      event_category_mappings: {
+        Row: {
+          category_id: string
+          event_id: string
+        }
+        Insert: {
+          category_id: string
+          event_id: string
+        }
+        Update: {
+          category_id?: string
+          event_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_category_mappings_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "event_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "event_category_mappings_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       events: {
         Row: {
           available_tickets: number
@@ -278,6 +335,41 @@ export type Database = {
           },
         ]
       }
+      loyalty_transactions: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          points: number
+          profile_id: string | null
+          transaction_type: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          points: number
+          profile_id?: string | null
+          transaction_type: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          points?: number
+          profile_id?: string | null
+          transaction_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "loyalty_transactions_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       messages: {
         Row: {
           created_at: string | null
@@ -358,10 +450,13 @@ export type Database = {
           full_name: string | null
           id: string
           is_creator: boolean | null
+          is_verified: boolean | null
+          loyalty_points: number | null
           onboarding_completed: boolean | null
           social_links: Json | null
           updated_at: string | null
           username: string | null
+          verification_date: string | null
         }
         Insert: {
           avatar_url?: string | null
@@ -371,10 +466,13 @@ export type Database = {
           full_name?: string | null
           id: string
           is_creator?: boolean | null
+          is_verified?: boolean | null
+          loyalty_points?: number | null
           onboarding_completed?: boolean | null
           social_links?: Json | null
           updated_at?: string | null
           username?: string | null
+          verification_date?: string | null
         }
         Update: {
           avatar_url?: string | null
@@ -384,10 +482,13 @@ export type Database = {
           full_name?: string | null
           id?: string
           is_creator?: boolean | null
+          is_verified?: boolean | null
+          loyalty_points?: number | null
           onboarding_completed?: boolean | null
           social_links?: Json | null
           updated_at?: string | null
           username?: string | null
+          verification_date?: string | null
         }
         Relationships: []
       }
