@@ -316,6 +316,50 @@ export type Database = {
           },
         ]
       }
+      ticket_tiers: {
+        Row: {
+          available_tickets: number
+          created_at: string | null
+          description: string | null
+          event_id: string
+          id: string
+          price: number
+          title: string
+          total_tickets: number
+          updated_at: string | null
+        }
+        Insert: {
+          available_tickets: number
+          created_at?: string | null
+          description?: string | null
+          event_id: string
+          id?: string
+          price: number
+          title: string
+          total_tickets: number
+          updated_at?: string | null
+        }
+        Update: {
+          available_tickets?: number
+          created_at?: string | null
+          description?: string | null
+          event_id?: string
+          id?: string
+          price?: number
+          title?: string
+          total_tickets?: number
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_tiers_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tickets: {
         Row: {
           created_at: string | null

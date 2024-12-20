@@ -24,7 +24,8 @@ export const useEventFormSubmit = ({ onSuccess }: UseEventFormSubmitProps = {}) 
     }
 
     try {
-      const { data: eventData, error } = await supabase
+      // First, create the event
+      const { data: eventData, error: eventError } = await supabase
         .from("events")
         .insert({
           creator_id: session.user.id,
@@ -33,15 +34,31 @@ export const useEventFormSubmit = ({ onSuccess }: UseEventFormSubmitProps = {}) 
           location: data.location,
           start_date: data.startDate.toISOString(),
           end_date: data.endDate.toISOString(),
-          total_tickets: data.totalTickets,
-          available_tickets: data.totalTickets,
-          price: data.price,
           image_url: data.imageUrl,
+          total_tickets: data.ticketTiers.reduce((sum, tier) => sum + tier.totalTickets, 0),
+          available_tickets: data.ticketTiers.reduce((sum, tier) => sum + tier.totalTickets, 0),
+          price: data.ticketTiers[0].price, // Use the lowest tier price as the base price
         })
         .select()
         .single();
 
-      if (error) throw error;
+      if (eventError) throw eventError;
+
+      // Then, create the ticket tiers
+      const { error: tiersError } = await supabase
+        .from("ticket_tiers")
+        .insert(
+          data.ticketTiers.map((tier) => ({
+            event_id: eventData.id,
+            title: tier.title,
+            description: tier.description,
+            price: tier.price,
+            total_tickets: tier.totalTickets,
+            available_tickets: tier.totalTickets,
+          }))
+        );
+
+      if (tiersError) throw tiersError;
 
       toast({
         title: "Event created successfully",
