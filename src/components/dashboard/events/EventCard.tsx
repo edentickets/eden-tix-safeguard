@@ -7,7 +7,8 @@ import {
   BarChart2,
   MoreVertical,
   Trash2,
-  ExternalLink
+  ExternalLink,
+  Ticket
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -16,10 +17,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 interface EventCardProps {
   event: {
-    id: number;
+    id: string;
     title: string;
     date: string;
     location: string;
@@ -32,6 +36,41 @@ interface EventCardProps {
 }
 
 export function EventCard({ event, index }: EventCardProps) {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleBuyTickets = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        toast({
+          title: "Authentication required",
+          description: "Please sign in to purchase tickets",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const { data, error } = await supabase.functions.invoke('create-checkout', {
+        body: { eventId: event.id }
+      });
+
+      if (error) throw error;
+
+      if (data?.url) {
+        window.location.href = data.url;
+      }
+    } catch (error) {
+      console.error('Error creating checkout session:', error);
+      toast({
+        title: "Error",
+        description: "Unable to process your request. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -58,7 +97,10 @@ export function EventCard({ event, index }: EventCardProps) {
                 <Calendar className="w-4 h-4" />
                 {event.date}
               </div>
-              <div>{event.location}</div>
+              <div className="flex items-center gap-1">
+                <MapPin className="w-4 h-4" />
+                {event.location}
+              </div>
             </div>
           </div>
 
@@ -78,27 +120,51 @@ export function EventCard({ event, index }: EventCardProps) {
               </div>
             </div>
 
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 p-0">
-                  <MoreVertical className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="bg-eden-dark border-white/10">
-                <DropdownMenuItem className="text-white hover:bg-white/5">
-                  <Edit2 className="mr-2 h-4 w-4" />
-                  <span>Edit</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="text-white hover:bg-white/5">
-                  <ExternalLink className="mr-2 h-4 w-4" />
-                  <span>View</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="text-red-400 hover:bg-red-500/10 hover:text-red-400">
-                  <Trash2 className="mr-2 h-4 w-4" />
-                  <span>Delete</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <div className="flex items-center gap-2">
+              <Button 
+                variant="secondary"
+                className="bg-eden-primary/20 hover:bg-eden-primary/30"
+                onClick={handleBuyTickets}
+              >
+                <Ticket className="w-4 h-4 mr-2" />
+                Buy Tickets
+              </Button>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="h-8 w-8 p-0">
+                    <MoreVertical className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="bg-eden-dark border-white/10">
+                  <DropdownMenuItem 
+                    className="text-white hover:bg-white/5"
+                    onClick={() => navigate(`/dashboard/events/${event.id}/edit`)}
+                  >
+                    <Edit2 className="mr-2 h-4 w-4" />
+                    <span>Edit</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem 
+                    className="text-white hover:bg-white/5"
+                    onClick={() => navigate(`/events/${event.id}`)}
+                  >
+                    <ExternalLink className="mr-2 h-4 w-4" />
+                    <span>View</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem 
+                    className="text-white hover:bg-white/5"
+                    onClick={() => navigate(`/dashboard/events/${event.id}/sales`)}
+                  >
+                    <BarChart2 className="mr-2 h-4 w-4" />
+                    <span>Sales</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="text-red-400 hover:bg-red-500/10 hover:text-red-400">
+                    <Trash2 className="mr-2 h-4 w-4" />
+                    <span>Delete</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
         </div>
       </Card>
