@@ -24,12 +24,22 @@ import { Toaster } from "@/components/ui/toaster";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { CheckInInterface } from "@/components/check-in/CheckInInterface";
 import { CartProvider } from "@/contexts/CartContext";
+import { useAuthState } from "@/hooks/use-auth-state";
+import { Navigate } from "react-router-dom";
 
-// Wrapper component to handle navbar visibility
+// Wrapper component to handle navbar visibility and protected routes
 const AppContent = () => {
   const location = useLocation();
+  const { user, loading } = useAuthState();
   const isEventPage = location.pathname.startsWith('/event/');
   const isCheckInPage = location.pathname.includes('/check-in');
+
+  // Protected route wrapper
+  const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+    if (loading) return null; // Or a loading spinner
+    if (!user) return <Navigate to="/" />;
+    return <>{children}</>;
+  };
 
   return (
     <div className="min-h-screen bg-eden-dark text-white flex flex-col">
@@ -42,20 +52,70 @@ const AppContent = () => {
           <Route path="/explore" element={<Explore />} />
           <Route path="/event/:id" element={<Event />} />
           <Route path="/event/:id/check-in" element={<CheckInInterface />} />
-          <Route path="/profile" element={<UserProfile />} />
           
-          {/* Dashboard Routes */}
-          <Route path="/dashboard" element={<CreatorDashboard />} />
-          <Route path="/dashboard/events" element={<EventsManagement />} />
-          <Route path="/dashboard/events/create" element={<CreateEvent />} />
-          <Route path="/dashboard/events/:id/edit" element={<EditEvent />} />
-          <Route path="/dashboard/events/:id/sales" element={<EventSales />} />
-          <Route path="/dashboard/audience" element={<AudienceInsights />} />
-          <Route path="/dashboard/resale" element={<ResaleActivity />} />
-          <Route path="/dashboard/promotions" element={<Promotions />} />
-          <Route path="/dashboard/team" element={<TeamManagement />} />
-          <Route path="/dashboard/payouts" element={<Payouts />} />
-          <Route path="/dashboard/settings" element={<Settings />} />
+          {/* Protected Routes */}
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <UserProfile />
+            </ProtectedRoute>
+          } />
+          
+          {/* Protected Dashboard Routes */}
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <CreatorDashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/dashboard/events" element={
+            <ProtectedRoute>
+              <EventsManagement />
+            </ProtectedRoute>
+          } />
+          <Route path="/dashboard/events/create" element={
+            <ProtectedRoute>
+              <CreateEvent />
+            </ProtectedRoute>
+          } />
+          <Route path="/dashboard/events/:id/edit" element={
+            <ProtectedRoute>
+              <EditEvent />
+            </ProtectedRoute>
+          } />
+          <Route path="/dashboard/events/:id/sales" element={
+            <ProtectedRoute>
+              <EventSales />
+            </ProtectedRoute>
+          } />
+          <Route path="/dashboard/audience" element={
+            <ProtectedRoute>
+              <AudienceInsights />
+            </ProtectedRoute>
+          } />
+          <Route path="/dashboard/resale" element={
+            <ProtectedRoute>
+              <ResaleActivity />
+            </ProtectedRoute>
+          } />
+          <Route path="/dashboard/promotions" element={
+            <ProtectedRoute>
+              <Promotions />
+            </ProtectedRoute>
+          } />
+          <Route path="/dashboard/team" element={
+            <ProtectedRoute>
+              <TeamManagement />
+            </ProtectedRoute>
+          } />
+          <Route path="/dashboard/payouts" element={
+            <ProtectedRoute>
+              <Payouts />
+            </ProtectedRoute>
+          } />
+          <Route path="/dashboard/settings" element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          } />
           
           {/* Checkout Routes */}
           <Route path="/checkout/success" element={<CheckoutSuccess />} />
