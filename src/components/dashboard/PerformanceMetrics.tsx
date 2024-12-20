@@ -1,4 +1,4 @@
-import { Ticket, DollarSign, RefreshCcw, TrendingUp } from "lucide-react";
+import { Ticket, DollarSign, RefreshCcw, TrendingUp, Users, Calendar } from "lucide-react";
 import { MetricCard } from "./MetricCard";
 import { RevenueChart } from "./RevenueChart";
 
@@ -29,6 +29,22 @@ export function PerformanceMetrics() {
           icon={<DollarSign className="h-8 w-8" />}
           trendUp={true}
         />
+        <MetricCard
+          title="Active Events"
+          value="8"
+          trend="+2 from last month"
+          icon={<Calendar className="h-8 w-8" />}
+          trendUp={true}
+        />
+        <MetricCard
+          title="Total Attendees"
+          value="12,450"
+          trend="+15.3% from last month"
+          icon={<Users className="h-8 w-8" />}
+          trendUp={true}
+        />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <MetricCard
           title="Resale Volume"
           value="3,120"

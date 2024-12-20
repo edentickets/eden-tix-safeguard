@@ -1,10 +1,12 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { PlusCircle, BarChart2, TrendingUp } from "lucide-react";
+import { PlusCircle, BarChart2, TrendingUp, Calendar } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function DashboardHeader() {
   const organizerName = "Sarah";
+  const nextEvent = "Rolling Loud Miami 2025";
+  const daysUntilEvent = 45;
 
   return (
     <div className="relative space-y-6">
@@ -30,9 +32,10 @@ export function DashboardHeader() {
             >
               Welcome Back, {organizerName}
             </motion.h1>
-            <p className="text-lg text-gray-400/80">
-              Your events are performing well. Let's keep the momentum going!
-            </p>
+            <div className="flex items-center gap-2 text-gray-400/80">
+              <Calendar className="w-5 h-5" />
+              <p>Next event: {nextEvent} in {daysUntilEvent} days</p>
+            </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
             <Button 
