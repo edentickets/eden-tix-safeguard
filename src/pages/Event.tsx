@@ -4,7 +4,6 @@ import { EventHero } from "@/components/event/EventHero";
 import { EventHighlights } from "@/components/event/EventHighlights";
 import { EventCTA } from "@/components/event/EventCTA";
 import { TicketTiers } from "@/components/event/TicketTiers";
-import { EventDescription } from "@/components/event/EventDescription";
 import { useAuthState } from "@/hooks/use-auth-state";
 import { Loader } from "lucide-react";
 
@@ -43,7 +42,6 @@ export default function Event() {
     <div className="min-h-screen bg-white">
       <main>
         <EventHero event={event} />
-        <EventDescription event={event} />
         <EventHighlights event={event} />
         <TicketTiers tiers={event.ticket_tiers || []} />
         {user && <EventCTA event={event} userId={user.id} />}

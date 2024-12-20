@@ -20,15 +20,7 @@ export const EventHero = ({ event }: EventHeroProps) => {
 
   return (
     <div className="relative h-[60vh] w-full">
-      <motion.img
-        initial={{ scale: 1.1, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        src={event.image_url}
-        alt={event.title}
-        className="w-full h-full object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-eden-dark via-eden-dark/50 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-secondary opacity-20 backdrop-blur-xl" />
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -59,6 +51,12 @@ export const EventHero = ({ event }: EventHeroProps) => {
                 <MapPin className="w-5 h-5" />
                 {event.location}
               </div>
+              {event.description && (
+                <div className="flex items-center gap-2 hover:text-eden-primary transition-colors w-full">
+                  <User className="w-5 h-5" />
+                  {event.description}
+                </div>
+              )}
               {event.organizer && (
                 <div className="flex items-center gap-2 hover:text-eden-primary transition-colors">
                   <User className="w-5 h-5" />
