@@ -1,36 +1,65 @@
 import { MetricCard } from "@/components/dashboard/metrics/MetricCard";
 import { DollarSign, Clock, ArrowUpRight, Wallet } from "lucide-react";
+import { usePayoutMetrics } from "@/hooks/use-promoter-payouts";
+import { useAuthState } from "@/hooks/use-auth-state";
+import { usePromoter } from "@/hooks/use-promoters";
 
 export function PayoutMetrics() {
+  const { user } = useAuthState();
+  const { data: promoter } = usePromoter(user?.id);
+  const { data: metrics, isLoading } = usePayoutMetrics(promoter?.id);
+
+  if (isLoading || !metrics) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {[1, 2, 3, 4].map((i) => (
+          <div key={i} className="h-32 bg-eden-light/20 animate-pulse rounded-lg" />
+        ))}
+      </div>
+    );
+  }
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(amount);
+  };
+
+  // Calculate next payout date (15th of next month if available balance > 0)
+  const nextPayoutDate = metrics.availableBalance > 0
+    ? new Date(new Date().getFullYear(), new Date().getMonth() + 1, 15)
+    : null;
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <MetricCard
         title="Available Balance"
-        value="$45,750"
-        trend="+$12,500 this week"
+        value={formatCurrency(metrics.availableBalance)}
+        trend={metrics.availableBalance > 0 ? "Ready for payout" : "No funds available"}
         icon={<DollarSign className="h-8 w-8" />}
-        trendUp={true}
+        trendUp={metrics.availableBalance > 0}
       />
       <MetricCard
         title="Pending Payouts"
-        value="$8,750"
-        trend="2 transactions"
+        value={formatCurrency(metrics.pendingAmount)}
+        trend={metrics.pendingAmount > 0 ? "Processing" : "No pending payouts"}
         icon={<Clock className="h-8 w-8" />}
         trendUp={false}
       />
       <MetricCard
         title="Total Paid Out"
-        value="$156,000"
-        trend="Last 30 days"
+        value={formatCurrency(metrics.totalPaidOut)}
+        trend="All time"
         icon={<ArrowUpRight className="h-8 w-8" />}
         trendUp={true}
       />
       <MetricCard
         title="Next Payout"
-        value="Mar 21"
-        trend="Estimated $15,000"
+        value={nextPayoutDate ? nextPayoutDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'N/A'}
+        trend={metrics.availableBalance > 0 ? `Estimated ${formatCurrency(metrics.availableBalance)}` : "No pending amount"}
         icon={<Wallet className="h-8 w-8" />}
-        trendUp={true}
+        trendUp={metrics.availableBalance > 0}
       />
     </div>
   );

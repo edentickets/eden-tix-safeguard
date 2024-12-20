@@ -2,26 +2,42 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Clock, RefreshCcw } from "lucide-react";
 import { motion } from "framer-motion";
+import { usePromoterPayouts, PromoterPayout } from "@/hooks/use-promoter-payouts";
+import { useAuthState } from "@/hooks/use-auth-state";
+import { usePromoter } from "@/hooks/use-promoters";
 
-interface Transaction {
-  id: number;
-  amount: number;
-  status: string;
-  date: string;
-  type: string;
-  reference: string;
-}
+export function TransactionList() {
+  const { user } = useAuthState();
+  const { data: promoter } = usePromoter(user?.id);
+  const { data: payouts, isLoading } = usePromoterPayouts(promoter?.id);
 
-interface TransactionListProps {
-  transactions: Transaction[];
-}
+  if (isLoading) {
+    return (
+      <div className="space-y-4">
+        {[1, 2, 3].map((i) => (
+          <Card key={i} className="p-6 bg-eden-light/10">
+            <div className="h-20 animate-pulse bg-eden-light/20 rounded-lg" />
+          </Card>
+        ))}
+      </div>
+    );
+  }
 
-export function TransactionList({ transactions }: TransactionListProps) {
+  if (!payouts?.length) {
+    return (
+      <Card className="p-6 bg-eden-light/10">
+        <div className="text-center text-gray-400">
+          <p>No transactions found</p>
+        </div>
+      </Card>
+    );
+  }
+
   return (
     <div className="space-y-4">
-      {transactions.map((transaction) => (
+      {payouts.map((payout) => (
         <motion.div
-          key={transaction.id}
+          key={payout.id}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
@@ -30,24 +46,24 @@ export function TransactionList({ transactions }: TransactionListProps) {
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="text-lg font-semibold text-white">
-                    ${transaction.amount.toLocaleString()}
+                    ${payout.amount.toLocaleString()}
                   </h3>
                   <span
                     className={`px-2 py-1 rounded-full text-xs ${
-                      transaction.status === "Completed"
+                      payout.status === "completed"
                         ? "bg-green-500/20 text-green-400"
                         : "bg-yellow-500/20 text-yellow-400"
                     }`}
                   >
-                    {transaction.status}
+                    {payout.status.charAt(0).toUpperCase() + payout.status.slice(1)}
                   </span>
                 </div>
                 <p className="text-sm text-gray-400 mt-1">
-                  {transaction.type} • Ref: {transaction.reference}
+                  {payout.payout_method || "Bank Transfer"} • ID: {payout.id.slice(0, 8)}
                 </p>
                 <p className="text-sm text-gray-400 mt-1">
                   <Clock className="w-4 h-4 inline mr-1" />
-                  {new Date(transaction.date).toLocaleDateString()}
+                  {new Date(payout.created_at!).toLocaleDateString()}
                 </p>
               </div>
               <div className="flex items-center gap-2">
