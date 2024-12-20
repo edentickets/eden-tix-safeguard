@@ -77,11 +77,19 @@ export function EventsList() {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => navigate(`/dashboard/events/${event.id}/edit`)}
+                  >
                     <Edit2 className="h-4 w-4 mr-2" />
                     Edit Event
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => navigate(`/dashboard/events/${event.id}/sales`)}
+                  >
                     <BarChart2 className="h-4 w-4 mr-2" />
                     View Sales
                   </Button>
