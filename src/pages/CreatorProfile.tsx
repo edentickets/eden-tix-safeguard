@@ -3,16 +3,36 @@ import { CreatorBio } from "@/components/creator/CreatorBio";
 import { EventGrid } from "@/components/explore/EventGrid";
 import { Event } from "@/types/event";
 
+interface Creator {
+  id: string;
+  full_name: string;
+  avatar_url: string;
+  creator_tagline: string;
+  is_verified: boolean;
+  verification_date: string;
+  category: string;
+  location: string;
+  followers: string;
+  rating: number;
+  reviewCount: number;
+  bio: string;
+  banner: string;
+  socialLinks: {
+    instagram?: string;
+    facebook?: string;
+    twitter?: string;
+  };
+}
+
 const CreatorProfile = () => {
-  // Placeholder data - would come from API in production
-  const creator = {
+  // Mock creator data
+  const creator: Creator = {
     id: "1",
     full_name: "Rolling Loud",
     avatar_url: "/placeholder.svg",
     creator_tagline: "We Create Unforgettable Moments",
     is_verified: true,
     verification_date: new Date().toISOString(),
-    // Additional UI-only properties
     category: "Music Festivals & Concerts",
     location: "Miami, FL",
     followers: "125K",
