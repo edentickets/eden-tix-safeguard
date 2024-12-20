@@ -42,23 +42,6 @@ export const TicketTiers = ({ tiers }: TicketTiersProps) => {
     });
   };
 
-  const handleBuyNow = (tier: TicketTier) => {
-    const quantity = quantities[tier.id] || 0;
-    if (quantity === 0) {
-      toast({
-        title: "Please select quantity",
-        description: "Select how many tickets you want to purchase",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    toast({
-      title: "Added to cart!",
-      description: `${quantity} ${tier.title} ticket${quantity > 1 ? 's' : ''} added to cart`,
-    });
-  };
-
   const handleSetAlert = () => {
     toast({
       title: "Price Alert Set",
@@ -70,6 +53,41 @@ export const TicketTiers = ({ tiers }: TicketTiersProps) => {
     <div className="py-16 bg-[var(--event-background,#121212)]">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 gap-6 max-w-3xl mx-auto">
+          {/* Price Alert Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="relative group"
+          >
+            <div 
+              className="absolute -inset-0.5 bg-gradient-to-r from-[var(--event-primary,#D4AF37)]/20 to-[var(--event-secondary,#000000)]/20 rounded-2xl blur-lg opacity-75 group-hover:opacity-100 transition duration-300"
+              style={{ transform: 'translateY(4px)' }}
+            />
+            <div className="glass-card p-6">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <Bell className="w-5 h-5 text-[var(--event-primary,#D4AF37)]" />
+                  <div>
+                    <h3 className="text-lg font-medium text-[var(--event-heading,#FFFFFF)]">
+                      Get Price Alerts
+                    </h3>
+                    <p className="text-sm text-[var(--event-text,#FFFFFF)]/70">
+                      Be notified when ticket prices change
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  variant="outline"
+                  onClick={handleSetAlert}
+                  className="border-[var(--event-primary,#D4AF37)]/50 text-[var(--event-primary,#D4AF37)] hover:bg-[var(--event-primary,#D4AF37)]/10"
+                >
+                  Set Alert
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Ticket Tiers */}
           {tiers.map((tier, index) => (
             <motion.div
               key={tier.id}
@@ -130,22 +148,6 @@ export const TicketTiers = ({ tiers }: TicketTiersProps) => {
               </div>
             </motion.div>
           ))}
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: tiers.length * 0.1 }}
-            className="mt-4"
-          >
-            <Button
-              variant="outline"
-              className="w-full py-6 text-[var(--event-text,#FFFFFF)]/70 border-[var(--event-text,#FFFFFF)]/10 hover:bg-[var(--event-text,#FFFFFF)]/5"
-              onClick={handleSetAlert}
-            >
-              <Bell className="w-4 h-4 mr-2" />
-              Set Price Alert
-            </Button>
-          </motion.div>
         </div>
       </div>
     </div>

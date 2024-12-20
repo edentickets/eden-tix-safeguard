@@ -59,18 +59,18 @@
 }
 
 .glass-card {
-  @apply bg-eden-light/20 backdrop-blur-md border border-white/5 shadow-lg rounded-xl transition-all duration-300 hover:bg-eden-light/30 hover:border-eden-primary/20 relative;
+  @apply bg-[var(--event-background,#121212)]/80 backdrop-blur-md border border-[var(--event-primary,#D4AF37)]/20 shadow-lg rounded-xl transition-all duration-300 hover:bg-[var(--event-background,#121212)]/90 hover:border-[var(--event-primary,#D4AF37)]/30 relative;
 }
 
 .glass-card::before {
-  @apply content-[''] absolute -inset-[1px] bg-gradient-to-br from-white/5 to-transparent rounded-xl opacity-0 transition-opacity duration-300;
+  @apply content-[''] absolute -inset-[1px] bg-gradient-to-r from-[var(--event-primary,#D4AF37)]/5 to-transparent rounded-xl opacity-0 transition-opacity duration-300;
 }
 
 .glass-card::after {
   content: '';
   position: absolute;
   inset: -20px;
-  background: radial-gradient(circle, var(--card-glow) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--event-primary, #D4AF37) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.3s;
   z-index: -1;
