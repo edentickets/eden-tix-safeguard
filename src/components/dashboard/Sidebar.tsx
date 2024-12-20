@@ -1,5 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/utils";
+import { Link, useLocation } from "react-router-dom";
 import { 
   LayoutDashboard, 
   Calendar, 
@@ -14,19 +15,20 @@ import {
 } from "lucide-react";
 
 const menuItems = [
-  { icon: LayoutDashboard, label: "Overview", href: "#overview" },
-  { icon: Calendar, label: "Events Management", href: "#events" },
-  { icon: BarChart2, label: "Sales & Analytics", href: "#analytics" },
-  { icon: Users, label: "Audience Insights", href: "#audience" },
-  { icon: RefreshCcw, label: "Resale Activity", href: "#resale" },
-  { icon: Megaphone, label: "Promotions", href: "#promotions" },
-  { icon: Users2, label: "Team Management", href: "#team" },
-  { icon: Wallet, label: "Payouts", href: "#payouts" },
-  { icon: Settings, label: "Settings", href: "#settings" },
+  { icon: LayoutDashboard, label: "Overview", href: "/dashboard" },
+  { icon: Calendar, label: "Events Management", href: "/dashboard/events" },
+  { icon: BarChart2, label: "Sales & Analytics", href: "/dashboard/analytics" },
+  { icon: Users, label: "Audience Insights", href: "/dashboard/audience" },
+  { icon: RefreshCcw, label: "Resale Activity", href: "/dashboard/resale" },
+  { icon: Megaphone, label: "Promotions", href: "/dashboard/promotions" },
+  { icon: Users2, label: "Team Management", href: "/dashboard/team" },
+  { icon: Wallet, label: "Payouts", href: "/dashboard/payouts" },
+  { icon: Settings, label: "Settings", href: "/dashboard/settings" },
 ];
 
 export function Sidebar() {
   const [items, setItems] = React.useState(menuItems);
+  const location = useLocation();
 
   const handleDragStart = (e: React.DragEvent, index: number) => {
     e.dataTransfer.setData('text/plain', index.toString());
@@ -61,17 +63,18 @@ export function Sidebar() {
             onDrop={(e) => handleDrop(e, index)}
             className="group cursor-move"
           >
-            <a
-              href={item.href}
+            <Link
+              to={item.href}
               className={cn(
                 "flex items-center gap-3 px-3 py-2 rounded-md text-gray-300",
-                "hover:bg-eden-primary/10 hover:text-eden-primary transition-colors"
+                "hover:bg-eden-primary/10 hover:text-eden-primary transition-colors",
+                location.pathname === item.href && "bg-eden-primary/10 text-eden-primary"
               )}
             >
               <GripVertical className="w-4 h-4 opacity-0 group-hover:opacity-50" />
               <item.icon className="w-5 h-5" />
               <span>{item.label}</span>
-            </a>
+            </Link>
           </div>
         ))}
       </nav>

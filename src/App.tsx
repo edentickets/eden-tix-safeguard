@@ -13,6 +13,14 @@ import CreatorProfile from "./pages/CreatorProfile";
 import UserProfile from "./pages/UserProfile";
 import CreatorsLanding from "./pages/CreatorsLanding";
 import UsersLanding from "./pages/UsersLanding";
+import EventsManagement from "./pages/dashboard/EventsManagement";
+import SalesAnalytics from "./pages/dashboard/SalesAnalytics";
+import AudienceInsights from "./pages/dashboard/AudienceInsights";
+import ResaleActivity from "./pages/dashboard/ResaleActivity";
+import Promotions from "./pages/dashboard/Promotions";
+import TeamManagement from "./pages/dashboard/TeamManagement";
+import Payouts from "./pages/dashboard/Payouts";
+import Settings from "./pages/dashboard/Settings";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -38,6 +46,14 @@ const App = () => (
             <Route path="/explore" element={<Explore />} />
             <Route path="/event/:id" element={<EventDetails />} />
             <Route path="/dashboard" element={<CreatorDashboard />} />
+            <Route path="/dashboard/events" element={<EventsManagement />} />
+            <Route path="/dashboard/analytics" element={<SalesAnalytics />} />
+            <Route path="/dashboard/audience" element={<AudienceInsights />} />
+            <Route path="/dashboard/resale" element={<ResaleActivity />} />
+            <Route path="/dashboard/promotions" element={<Promotions />} />
+            <Route path="/dashboard/team" element={<TeamManagement />} />
+            <Route path="/dashboard/payouts" element={<Payouts />} />
+            <Route path="/dashboard/settings" element={<Settings />} />
             <Route path="/profile" element={<CreatorProfile />} />
             <Route path="/user-profile" element={<UserProfile />} />
           </Routes>
