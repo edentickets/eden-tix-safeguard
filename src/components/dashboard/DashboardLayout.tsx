@@ -2,6 +2,7 @@ import { Sidebar } from "./Sidebar";
 import { useState } from "react";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -9,6 +10,9 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const isMobile = useIsMobile();
+
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   return (
     <div className="min-h-screen bg-eden-dark">
@@ -18,7 +22,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           variant="ghost"
           size="icon"
           className="lg:hidden fixed bottom-4 right-4 z-50 bg-eden-primary/90 hover:bg-eden-primary text-white rounded-full shadow-lg"
-          onClick={() => setSidebarOpen(!sidebarOpen)}
+          onClick={toggleSidebar}
         >
           <Menu className="h-6 w-6" />
         </Button>
@@ -26,12 +30,12 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* Sidebar with mobile overlay */}
         <div
           className={`${
-            sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } lg:translate-x-0 fixed inset-y-0 left-0 z-40 transition-transform duration-300 ease-in-out lg:relative`}
+            sidebarOpen || !isMobile ? "translate-x-0" : "-translate-x-full"
+          } fixed inset-y-0 left-0 z-40 transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0`}
         >
           <Sidebar />
           {/* Mobile overlay backdrop */}
-          {sidebarOpen && (
+          {sidebarOpen && isMobile && (
             <div
               className="fixed inset-0 bg-black/50 lg:hidden"
               onClick={() => setSidebarOpen(false)}
@@ -40,7 +44,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         </div>
 
         {/* Main content */}
-        <main className="flex-1 p-4 lg:p-8 w-full lg:ml-0">
+        <main className="flex-1 p-4 lg:p-8 w-full lg:ml-0 overflow-x-hidden">
           {children}
         </main>
       </div>

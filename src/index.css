@@ -6,101 +6,37 @@
 
 @layer base {
   html {
-    font-family: 'Inter', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    @apply antialiased;
   }
-  @supports (font-variation-settings: normal) {
-    html {
-      font-family: 'Inter var', sans-serif;
-    }
-  }
-
-  :root {
-    --background: 228 35% 13%;
-    --foreground: 210 40% 98%;
-
-    --card: 228 35% 13%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 228 35% 13%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 262 83% 58%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 160 84% 39%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 262 83% 58%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 262 83% 58%;
-
-    --radius: 0.5rem;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
+  
   body {
-    @apply bg-eden-dark text-foreground;
+    @apply bg-eden-dark text-foreground overflow-x-hidden;
+  }
+
+  /* Improve touch targets on mobile */
+  button, a {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  /* Prevent text size adjustment on orientation change */
+  html {
+    -webkit-text-size-adjust: 100%;
   }
 }
 
-.glass-card {
-  @apply bg-black/80 backdrop-blur-md border shadow-lg rounded-xl transition-all duration-300 relative;
-  background-color: rgba(0, 0, 0, 0.8);
-  border-color: rgba(139, 92, 246, 0.2);
-}
+/* Mobile-first responsive classes */
+@layer utilities {
+  .touch-feedback {
+    @apply active:scale-95 transition-transform duration-200;
+  }
 
-.glass-card:hover {
-  border-color: rgba(139, 92, 246, 0.3);
-  background-color: rgba(0, 0, 0, 0.9);
-}
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 
-.glass-card::before {
-  @apply content-[''] absolute -inset-[1px] rounded-xl opacity-0 transition-opacity duration-300;
-  background: linear-gradient(to right, rgba(139, 92, 246, 0.05), transparent);
-}
-
-.glass-card::after {
-  content: '';
-  position: absolute;
-  inset: -20px;
-  opacity: 0;
-  transition: opacity 0.3s;
-  z-index: -1;
-  filter: blur(20px);
-  background: radial-gradient(circle, rgba(139, 92, 246, 1) 0%, transparent 70%);
-}
-
-.glass-card:hover::before {
-  @apply opacity-100;
-}
-
-.glass-card:hover::after {
-  opacity: 0.15;
-}
-
-.btn-gradient {
-  @apply bg-gradient-secondary hover:opacity-90 transition-opacity;
-}
-
-.hover-lift {
-  @apply transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md;
-}
-
-.animate-in {
-  @apply animate-fade-in;
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
 }

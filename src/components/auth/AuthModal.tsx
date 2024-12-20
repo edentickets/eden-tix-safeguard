@@ -12,20 +12,20 @@ export const AuthModal = () => {
   return (
     <div 
       id="auth-modal" 
-      className="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      className="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto"
       onClick={(e) => {
         if (e.target === e.currentTarget) handleClose();
       }}
     >
-      <div className="bg-eden-dark p-8 rounded-xl max-w-md w-full mx-4 relative">
+      <div className="bg-eden-dark p-4 sm:p-8 rounded-xl max-w-md w-full mx-auto my-8 relative">
         <button
           onClick={handleClose}
-          className="absolute right-4 top-4 text-gray-400 hover:text-white transition-colors"
+          className="absolute right-2 top-2 sm:right-4 sm:top-4 text-gray-400 hover:text-white transition-colors"
         >
           <X className="h-5 w-5" />
         </button>
         
-        <h2 className="text-2xl font-bold text-white mb-6">Welcome to Eden</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">Welcome to Eden</h2>
         
         <Auth
           supabaseClient={supabase}
