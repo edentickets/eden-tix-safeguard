@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import Landing from "@/pages/Landing";
 import CreatorsLanding from "@/pages/CreatorsLanding";
 import UsersLanding from "@/pages/UsersLanding";
@@ -25,33 +26,36 @@ import { AuthModal } from "@/components/auth/AuthModal";
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-eden-dark text-white">
+      <div className="min-h-screen bg-eden-dark text-white flex flex-col">
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/creators" element={<CreatorsLanding />} />
-          <Route path="/users" element={<UsersLanding />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/event/:id" element={<Event />} />
-          <Route path="/profile" element={<UserProfile />} />
-          
-          {/* Dashboard Routes */}
-          <Route path="/dashboard" element={<CreatorDashboard />} />
-          <Route path="/dashboard/events" element={<EventsManagement />} />
-          <Route path="/dashboard/events/create" element={<CreateEvent />} />
-          <Route path="/dashboard/events/:id/edit" element={<EditEvent />} />
-          <Route path="/dashboard/events/:id/sales" element={<EventSales />} />
-          <Route path="/dashboard/audience" element={<AudienceInsights />} />
-          <Route path="/dashboard/resale" element={<ResaleActivity />} />
-          <Route path="/dashboard/promotions" element={<Promotions />} />
-          <Route path="/dashboard/team" element={<TeamManagement />} />
-          <Route path="/dashboard/payouts" element={<Payouts />} />
-          <Route path="/dashboard/settings" element={<Settings />} />
-          
-          {/* Checkout Routes */}
-          <Route path="/checkout/success" element={<CheckoutSuccess />} />
-          <Route path="/checkout/failure" element={<CheckoutFailure />} />
-        </Routes>
+        <div className="flex-1">
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/creators" element={<CreatorsLanding />} />
+            <Route path="/users" element={<UsersLanding />} />
+            <Route path="/explore" element={<Explore />} />
+            <Route path="/event/:id" element={<Event />} />
+            <Route path="/profile" element={<UserProfile />} />
+            
+            {/* Dashboard Routes */}
+            <Route path="/dashboard" element={<CreatorDashboard />} />
+            <Route path="/dashboard/events" element={<EventsManagement />} />
+            <Route path="/dashboard/events/create" element={<CreateEvent />} />
+            <Route path="/dashboard/events/:id/edit" element={<EditEvent />} />
+            <Route path="/dashboard/events/:id/sales" element={<EventSales />} />
+            <Route path="/dashboard/audience" element={<AudienceInsights />} />
+            <Route path="/dashboard/resale" element={<ResaleActivity />} />
+            <Route path="/dashboard/promotions" element={<Promotions />} />
+            <Route path="/dashboard/team" element={<TeamManagement />} />
+            <Route path="/dashboard/payouts" element={<Payouts />} />
+            <Route path="/dashboard/settings" element={<Settings />} />
+            
+            {/* Checkout Routes */}
+            <Route path="/checkout/success" element={<CheckoutSuccess />} />
+            <Route path="/checkout/failure" element={<CheckoutFailure />} />
+          </Routes>
+        </div>
+        <Footer />
         <AuthModal />
         <Toaster />
       </div>

@@ -59,15 +59,15 @@
 }
 
 .glass-card {
-  @apply bg-eden-light/30 backdrop-blur-md border border-white/10 shadow-xl rounded-xl transition-all duration-300 hover:bg-eden-light/40 hover:border-eden-primary/30 animate-fade-in-scale hover:animate-border-glow;
+  @apply bg-eden-light/20 backdrop-blur-md border border-white/5 shadow-lg rounded-xl transition-all duration-300 hover:bg-eden-light/30 hover:border-eden-primary/20;
 }
 
 .gradient-text {
-  @apply bg-clip-text text-transparent bg-gradient-primary animate-pulse;
+  @apply bg-clip-text text-transparent bg-gradient-primary;
 }
 
 .btn-gradient {
-  @apply bg-gradient-secondary hover:opacity-90 transition-opacity animate-glow;
+  @apply bg-gradient-secondary hover:opacity-90 transition-opacity;
 }
 
 .glow-effect {
@@ -75,17 +75,17 @@
 }
 
 .glow-effect::before {
-  @apply content-[''] absolute -inset-0.5 bg-glow-conic rounded-xl blur opacity-30 transition-opacity duration-300;
+  @apply content-[''] absolute -inset-0.5 bg-glow-conic rounded-xl blur opacity-10 transition-opacity duration-300;
 }
 
 .glow-effect:hover::before {
-  @apply opacity-50;
+  @apply opacity-20;
 }
 
 .hover-lift {
-  @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  @apply transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md;
 }
 
 .animate-in {
-  @apply animate-fade-in-scale;
+  @apply animate-fade-in;
 }
