@@ -8,12 +8,13 @@ const corsHeaders = {
 }
 
 serve(async (req) => {
+  // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders })
   }
 
   try {
-    const { eventId, quantity = 1, email } = await req.json()
+    const { eventId, quantity = 1 } = await req.json()
 
     // Initialize Supabase client
     const supabaseClient = createClient(
@@ -47,7 +48,7 @@ serve(async (req) => {
 
     // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
-      customer_email: userId ? undefined : email, // Only set for guest checkout
+      mode: 'payment',
       line_items: [
         {
           price_data: {
@@ -62,7 +63,6 @@ serve(async (req) => {
           quantity,
         },
       ],
-      mode: 'payment',
       success_url: `${req.headers.get('origin')}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.get('origin')}/checkout/failure?event_id=${eventId}`,
       metadata: {
@@ -70,12 +70,9 @@ serve(async (req) => {
         userId,
         quantity,
       },
-      // Add authentication if user is not logged in
-      custom_text: {
-        submit: {
-          message: 'You\'ll be able to create an account after payment to access your tickets.',
-        },
-      },
+      // If user is not logged in, collect minimal information
+      customer_creation: userId ? undefined : 'always',
+      customer_email: userId ? undefined : null, // Collect email during checkout for guest users
     })
 
     return new Response(
