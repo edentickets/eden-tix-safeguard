@@ -42,6 +42,14 @@ const EventDetails = () => {
       }
       
       if (!data) throw new Error("Event not found");
+
+      // Ensure ticket_tiers have event_id
+      if (data.ticket_tiers) {
+        data.ticket_tiers = data.ticket_tiers.map(tier => ({
+          ...tier,
+          event_id: data.id
+        }));
+      }
       
       return data as Event;
     },

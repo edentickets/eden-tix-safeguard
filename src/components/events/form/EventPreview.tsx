@@ -30,6 +30,7 @@ export const EventPreview = ({ formValues }: EventPreviewProps) => {
 
   const previewTiers = formValues.ticketTiers.map((tier, index) => ({
     id: `preview-${index}`,
+    event_id: previewEvent.id, // Add event_id here
     title: tier.title,
     description: tier.description,
     price: tier.price,
