@@ -49,10 +49,9 @@ export const EventCTA = ({ event, userId }: EventCTAProps) => {
   };
 
   const handleContactCreator = () => {
-    // You might want to implement a modal or redirect to a contact form
     toast({
       title: "Contact Creator",
-      description: "Opening contact form...",
+      description: `Opening message form for ${event.organizer}...`,
     });
   };
 
@@ -81,7 +80,7 @@ export const EventCTA = ({ event, userId }: EventCTAProps) => {
             onClick={handleContactCreator}
           >
             <Mail className="w-4 h-4 mr-2" />
-            Contact Creator
+            Contact {event.organizer}
           </Button>
         </div>
       </div>

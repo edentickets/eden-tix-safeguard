@@ -8,6 +8,7 @@ import { EventDateTime } from "./hero/EventDateTime";
 import { EventLocation } from "./hero/EventLocation";
 import { EventImageUpload } from "./hero/EventImageUpload";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 interface EventHeroProps {
   event: Event;
@@ -45,7 +46,7 @@ export const EventHero = ({ event }: EventHeroProps) => {
               transform: 'scale(1.2)',
             }} 
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--event-background,#121212)]/80 to-[var(--event-background,#121212)]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--event-background,#121212)] to-[var(--event-background,#121212)]" />
         </>
       )}
       
@@ -56,7 +57,12 @@ export const EventHero = ({ event }: EventHeroProps) => {
               {event.organizer && (
                 <div className="flex items-center gap-2 text-[var(--event-text,#FFFFFF)]/80">
                   <User className="w-5 h-5" />
-                  <span>{event.organizer}</span>
+                  <Link 
+                    to={`/creator/${event.creator_id}`}
+                    className="hover:text-[var(--event-primary,#D4AF37)] transition-colors"
+                  >
+                    {event.organizer}
+                  </Link>
                 </div>
               )}
             </div>
