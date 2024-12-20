@@ -2,11 +2,12 @@ import { MetricCard } from "@/components/dashboard/metrics/MetricCard";
 import { DollarSign, Clock, ArrowUpRight, Wallet } from "lucide-react";
 import { usePayoutMetrics } from "@/hooks/use-promoter-payouts";
 import { useAuthState } from "@/hooks/use-auth-state";
-import { usePromoter } from "@/hooks/use-promoters";
+import { usePromoters } from "@/hooks/use-promoters";
 
 export function PayoutMetrics() {
   const { user } = useAuthState();
-  const { data: promoter } = usePromoter(user?.id);
+  const { data: promoters } = usePromoters(user?.id);
+  const promoter = promoters?.[0]; // Get the first promoter for this user
   const { data: metrics, isLoading } = usePayoutMetrics(promoter?.id);
 
   if (isLoading || !metrics) {

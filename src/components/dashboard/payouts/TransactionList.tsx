@@ -2,13 +2,14 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Clock, RefreshCcw } from "lucide-react";
 import { motion } from "framer-motion";
-import { usePromoterPayouts, PromoterPayout } from "@/hooks/use-promoter-payouts";
+import { usePromoterPayouts } from "@/hooks/use-promoter-payouts";
 import { useAuthState } from "@/hooks/use-auth-state";
-import { usePromoter } from "@/hooks/use-promoters";
+import { usePromoters } from "@/hooks/use-promoters";
 
 export function TransactionList() {
   const { user } = useAuthState();
-  const { data: promoter } = usePromoter(user?.id);
+  const { data: promoters } = usePromoters(user?.id);
+  const promoter = promoters?.[0]; // Get the first promoter for this user
   const { data: payouts, isLoading } = usePromoterPayouts(promoter?.id);
 
   if (isLoading) {

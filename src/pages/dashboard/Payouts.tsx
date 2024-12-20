@@ -5,25 +5,6 @@ import { PayoutHeader } from "@/components/dashboard/payouts/PayoutHeader";
 import { PayoutMetrics } from "@/components/dashboard/payouts/PayoutMetrics";
 import { TransactionList } from "@/components/dashboard/payouts/TransactionList";
 
-const transactions = [
-  {
-    id: 1,
-    amount: 12500,
-    status: "Completed",
-    date: "2024-03-15",
-    type: "Event Revenue",
-    reference: "EVT-001",
-  },
-  {
-    id: 2,
-    amount: 8750,
-    status: "Processing",
-    date: "2024-03-14",
-    type: "Ticket Sales",
-    reference: "TKT-002",
-  },
-];
-
 export default function Payouts() {
   return (
     <DashboardLayout>
@@ -39,7 +20,7 @@ export default function Payouts() {
           </TabsList>
 
           <TabsContent value="transactions">
-            <TransactionList transactions={transactions} />
+            <TransactionList />
           </TabsContent>
 
           <TabsContent value="schedule">
