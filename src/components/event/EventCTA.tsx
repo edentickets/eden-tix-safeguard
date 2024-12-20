@@ -3,7 +3,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Event } from "@/types/event";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Mail } from "lucide-react";
+import { ContactCreatorDialog } from "./ContactCreatorDialog";
 
 interface EventCTAProps {
   event: Event;
@@ -17,7 +17,6 @@ export const EventCTA = ({ event, userId }: EventCTAProps) => {
   const handlePurchase = async () => {
     setIsLoading(true);
     try {
-      // If user is not logged in, we'll collect email during Stripe checkout
       const response = await fetch('/api/create-checkout', {
         method: 'POST',
         headers: {
@@ -48,13 +47,6 @@ export const EventCTA = ({ event, userId }: EventCTAProps) => {
     }
   };
 
-  const handleContactCreator = () => {
-    toast({
-      title: "Contact Creator",
-      description: `Opening message form for ${event.organizer}...`,
-    });
-  };
-
   return (
     <section className="py-16 px-4 bg-[var(--event-background,#121212)]">
       <div className="max-w-7xl mx-auto text-center space-y-6">
@@ -73,15 +65,11 @@ export const EventCTA = ({ event, userId }: EventCTAProps) => {
           >
             {isLoading ? "Processing..." : "Buy Tickets"}
           </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            className="border-[var(--event-primary,#D4AF37)] text-[var(--event-primary,#D4AF37)] hover:bg-[var(--event-primary,#D4AF37)]/10"
-            onClick={handleContactCreator}
-          >
-            <Mail className="w-4 h-4 mr-2" />
-            Contact {event.organizer}
-          </Button>
+          <ContactCreatorDialog 
+            creatorId={event.creator_id}
+            eventTitle={event.title}
+            organizer={event.organizer || "Creator"}
+          />
         </div>
       </div>
     </section>
