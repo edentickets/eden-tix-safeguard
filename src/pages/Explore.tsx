@@ -70,7 +70,6 @@ const Explore = () => {
         onSearchChange={(value) => updateFilter("searchQuery", value)}
         onLocationChange={(value) => updateFilter("location", value)}
         onEventTypeChange={(value) => updateFilter("eventType", value)}
-        onPriceRangeChange={(value) => updateFilter("priceRange", value as [number, number])}
         onSortChange={(value) => updateFilter("sortBy", value)}
         currentPage={currentPage}
         totalPages={totalPages}

@@ -5,7 +5,6 @@ export interface EventFilters {
   searchQuery: string;
   location: string;
   eventType: string;
-  priceRange: [number, number];
   sortBy: string;
 }
 
@@ -14,7 +13,6 @@ export const useEventFilters = () => {
     searchQuery: "",
     location: "",
     eventType: "",
-    priceRange: [0, 1000],
     sortBy: "date_asc",
   });
 
@@ -31,8 +29,7 @@ export const useEventFilters = () => {
         event.title.toLowerCase().includes(filters.searchQuery.toLowerCase()) ||
         event.description?.toLowerCase().includes(filters.searchQuery.toLowerCase());
       const matchesLocation = !filters.location || event.location.includes(filters.location);
-      const matchesPrice = event.price >= filters.priceRange[0] && event.price <= filters.priceRange[1];
-      return matchesSearch && matchesLocation && matchesPrice;
+      return matchesSearch && matchesLocation;
     });
   };
 
