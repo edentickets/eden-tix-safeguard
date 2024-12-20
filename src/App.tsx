@@ -23,6 +23,7 @@ import CheckoutFailure from "@/pages/checkout/Failure";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { CheckInInterface } from "@/components/check-in/CheckInInterface";
+import { CartProvider } from "@/contexts/CartContext";
 
 // Wrapper component to handle navbar visibility
 const AppContent = () => {
@@ -71,7 +72,9 @@ const AppContent = () => {
 function App() {
   return (
     <Router>
-      <AppContent />
+      <CartProvider>
+        <AppContent />
+      </CartProvider>
     </Router>
   );
 }

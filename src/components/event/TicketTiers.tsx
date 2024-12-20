@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useCart } from "@/contexts/CartContext";
+import { useParams } from "react-router-dom";
 
 interface TicketTierData {
   id: string;
@@ -42,7 +44,20 @@ const TicketTier = ({ title, price, benefits, icon, index }: TicketTierProps) =>
 );
 
 export const TicketTiers = ({ tiers }: TicketTiersProps) => {
+  const { id: eventId } = useParams();
+  const { addToCart } = useCart();
   const tierIcons = ["🎟", "🥂", "🏆"];
+
+  const handleAddToCart = (tier: TicketTierData) => {
+    if (!eventId) return;
+    
+    addToCart({
+      eventId,
+      tierId: tier.id,
+      title: tier.title,
+      price: tier.price,
+    });
+  };
 
   return (
     <motion.section 
@@ -51,7 +66,6 @@ export const TicketTiers = ({ tiers }: TicketTiersProps) => {
       transition={{ duration: 0.5 }}
       className="relative py-16 px-4 bg-eden-dark overflow-hidden isolate"
     >
-      {/* Moving gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-eden-primary/10 via-eden-secondary/5 to-eden-dark animate-gradient-shift -z-10" />
       <div className="absolute inset-0 backdrop-blur-3xl -z-10" />
       
@@ -79,8 +93,11 @@ export const TicketTiers = ({ tiers }: TicketTiersProps) => {
               </div>
               <div className="text-3xl font-bold text-eden-primary mt-4">${tier.price}</div>
               <p className="text-gray-300 mt-2">{tier.description || "Access to event"}</p>
-              <Button className="w-full bg-eden-primary hover:bg-eden-primary/90 mt-6">
-                Buy Now
+              <Button 
+                className="w-full bg-eden-primary hover:bg-eden-primary/90 mt-6"
+                onClick={() => handleAddToCart(tier)}
+              >
+                Add to Cart
               </Button>
             </motion.div>
           ))}

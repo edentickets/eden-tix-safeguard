@@ -1,125 +1,69 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard } from "lucide-react";
 import { useAuthState } from "@/hooks/use-auth-state";
-import { motion } from "framer-motion";
+import { useAuthModal } from "@/hooks/use-auth-modal";
+import { CartDropdown } from "@/components/cart/CartDropdown";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { User } from "lucide-react";
 
-export const Navbar = () => {
-  const { user, signOut } = useAuthState();
-
-  const handleSignIn = () => {
-    const modal = document.getElementById('auth-modal');
-    if (modal) modal.classList.remove('hidden');
-  };
-
-  const navVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0 }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: -10 },
-    visible: { opacity: 1, y: 0 }
-  };
+export function Navbar() {
+  const { user } = useAuthState();
+  const { openModal } = useAuthModal();
 
   return (
-    <motion.nav 
-      className="bg-eden-dark/50 backdrop-blur-md border-b border-white/10"
-      initial="hidden"
-      animate="visible"
-      variants={navVariants}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <motion.div 
-            className="flex items-center space-x-6"
-            variants={itemVariants}
-            transition={{ staggerChildren: 0.1, delayChildren: 0.2 }}
-          >
-            <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
-              <motion.span 
-                className="text-2xl font-bold gradient-text"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                Eden
-              </motion.span>
-            </Link>
+    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-eden-dark/80 backdrop-blur supports-[backdrop-filter]:bg-eden-dark/60">
+      <div className="container flex h-16 items-center justify-between">
+        <Link to="/" className="flex items-center gap-2">
+          <div className="relative size-8">
+            <div className="absolute inset-0 bg-gradient-primary rounded-lg rotate-180" />
+            <div className="absolute inset-0.5 bg-eden-dark rounded-lg" />
+            <div className="absolute inset-0 bg-gradient-primary opacity-50 rounded-lg animate-pulse" />
+          </div>
+          <span className="font-bold text-xl">eden</span>
+        </Link>
 
-            <Link to="/creators">
-              <Button variant="ghost" className="text-white hover:text-eden-primary">
-                For Creators
-              </Button>
-            </Link>
+        <nav className="hidden md:flex items-center gap-6">
+          <Link to="/explore" className="text-sm font-medium hover:text-eden-primary transition-colors">
+            Explore Events
+          </Link>
+          <Link to="/creators" className="text-sm font-medium hover:text-eden-primary transition-colors">
+            For Creators
+          </Link>
+          <Link to="/users" className="text-sm font-medium hover:text-eden-primary transition-colors">
+            For Users
+          </Link>
+        </nav>
 
-            <Link to="/users">
-              <Button variant="ghost" className="text-white hover:text-eden-primary">
-                For Users
-              </Button>
-            </Link>
-
-            <Link to="/explore">
-              <Button variant="ghost" className="text-white hover:text-eden-primary">
-                Explore
-              </Button>
-            </Link>
-
-            {user && (
-              <Link to="/dashboard">
-                <Button variant="ghost" className="text-white hover:text-eden-primary flex items-center gap-2">
-                  <LayoutDashboard className="w-4 h-4" />
-                  Dashboard
+        <div className="flex items-center gap-4">
+          <CartDropdown />
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <User className="h-5 w-5" />
                 </Button>
-              </Link>
-            )}
-          </motion.div>
-
-          <motion.div 
-            className="flex items-center space-x-4"
-            variants={itemVariants}
-            transition={{ staggerChildren: 0.1, delayChildren: 0.4 }}
-          >
-            {user ? (
-              <>
-                <Link to="/user-profile">
-                  <Button variant="ghost" className="text-white hover:text-eden-primary">
-                    Profile
-                  </Button>
-                </Link>
-                <Button 
-                  variant="ghost" 
-                  className="text-white hover:text-eden-primary"
-                  onClick={signOut}
-                >
-                  Sign Out
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button 
-                  variant="ghost" 
-                  className="text-white hover:text-eden-primary"
-                  onClick={handleSignIn}
-                >
-                  Sign In
-                </Button>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button 
-                    className="btn-gradient"
-                    onClick={handleSignIn}
-                  >
-                    Sign Up
-                  </Button>
-                </motion.div>
-              </>
-            )}
-          </motion.div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem asChild>
+                  <Link to="/profile">Profile</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/dashboard">Dashboard</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button variant="secondary" onClick={() => openModal()}>
+              Sign In
+            </Button>
+          )}
         </div>
       </div>
-    </motion.nav>
+    </header>
   );
-};
+}
