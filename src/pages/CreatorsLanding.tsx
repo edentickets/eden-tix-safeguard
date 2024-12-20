@@ -6,6 +6,7 @@ import { TrustedCreators } from "@/components/creators/TrustedCreators";
 import { BenefitsSection } from "@/components/creators/BenefitsSection";
 import { PricingSection } from "@/components/creators/PricingSection";
 import { CTASection } from "@/components/creators/CTASection";
+import { DashboardPreview } from "@/components/creators/DashboardPreview";
 import ClientsSection from "@/components/sections/ClientsSection";
 
 const CreatorsLanding = () => {
@@ -15,6 +16,7 @@ const CreatorsLanding = () => {
       <HeroSection />
       <ClientsSection />
       <HowItWorks />
+      <DashboardPreview />
       <RevenueModel />
       <TrustedCreators />
       <BenefitsSection />

@@ -6,23 +6,23 @@ const revenueStreams = [
   {
     icon: <DollarSign className="w-8 h-8" />,
     title: "Primary Sales",
-    description: "Industry-low fees on initial ticket sales",
-    example: "Sell 1000 tickets at $100 each with only 2% fee",
-    potential: "$98,000 revenue"
+    description: "Keep 100% of your primary ticket sales",
+    example: "Sell 1000 tickets at $100 each",
+    potential: "$100,000 revenue"
   },
   {
     icon: <RefreshCcw className="w-8 h-8" />,
     title: "Resale Revenue",
     description: "Earn from every ticket resale transaction",
-    example: "25% of tickets resold at 1.5x price",
-    potential: "$12,500 additional revenue"
+    example: "250 tickets resold at $150 each (50% markup)",
+    potential: "$1,875 additional revenue" // 250 * $150 * 0.05 (half of 10% fee)
   },
   {
     icon: <TrendingUp className="w-8 h-8" />,
     title: "Dynamic Pricing",
     description: "Optimize pricing based on demand",
-    example: "Smart price adjustments increase sales by 20%",
-    potential: "$20,000 extra revenue"
+    example: "Increase prices by 25% for last 200 tickets",
+    potential: "$5,000 extra revenue" // 200 * $100 * 0.25
   }
 ];
 
