@@ -4,7 +4,7 @@ import { HeroSection } from "@/components/users/HeroSection";
 import { FeaturesSection } from "@/components/users/FeaturesSection";
 import { StepsSection } from "@/components/users/StepsSection";
 import { UserRewardsSection } from "@/components/users/UserRewardsSection";
-import { CTASection } from "@/components/sections/CTASection";
+import CTASection from "@/components/sections/CTASection";
 
 const UsersLanding = () => {
   return (
