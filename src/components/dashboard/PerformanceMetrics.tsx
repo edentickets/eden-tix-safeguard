@@ -13,50 +13,50 @@ const revenueData = [
 
 export function PerformanceMetrics() {
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <MetricCard
           title="Total Tickets Sold"
           value="15,245"
           trend="+12.5% from last month"
-          icon={<Ticket className="h-8 w-8" />}
+          icon={<Ticket className="h-6 w-6 sm:h-8 sm:w-8" />}
           trendUp={true}
         />
         <MetricCard
           title="Revenue Generated"
           value="$1,256,000"
           trend="+8.2% from last month"
-          icon={<DollarSign className="h-8 w-8" />}
+          icon={<DollarSign className="h-6 w-6 sm:h-8 sm:w-8" />}
           trendUp={true}
         />
         <MetricCard
           title="Active Events"
           value="8"
           trend="+2 from last month"
-          icon={<Calendar className="h-8 w-8" />}
+          icon={<Calendar className="h-6 w-6 sm:h-8 sm:w-8" />}
           trendUp={true}
         />
         <MetricCard
           title="Total Attendees"
           value="12,450"
           trend="+15.3% from last month"
-          icon={<Users className="h-8 w-8" />}
+          icon={<Users className="h-6 w-6 sm:h-8 sm:w-8" />}
           trendUp={true}
         />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <MetricCard
           title="Resale Volume"
           value="3,120"
           trend="-2.1% from last month"
-          icon={<RefreshCcw className="h-8 w-8" />}
+          icon={<RefreshCcw className="h-6 w-6 sm:h-8 sm:w-8" />}
           trendUp={false}
         />
         <MetricCard
           title="Average Ticket Price"
           value="$82.50"
           trend="+5.3% from last month"
-          icon={<TrendingUp className="h-8 w-8" />}
+          icon={<TrendingUp className="h-6 w-6 sm:h-8 sm:w-8" />}
           trendUp={true}
         />
       </div>

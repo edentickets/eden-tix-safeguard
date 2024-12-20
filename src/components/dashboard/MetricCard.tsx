@@ -28,16 +28,16 @@ export const MetricCard = ({
     >
       <Card 
         className={cn(
-          "p-6 hover:shadow-lg transition-all duration-300",
+          "p-4 sm:p-6 hover:shadow-lg transition-all duration-300",
           "bg-gradient-to-br from-eden-light/20 to-eden-dark/40",
           "border border-white/5 backdrop-blur-sm",
           className
         )}
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-wrap gap-2 sm:flex-nowrap">
           <div className="space-y-1">
             <p className="text-sm text-gray-400/80">{title}</p>
-            <p className="text-2xl font-semibold text-white/90">
+            <p className="text-xl sm:text-2xl font-semibold text-white/90">
               {value}
             </p>
             {trend && (
@@ -51,7 +51,7 @@ export const MetricCard = ({
               </p>
             )}
           </div>
-          <div className="p-3 rounded-xl bg-eden-primary/20 text-white/80">
+          <div className="p-2 sm:p-3 rounded-xl bg-eden-primary/20 text-white/80">
             {icon}
           </div>
         </div>
