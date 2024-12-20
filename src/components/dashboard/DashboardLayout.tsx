@@ -1,4 +1,3 @@
-import { Navbar } from "@/components/Navbar";
 import { Sidebar } from "./Sidebar";
 import { useState } from "react";
 import { Menu } from "lucide-react";
@@ -13,7 +12,6 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
   return (
     <div className="min-h-screen bg-eden-dark">
-      <Navbar />
       <div className="flex relative">
         {/* Mobile menu button */}
         <Button
