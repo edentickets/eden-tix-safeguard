@@ -12,9 +12,10 @@ import { Link } from "react-router-dom";
 
 interface EventHeroProps {
   event: Event;
+  isCreator?: boolean;
 }
 
-export const EventHero = ({ event }: EventHeroProps) => {
+export const EventHero = ({ event, isCreator }: EventHeroProps) => {
   const { toast } = useToast();
   const session = useSession();
 
@@ -104,7 +105,7 @@ export const EventHero = ({ event }: EventHeroProps) => {
             )}
           </div>
 
-          {session?.user?.id === event.creator_id && (
+          {(isCreator || session?.user?.id === event.creator_id) && (
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
