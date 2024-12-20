@@ -50,9 +50,11 @@ export const ExploreHero = ({
   };
 
   return (
-    <div className="relative py-20">
-      <div className="absolute inset-0 bg-gradient-to-b from-eden-dark via-eden-dark/95 to-eden-dark">
+    <div className="relative py-20 overflow-hidden">
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-eden-dark via-eden-dark/95 to-eden-dark" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.15),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
       </div>
 
       <motion.div
@@ -63,7 +65,7 @@ export const ExploreHero = ({
       >
         <motion.h1
           variants={itemVariants}
-          className="text-4xl md:text-5xl font-bold mb-6 gradient-text"
+          className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-primary"
         >
           Find Your Next Unforgettable Experience
         </motion.h1>
