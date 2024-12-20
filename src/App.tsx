@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { EmailCampaignsList } from "@/components/dashboard/email/EmailCampaignsList";
 import CreateCampaign from "@/pages/dashboard/CreateCampaign";
@@ -20,4 +20,8 @@ const router = createBrowserRouter([
   },
 ]);
 
-export default router;
+function App() {
+  return <RouterProvider router={router} />;
+}
+
+export default App;
