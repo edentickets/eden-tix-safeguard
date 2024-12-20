@@ -187,6 +187,48 @@ export type Database = {
         }
         Relationships: []
       }
+      promoter_referral_links: {
+        Row: {
+          created_at: string | null
+          event_id: string
+          id: string
+          promoter_id: string
+          unique_code: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_id: string
+          id?: string
+          promoter_id: string
+          unique_code: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_id?: string
+          id?: string
+          promoter_id?: string
+          unique_code?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "promoter_referral_links_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "promoter_referral_links_promoter_id_fkey"
+            columns: ["promoter_id"]
+            isOneToOne: false
+            referencedRelation: "promoters"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       promoter_sales: {
         Row: {
           commission_amount: number

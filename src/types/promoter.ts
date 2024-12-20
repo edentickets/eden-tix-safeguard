@@ -21,3 +21,15 @@ export interface PromoterSale {
   created_at?: string;
   updated_at?: string;
 }
+
+export interface PromoterReferralLink {
+  id: string;
+  promoter_id: string;
+  event_id: string;
+  unique_code: string;
+  created_at?: string;
+  updated_at?: string;
+  event?: {
+    title: string;
+  };
+}
