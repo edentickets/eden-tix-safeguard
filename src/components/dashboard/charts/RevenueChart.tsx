@@ -26,11 +26,11 @@ export const RevenueChart = ({ data }: RevenueChartProps) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: 0.2 }}
     >
-      <Card className="p-6 bg-gradient-to-br from-eden-light/20 to-eden-dark/40 border border-white/5 backdrop-blur-sm hover:border-white/10 transition-all duration-300">
-        <h3 className="text-lg font-semibold text-white/90 mb-4">
+      <Card className="p-4 sm:p-6 bg-gradient-to-br from-eden-light/20 to-eden-dark/40 border border-white/5 backdrop-blur-sm hover:border-white/10 transition-all duration-300">
+        <h3 className="text-base sm:text-lg font-semibold text-white/90 mb-4">
           Revenue Overview
         </h3>
-        <div className="h-[300px] w-full">
+        <div className="h-[250px] sm:h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data} margin={{ top: 5, right: 5, bottom: 5, left: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
@@ -38,10 +38,12 @@ export const RevenueChart = ({ data }: RevenueChartProps) => {
                 dataKey="date"
                 stroke="rgba(255,255,255,0.5)"
                 tickFormatter={(value) => value.split(" ")[0]}
+                tick={{ fontSize: 12 }}
               />
               <YAxis
                 stroke="rgba(255,255,255,0.5)"
                 tickFormatter={(value) => `$${value / 1000}k`}
+                tick={{ fontSize: 12 }}
               />
               <Tooltip
                 content={({ active, payload, label }) => {

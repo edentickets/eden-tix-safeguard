@@ -9,6 +9,66 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      email_campaigns: {
+        Row: {
+          click_count: number | null
+          content: string
+          created_at: string | null
+          creator_id: string
+          event_id: string
+          id: string
+          open_count: number | null
+          recipient_count: number | null
+          sent_at: string | null
+          status: string
+          subject: string
+          updated_at: string | null
+        }
+        Insert: {
+          click_count?: number | null
+          content: string
+          created_at?: string | null
+          creator_id: string
+          event_id: string
+          id?: string
+          open_count?: number | null
+          recipient_count?: number | null
+          sent_at?: string | null
+          status?: string
+          subject: string
+          updated_at?: string | null
+        }
+        Update: {
+          click_count?: number | null
+          content?: string
+          created_at?: string | null
+          creator_id?: string
+          event_id?: string
+          id?: string
+          open_count?: number | null
+          recipient_count?: number | null
+          sent_at?: string | null
+          status?: string
+          subject?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_campaigns_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "email_campaigns_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       event_attendees: {
         Row: {
           created_at: string | null
