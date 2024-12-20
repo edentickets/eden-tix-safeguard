@@ -308,6 +308,47 @@ export type Database = {
         }
         Relationships: []
       }
+      payment_plans: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          initial_payment_percentage: number
+          installments: number
+          name: string
+          ticket_tier_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          initial_payment_percentage?: number
+          installments?: number
+          name: string
+          ticket_tier_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          initial_payment_percentage?: number
+          installments?: number
+          name?: string
+          ticket_tier_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_plans_ticket_tier_id_fkey"
+            columns: ["ticket_tier_id"]
+            isOneToOne: false
+            referencedRelation: "ticket_tiers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -574,6 +615,8 @@ export type Database = {
           created_at: string | null
           description: string | null
           event_id: string
+          group_discount_percentage: number | null
+          group_discount_threshold: number | null
           id: string
           price: number
           title: string
@@ -585,6 +628,8 @@ export type Database = {
           created_at?: string | null
           description?: string | null
           event_id: string
+          group_discount_percentage?: number | null
+          group_discount_threshold?: number | null
           id?: string
           price: number
           title: string
@@ -596,6 +641,8 @@ export type Database = {
           created_at?: string | null
           description?: string | null
           event_id?: string
+          group_discount_percentage?: number | null
+          group_discount_threshold?: number | null
           id?: string
           price?: number
           title?: string
@@ -672,7 +719,11 @@ export type Database = {
           created_at: string | null
           current_qr_code: string | null
           event_id: string | null
+          gift_message: string | null
+          gift_recipient_email: string | null
+          gift_sent_at: string | null
           id: string
+          is_gift: boolean | null
           last_checked_in_at: string | null
           owner_id: string | null
           payment_intent_id: string | null
@@ -690,7 +741,11 @@ export type Database = {
           created_at?: string | null
           current_qr_code?: string | null
           event_id?: string | null
+          gift_message?: string | null
+          gift_recipient_email?: string | null
+          gift_sent_at?: string | null
           id?: string
+          is_gift?: boolean | null
           last_checked_in_at?: string | null
           owner_id?: string | null
           payment_intent_id?: string | null
@@ -708,7 +763,11 @@ export type Database = {
           created_at?: string | null
           current_qr_code?: string | null
           event_id?: string | null
+          gift_message?: string | null
+          gift_recipient_email?: string | null
+          gift_sent_at?: string | null
           id?: string
+          is_gift?: boolean | null
           last_checked_in_at?: string | null
           owner_id?: string | null
           payment_intent_id?: string | null
@@ -733,6 +792,67 @@ export type Database = {
           {
             foreignKeyName: "tickets_owner_id_fkey"
             columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      waitlist_entries: {
+        Row: {
+          created_at: string | null
+          email: string
+          event_id: string
+          id: string
+          notification_sent: boolean | null
+          quantity: number
+          status: string
+          ticket_tier_id: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          event_id: string
+          id?: string
+          notification_sent?: boolean | null
+          quantity?: number
+          status?: string
+          ticket_tier_id: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          event_id?: string
+          id?: string
+          notification_sent?: boolean | null
+          quantity?: number
+          status?: string
+          ticket_tier_id?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "waitlist_entries_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_entries_ticket_tier_id_fkey"
+            columns: ["ticket_tier_id"]
+            isOneToOne: false
+            referencedRelation: "ticket_tiers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_entries_user_id_fkey"
+            columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]

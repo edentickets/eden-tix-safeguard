@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Plus, Minus, Bell } from "lucide-react";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
-import { format } from "date-fns";
+import { WaitlistButton } from "@/components/event/WaitlistButton";
 
 interface TicketTier {
   id: string;
@@ -120,29 +120,37 @@ export const TicketTiers = ({ tiers }: TicketTiersProps) => {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="h-8 w-8 border-[var(--event-primary,#D4AF37)]/50 text-[var(--event-primary,#D4AF37)]"
-                        onClick={() => handleDecrement(tier.id)}
-                        disabled={!quantities[tier.id]}
-                      >
-                        <Minus className="h-4 w-4" />
-                      </Button>
-                      <span className="text-[var(--event-text,#FFFFFF)] w-8 text-center">
-                        {quantities[tier.id] || 0}
-                      </span>
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="h-8 w-8 border-[var(--event-primary,#D4AF37)]/50 text-[var(--event-primary,#D4AF37)]"
-                        onClick={() => handleIncrement(tier.id, tier.available_tickets)}
-                        disabled={quantities[tier.id] === tier.available_tickets}
-                      >
-                        <Plus className="h-4 w-4" />
-                      </Button>
-                    </div>
+                    {tier.available_tickets > 0 ? (
+                      <div className="flex items-center gap-3">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-8 w-8 border-[var(--event-primary,#D4AF37)]/50 text-[var(--event-primary,#D4AF37)]"
+                          onClick={() => handleDecrement(tier.id)}
+                          disabled={!quantities[tier.id]}
+                        >
+                          <Minus className="h-4 w-4" />
+                        </Button>
+                        <span className="text-[var(--event-text,#FFFFFF)] w-8 text-center">
+                          {quantities[tier.id] || 0}
+                        </span>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-8 w-8 border-[var(--event-primary,#D4AF37)]/50 text-[var(--event-primary,#D4AF37)]"
+                          onClick={() => handleIncrement(tier.id, tier.available_tickets)}
+                          disabled={quantities[tier.id] === tier.available_tickets}
+                        >
+                          <Plus className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ) : (
+                      <WaitlistButton 
+                        eventId={tier.event_id} 
+                        tierId={tier.id}
+                        tierName={tier.title}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
