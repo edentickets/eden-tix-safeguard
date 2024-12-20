@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Star, Clock, MapPin, User } from "lucide-react";
+import { Clock, MapPin, User, Star } from "lucide-react";
 import { Event, formatEventDate } from "@/types/event";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
@@ -10,13 +10,6 @@ interface EventHeroProps {
 
 export const EventHero = ({ event }: EventHeroProps) => {
   const { toast } = useToast();
-
-  const handlePurchase = () => {
-    toast({
-      title: "Coming Soon!",
-      description: "Ticket purchasing will be available soon.",
-    });
-  };
 
   const handleAlert = () => {
     toast({
@@ -47,7 +40,7 @@ export const EventHero = ({ event }: EventHeroProps) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
-            className="text-4xl md:text-6xl font-bold text-white glow-effect"
+            className="text-4xl md:text-6xl font-bold text-white"
           >
             {event.title}
           </motion.h1>
@@ -92,15 +85,8 @@ export const EventHero = ({ event }: EventHeroProps) => {
           >
             <Button
               size="lg"
-              className="bg-eden-secondary hover:bg-eden-secondary/90 animate-glow"
-              onClick={handlePurchase}
-            >
-              Buy Tickets
-            </Button>
-            <Button
-              size="lg"
               variant="outline"
-              className="border-eden-primary text-eden-primary hover:bg-eden-primary/10 animate-border-glow"
+              className="border-eden-primary text-eden-primary hover:bg-eden-primary/10"
               onClick={handleAlert}
             >
               Set Price Alerts
