@@ -5,11 +5,42 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Minus, Plus, X } from "lucide-react";
+import { ShoppingCart, Minus, Plus, X, Shield, CreditCard, Bitcoin } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+
+const SecurityDialog = () => (
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button variant="ghost" size="sm" className="w-full flex items-center gap-2 text-sm text-gray-600">
+        <Shield className="h-4 w-4" />
+        How are my tickets protected?
+      </Button>
+    </DialogTrigger>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Secure Ticketing Technology</DialogTitle>
+        <DialogDescription className="space-y-4 pt-4">
+          <p>
+            Your tickets are protected by our advanced security features:
+          </p>
+          <ul className="list-disc pl-4 space-y-2">
+            <li>Dynamic QR codes that update every 30 seconds</li>
+            <li>Blockchain-verified ownership records</li>
+            <li>Secure transfer and resale capabilities</li>
+            <li>Real-time validation at event check-in</li>
+          </ul>
+          <p className="text-sm text-gray-500 mt-4">
+            All transactions are processed securely through our payment partners, ensuring your financial information stays safe.
+          </p>
+        </DialogDescription>
+      </DialogHeader>
+    </DialogContent>
+  </Dialog>
+);
 
 export function CartDropdown() {
   const { items, removeFromCart, updateQuantity, total } = useCart();
@@ -120,9 +151,16 @@ export function CartDropdown() {
                 <span className="font-medium">Total:</span>
                 <span className="font-bold">${total.toFixed(2)}</span>
               </div>
-              <Button className="w-full" onClick={handleCheckout}>
-                Checkout
-              </Button>
+              <div className="space-y-2">
+                <SecurityDialog />
+                <div className="flex items-center gap-2 text-sm text-gray-600 justify-center mb-4">
+                  <CreditCard className="h-4 w-4" />
+                  <span>Secure payment with cards & digital wallets</span>
+                </div>
+                <Button className="w-full" onClick={handleCheckout}>
+                  Checkout
+                </Button>
+              </div>
             </div>
           </>
         )}

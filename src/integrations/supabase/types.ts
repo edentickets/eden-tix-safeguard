@@ -411,6 +411,61 @@ export type Database = {
           },
         ]
       }
+      ticket_transfers: {
+        Row: {
+          created_at: string | null
+          from_user_id: string | null
+          id: string
+          price: number | null
+          ticket_id: string | null
+          to_user_id: string | null
+          transfer_type: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          from_user_id?: string | null
+          id?: string
+          price?: number | null
+          ticket_id?: string | null
+          to_user_id?: string | null
+          transfer_type: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          from_user_id?: string | null
+          id?: string
+          price?: number | null
+          ticket_id?: string | null
+          to_user_id?: string | null
+          transfer_type?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_transfers_from_user_id_fkey"
+            columns: ["from_user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ticket_transfers_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "tickets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ticket_transfers_to_user_id_fkey"
+            columns: ["to_user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tickets: {
         Row: {
           created_at: string | null
@@ -419,9 +474,14 @@ export type Database = {
           id: string
           last_checked_in_at: string | null
           owner_id: string | null
+          payment_intent_id: string | null
+          payment_method: string | null
+          payment_status: string | null
           purchase_price: number
           qr_code: string | null
           qr_code_updated_at: string | null
+          resale_enabled: boolean | null
+          resale_price: number | null
           status: string
           updated_at: string | null
         }
@@ -432,9 +492,14 @@ export type Database = {
           id?: string
           last_checked_in_at?: string | null
           owner_id?: string | null
+          payment_intent_id?: string | null
+          payment_method?: string | null
+          payment_status?: string | null
           purchase_price: number
           qr_code?: string | null
           qr_code_updated_at?: string | null
+          resale_enabled?: boolean | null
+          resale_price?: number | null
           status: string
           updated_at?: string | null
         }
@@ -445,9 +510,14 @@ export type Database = {
           id?: string
           last_checked_in_at?: string | null
           owner_id?: string | null
+          payment_intent_id?: string | null
+          payment_method?: string | null
+          payment_status?: string | null
           purchase_price?: number
           qr_code?: string | null
           qr_code_updated_at?: string | null
+          resale_enabled?: boolean | null
+          resale_price?: number | null
           status?: string
           updated_at?: string | null
         }
