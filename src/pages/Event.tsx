@@ -4,7 +4,6 @@ import { EventHero } from "@/components/event/EventHero";
 import { EventHighlights } from "@/components/event/EventHighlights";
 import { EventCTA } from "@/components/event/EventCTA";
 import { TicketTiers } from "@/components/event/TicketTiers";
-import { Navbar } from "@/components/Navbar";
 import { useAuthState } from "@/hooks/use-auth-state";
 import { Loader } from "lucide-react";
 
@@ -16,7 +15,6 @@ export default function Event() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-eden-dark">
-        <Navbar />
         <div className="flex items-center justify-center h-[calc(100vh-64px)]">
           <div className="flex flex-col items-center gap-4">
             <Loader className="w-8 h-8 animate-spin text-eden-primary" />
@@ -30,7 +28,6 @@ export default function Event() {
   if (error || !event) {
     return (
       <div className="min-h-screen bg-eden-dark">
-        <Navbar />
         <div className="max-w-7xl mx-auto px-4 py-32 text-center">
           <h1 className="text-3xl font-bold text-white">Event not found</h1>
           <p className="mt-4 text-white/70">
@@ -43,7 +40,6 @@ export default function Event() {
 
   return (
     <div className="min-h-screen bg-eden-dark">
-      <Navbar />
       <main>
         <EventHero event={event} />
         <EventHighlights event={event} />

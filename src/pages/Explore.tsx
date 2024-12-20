@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Navbar } from "@/components/Navbar";
 import { ExploreHero } from "@/components/explore/ExploreHero";
 import { EventGrid } from "@/components/explore/EventGrid";
 import { CategorySection } from "@/components/explore/CategorySection";
@@ -55,7 +54,6 @@ const Explore = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-eden-dark">
-        <Navbar />
         <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
           <Loader2 className="w-8 h-8 animate-spin text-eden-primary" />
         </div>
@@ -65,7 +63,6 @@ const Explore = () => {
 
   return (
     <div className="min-h-screen bg-eden-dark">
-      <Navbar />
       <ExploreHero 
         onSearchChange={(value) => updateFilter("searchQuery", value)}
         onLocationChange={(value) => updateFilter("location", value)}
