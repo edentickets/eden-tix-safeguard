@@ -422,7 +422,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      decrement: {
+        Args: {
+          x: number
+        }
+        Returns: number
+      }
     }
     Enums: {
       ticket_status: "active" | "used" | "expired" | "cancelled"
