@@ -72,7 +72,15 @@ serve(async (req) => {
       },
       // If user is not logged in, collect minimal information
       customer_creation: userId ? undefined : 'always',
+      phone_number_collection: {
+        enabled: true,
+      },
       customer_email: userId ? undefined : null, // Collect email during checkout for guest users
+      custom_text: {
+        submit: {
+          message: 'You can use either email or phone number to access your tickets after payment.',
+        },
+      },
     })
 
     return new Response(
