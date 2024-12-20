@@ -17,11 +17,11 @@ serve(async (req) => {
         CREATE EXTENSION IF NOT EXISTS pg_net;
       `
 
-      // Schedule the scramble-qr-codes function to run every 5 minutes
+      // Schedule the scramble-qr-codes function to run every 10 minutes
       await connection.queryObject`
         SELECT cron.schedule(
-          'scramble-qr-codes-every-5-min',
-          '*/5 * * * *',
+          'scramble-qr-codes-every-10-min',
+          '*/10 * * * *',
           $$
           SELECT
             net.http_post(
