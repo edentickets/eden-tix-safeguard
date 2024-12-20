@@ -1,17 +1,15 @@
-import Background3D from "@/components/Background3D";
-import HeroSection from "@/components/sections/HeroSection";
-import { FeaturesSection } from "@/components/users/FeaturesSection";
+import { LandingHero } from "@/components/landing/HeroSection";
+import { FeaturesGrid } from "@/components/landing/FeaturesGrid";
+import ClientsSection from "@/components/sections/ClientsSection";
 import { UserRewardsSection } from "@/components/users/UserRewardsSection";
 import CTASection from "@/components/sections/CTASection";
-import ClientsSection from "@/components/sections/ClientsSection";
 
 const Landing = () => {
   return (
     <div className="min-h-screen bg-eden-dark">
-      <Background3D />
-      <HeroSection />
+      <LandingHero />
+      <FeaturesGrid />
       <ClientsSection />
-      <FeaturesSection />
       <UserRewardsSection />
       <CTASection />
     </div>
