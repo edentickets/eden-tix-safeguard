@@ -1,8 +1,9 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Edit2, BarChart2, Calendar, MapPin } from "lucide-react";
+import { Edit2, BarChart2, Calendar, MapPin, PlusCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
 
 const events = [
   {
@@ -26,9 +27,20 @@ const events = [
 ];
 
 export function EventsList() {
+  const navigate = useNavigate();
+
   return (
     <div>
-      <h2 className="text-xl font-semibold text-white mb-4">Active Events</h2>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-semibold text-white">Active Events</h2>
+        <Button 
+          onClick={() => navigate("/dashboard/events/create")}
+          className="bg-eden-primary/90 hover:bg-eden-primary transition-colors duration-300"
+        >
+          <PlusCircle className="w-4 h-4 mr-2" />
+          Create Event
+        </Button>
+      </div>
       <div className="space-y-4">
         {events.map((event, index) => (
           <motion.div

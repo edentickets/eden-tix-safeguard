@@ -2,8 +2,10 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { PlusCircle, BarChart2, TrendingUp, Calendar, Users } from "lucide-react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export function DashboardHeader() {
+  const navigate = useNavigate();
   const organizerName = "Sarah";
   const nextEvent = "Rolling Loud Miami 2025";
   const daysUntilEvent = 45;
@@ -52,6 +54,7 @@ export function DashboardHeader() {
             <Button 
               className="bg-eden-primary/90 hover:bg-eden-primary transition-colors duration-300 text-white w-full sm:w-auto group"
               size="lg"
+              onClick={() => navigate("/dashboard/events/create")}
             >
               <PlusCircle className="mr-2 h-5 w-5 group-hover:rotate-90 transition-transform duration-300" />
               Create New Event
