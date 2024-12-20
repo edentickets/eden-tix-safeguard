@@ -12,6 +12,7 @@ export const eventFormSchema = z.object({
   }),
   totalTickets: z.number().min(1, "Must have at least 1 ticket"),
   price: z.number().min(0, "Price cannot be negative"),
+  imageUrl: z.string().optional(),
 }).refine((data) => data.endDate >= data.startDate, {
   message: "End date must be after start date",
   path: ["endDate"],
@@ -27,4 +28,5 @@ export const defaultValues: EventFormValues = {
   endDate: new Date(),
   totalTickets: 1,
   price: 0,
+  imageUrl: "",
 };

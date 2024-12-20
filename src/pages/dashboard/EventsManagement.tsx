@@ -1,13 +1,14 @@
+import React from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { 
   PlusCircle, 
   Calendar, 
-  Users, 
-  DollarSign,
+  MapPin, 
+  Edit2, 
+  BarChart2,
   MoreVertical,
-  Edit2,
   Trash2,
   ExternalLink
 } from "lucide-react";
@@ -18,12 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { CreateEventForm } from "@/components/events/CreateEventForm";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-
-export default function EventsManagement() {
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+import { useNavigate } from "react-router-dom";
 
 const events = [
   {
@@ -58,6 +54,9 @@ const events = [
   },
 ];
 
+export default function EventsManagement() {
+  const navigate = useNavigate();
+
   return (
     <DashboardLayout>
       <div className="space-y-8">
@@ -68,23 +67,12 @@ const events = [
           </div>
           <Button 
             className="bg-eden-primary hover:bg-eden-primary/90"
-            onClick={() => setIsCreateModalOpen(true)}
+            onClick={() => navigate("/dashboard/events/create")}
           >
             <PlusCircle className="w-4 h-4 mr-2" />
             Create Event
           </Button>
         </div>
-
-        <Dialog open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen}>
-          <DialogContent className="max-w-3xl bg-eden-dark border-eden-light/20">
-            <div className="py-6">
-              <h2 className="text-2xl font-bold text-white mb-6 text-center">
-                Create New Event
-              </h2>
-              <CreateEventForm onSuccess={() => setIsCreateModalOpen(false)} />
-            </div>
-          </DialogContent>
-        </Dialog>
 
         <div className="grid gap-4">
           {events.map((event, index) => (
