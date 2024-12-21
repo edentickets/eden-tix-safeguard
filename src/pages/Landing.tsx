@@ -1,19 +1,21 @@
-import HeroSection from "@/components/sections/HeroSection";
-import FeaturesSection from "@/components/sections/FeaturesSection";
+import { HeroSection } from "@/components/landing/sections/HeroSection";
+import { FeaturesSection } from "@/components/sections/FeaturesSection";
+import { ProblemStatementSection } from "@/components/sections/ProblemStatementSection";
+import { RewardsSection } from "@/components/sections/RewardsSection";
 import ClientsSection from "@/components/sections/ClientsSection";
 import CTASection from "@/components/sections/CTASection";
-import { ReferralCard } from "@/components/referrals/ReferralCard";
 
-export default function Landing() {
+const Landing = () => {
   return (
-    <div className="min-h-screen bg-eden-dark">
+    <div className="bg-eden-dark text-white">
       <HeroSection />
       <FeaturesSection />
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <ReferralCard />
-      </div>
+      <ProblemStatementSection />
+      <RewardsSection />
       <ClientsSection />
       <CTASection />
     </div>
   );
-}
+};
+
+export default Landing;
