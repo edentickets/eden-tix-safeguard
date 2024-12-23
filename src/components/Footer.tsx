@@ -6,37 +6,20 @@ export const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="border-t border-white/10 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <Link to="/" className="text-2xl font-bold tracking-wider">
-              EDEN
-            </Link>
-            
-            <div className="flex items-center gap-8 text-sm">
-              <Link 
-                to="/terms" 
-                className="text-white/60 hover:text-white transition-colors"
-              >
-                TERMS OF SERVICE
+            <div className="flex flex-wrap justify-center md:justify-start gap-8">
+              <Link to="/privacy" className="hover:text-white transition-colors">
+                Privacy Policy
               </Link>
-              <Link 
-                to="/privacy" 
-                className="text-white/60 hover:text-white transition-colors"
-              >
-                PRIVACY POLICY
+              <Link to="/terms" className="hover:text-white transition-colors">
+                Terms of Service
               </Link>
-              <Link 
-                to="/faq" 
-                className="text-white/60 hover:text-white transition-colors"
-              >
+              <Link to="/faq" className="hover:text-white transition-colors">
                 FAQ
               </Link>
             </div>
-
-            <Link 
-              to="/create-event"
-              className="px-6 py-2.5 rounded-full bg-[#403E43] hover:bg-[#4A4A4A] transition-colors"
-            >
-              Create Your Own Event
-            </Link>
+            <div className="text-sm text-white/60">
+              © {new Date().getFullYear()} Eden Events. All rights reserved.
+            </div>
           </div>
         </div>
       </div>

@@ -1,46 +1,52 @@
-import { Link } from "react-router-dom";
+import { useSession } from "@supabase/auth-helpers-react";
+import { User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useAuthState } from "@/hooks/use-auth-state";
 import { useAuthModal } from "@/hooks/use-auth-modal";
+import { CartDropdown } from "@/components/cart/CartDropdown";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const UserMenu = () => {
-  const { user } = useAuthState();
+  const session = useSession();
   const { openModal } = useAuthModal();
 
-  if (!user) {
+  if (!session) {
     return (
-      <Button 
-        variant="secondary" 
-        onClick={() => openModal()}
-        className="bg-eden-primary hover:bg-eden-primary/90 text-white px-6"
-      >
-        Sign In
-      </Button>
+      <div className="flex items-center gap-4">
+        <CartDropdown />
+        <Button 
+          onClick={() => openModal()}
+          className="bg-eden-primary hover:bg-eden-primary/90 text-white font-medium px-6"
+        >
+          Sign In
+        </Button>
+      </div>
     );
   }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-9 w-9 text-white">
-          <User className="h-5 w-5" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
-        <DropdownMenuItem asChild>
-          <Link to="/profile" className="w-full">Profile</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link to="/dashboard" className="w-full">Dashboard</Link>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="flex items-center gap-4">
+      <CartDropdown />
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon" className="h-9 w-9 text-white hover:bg-white/10">
+            <User className="h-5 w-5" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem asChild>
+            <Link to="/profile">Profile</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link to="/dashboard">Dashboard</Link>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 };
