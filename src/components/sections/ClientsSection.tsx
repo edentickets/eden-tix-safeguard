@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { ClientsTitle } from "./clients/ClientsTitle";
 import { ClientsGrid } from "./clients/ClientsGrid";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { Users } from "lucide-react";
 
 const ClientsSection = () => {
   return (
@@ -22,7 +25,7 @@ const ClientsSection = () => {
             hidden: { opacity: 0 },
             visible: { opacity: 1 }
           }}
-          className="mt-16 text-center"
+          className="mt-16 text-center space-y-8"
         >
           <motion.p
             variants={{
@@ -33,6 +36,23 @@ const ClientsSection = () => {
           >
             Join over 1,000+ event creators worldwide
           </motion.p>
+          
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 }
+            }}
+          >
+            <Link to="/creators">
+              <Button 
+                size="lg"
+                className="bg-eden-primary hover:bg-eden-primary/90 text-white px-8 py-6"
+              >
+                Join Our Creator Community
+                <Users className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+          </motion.div>
         </motion.div>
       </motion.div>
     </section>

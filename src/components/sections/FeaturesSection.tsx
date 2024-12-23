@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Shield, Bell, Ticket, TrendingUp, Lock, Gift } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const FeaturesSection = () => {
   const features = [
@@ -52,9 +54,18 @@ const FeaturesSection = () => {
           <h2 className="text-4xl md:text-6xl font-medium gradient-text mb-6">
             The Future of Event Access
           </h2>
-          <p className="text-xl text-white/70 max-w-2xl mx-auto">
+          <p className="text-xl text-white/70 max-w-2xl mx-auto mb-8">
             Experience seamless ticketing with smart features that put you in control
           </p>
+          <Link to="/explore">
+            <Button 
+              size="lg"
+              className="bg-eden-primary hover:bg-eden-primary/90 text-white px-8 py-6"
+            >
+              Start Exploring
+              <Ticket className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -80,6 +91,25 @@ const FeaturesSection = () => {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="text-center mt-16"
+        >
+          <Link to="/users">
+            <Button 
+              variant="outline"
+              size="lg"
+              className="border-eden-primary text-eden-primary hover:bg-eden-primary/10"
+            >
+              Learn More About User Features
+              <TrendingUp className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

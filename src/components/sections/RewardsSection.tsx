@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { RewardsTitle } from "./rewards/RewardsTitle";
 import { RewardsGrid } from "./rewards/RewardsGrid";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { Gift } from "lucide-react";
 
 const RewardsSection = () => {
   return (
@@ -14,6 +17,23 @@ const RewardsSection = () => {
       >
         <RewardsTitle />
         <RewardsGrid />
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mt-16"
+        >
+          <Link to="/users">
+            <Button 
+              size="lg"
+              className="bg-eden-secondary hover:bg-eden-secondary/90 text-white px-8 py-6"
+            >
+              Start Earning Rewards
+              <Gift className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
+        </motion.div>
       </motion.div>
     </section>
   );

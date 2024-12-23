@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
-import { Ban, Users, TrendingUp, DollarSign } from "lucide-react";
+import { Ban, Users, TrendingUp, DollarSign, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const ProblemStatementSection = () => {
   const problems = [
@@ -92,10 +94,21 @@ const ProblemStatementSection = () => {
           </motion.h2>
           <motion.p
             variants={itemVariants}
-            className="text-xl text-white/70"
+            className="text-xl text-white/70 mb-8"
           >
             We're here to fix that
           </motion.p>
+          <motion.div variants={itemVariants}>
+            <Link to="/creators">
+              <Button 
+                size="lg"
+                className="bg-eden-secondary hover:bg-eden-secondary/90 text-white px-8 py-6"
+              >
+                Start Creating Events
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+          </motion.div>
         </motion.div>
 
         <motion.div 
@@ -122,6 +135,22 @@ const ProblemStatementSection = () => {
               </Card>
             </motion.div>
           ))}
+        </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          className="text-center mt-16"
+        >
+          <Link to="/explore">
+            <Button 
+              variant="outline"
+              size="lg"
+              className="border-eden-primary text-eden-primary hover:bg-eden-primary/10"
+            >
+              Discover Events
+              <TrendingUp className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
         </motion.div>
       </motion.div>
     </section>
