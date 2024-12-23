@@ -2,30 +2,30 @@ import { motion } from "framer-motion";
 import { Ban, Users, TrendingUp, DollarSign } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
-const problems = [
-  {
-    icon: <Ban className="w-8 h-8 text-eden-primary" />,
-    title: "Price Gouging & Fraudulent Resales",
-    description: "Say goodbye to inflated prices and fake tickets. Eden ensures fair pricing and authenticity through state-of-the-art digital security."
-  },
-  {
-    icon: <Users className="w-8 h-8 text-eden-secondary" />,
-    title: "Limited Availability & Scalping",
-    description: "Never miss out on tickets again. Our transparent marketplace ensures fair access and real-time price tracking."
-  },
-  {
-    icon: <TrendingUp className="w-8 h-8 text-eden-accent" />,
-    title: "Real-Time Market Insights",
-    description: "Make informed decisions with live market data and get alerts when tickets match your target price."
-  },
-  {
-    icon: <DollarSign className="w-8 h-8 text-eden-primary" />,
-    title: "Hidden Fees & High Costs",
-    description: "We believe in transparency. Zero hidden fees and industry-lowest transaction costs mean more value for everyone."
-  }
-];
-
 const ProblemStatementSection = () => {
+  const problems = [
+    {
+      icon: <Ban className="w-8 h-8 text-eden-primary" />,
+      title: "Price Gouging & Fraudulent Resales",
+      description: "Say goodbye to inflated prices and fake tickets. Eden ensures fair pricing and authenticity through state-of-the-art digital security."
+    },
+    {
+      icon: <Users className="w-8 h-8 text-eden-secondary" />,
+      title: "Limited Availability & Scalping",
+      description: "Never miss out on tickets again. Our transparent marketplace ensures fair access and real-time price tracking."
+    },
+    {
+      icon: <TrendingUp className="w-8 h-8 text-eden-accent" />,
+      title: "Real-Time Market Insights",
+      description: "Make informed decisions with live market data and get alerts when tickets match your target price."
+    },
+    {
+      icon: <DollarSign className="w-8 h-8 text-eden-primary" />,
+      title: "Hidden Fees & High Costs",
+      description: "We believe in transparency. Zero hidden fees and industry-lowest transaction costs mean more value for everyone."
+    }
+  ];
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
