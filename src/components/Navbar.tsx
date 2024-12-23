@@ -14,12 +14,15 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-eden-dark/80 backdrop-blur supports-[backdrop-filter]:bg-eden-dark/60">
-      <div className="container flex h-16 items-center justify-between">
-        <Logo />
+      <div className="container flex h-20 items-center justify-between px-8">
+        <div className="flex items-center gap-16">
+          <Logo />
+          <DesktopNav />
+        </div>
 
         {/* Mobile menu button */}
         <button 
-          className="md:hidden p-2 text-white"
+          className="md:hidden p-2 text-white hover:text-eden-primary transition-colors"
           onClick={toggleMobileMenu}
         >
           {isMobileMenuOpen ? (
@@ -29,10 +32,9 @@ export function Navbar() {
           )}
         </button>
 
-        <DesktopNav />
         <MobileNav isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           <CartDropdown />
           <UserMenu />
         </div>
