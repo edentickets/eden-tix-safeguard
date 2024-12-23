@@ -17,12 +17,12 @@ const UsersLanding = () => {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="fixed bottom-8 right-8 z-50"
+        className="fixed bottom-8 right-8 z-50 hidden md:block"
       >
         <Link to="/explore">
           <Button 
             size="lg"
-            className="bg-eden-secondary hover:bg-eden-secondary/90 text-white px-8 py-6 text-lg shadow-lg"
+            className="bg-eden-secondary hover:bg-eden-secondary/90 text-white px-8 py-6 text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
           >
             Explore Events
             <Search className="ml-2 h-5 w-5" />
@@ -34,14 +34,24 @@ const UsersLanding = () => {
       <FeaturesSection />
       
       {/* Mid-page CTA */}
-      <div className="py-16 text-center">
+      <div className="py-24 text-center bg-gradient-to-b from-transparent to-eden-light/5">
         <Link to="/explore">
           <Button 
             size="lg"
-            className="bg-eden-primary hover:bg-eden-primary/90 text-white px-8 py-6 text-lg"
+            className="bg-eden-primary hover:bg-eden-primary/90 text-white px-12 py-8 text-xl group"
           >
             Find Your Next Event
-            <Ticket className="ml-2 h-5 w-5" />
+            <motion.span
+              className="inline-block ml-2"
+              animate={{ x: [0, 4, 0] }}
+              transition={{ 
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <Ticket className="h-6 w-6 group-hover:scale-110 transition-transform" />
+            </motion.span>
           </Button>
         </Link>
       </div>

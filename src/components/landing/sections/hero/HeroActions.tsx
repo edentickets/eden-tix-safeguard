@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export const HeroActions = () => {
   return (
-    <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+    <div className="flex flex-col sm:flex-row justify-center gap-6 mt-12 px-4">
       <Link to="/users">
         <motion.div
           whileHover={{ scale: 1.05 }}
