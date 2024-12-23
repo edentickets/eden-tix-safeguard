@@ -7,7 +7,7 @@ import { HeroTitle } from "./hero/HeroTitle";
 import { HeroDescription } from "./hero/HeroDescription";
 import { HeroActions } from "./hero/HeroActions";
 
-export const HeroSection = () => {
+const HeroSection = () => {
   return (
     <div className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center py-16 md:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <Background3D />
@@ -39,3 +39,5 @@ export const HeroSection = () => {
     </div>
   );
 };
+
+export default HeroSection;
