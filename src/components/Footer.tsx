@@ -11,13 +11,6 @@ export const Footer = () => {
             <span className="text-xl font-medium">Eden</span>
             <CheckCircle className="w-5 h-5 text-eden-primary" />
           </div>
-          
-          <Link 
-            to="/contact"
-            className="px-6 py-2.5 rounded-full bg-[#403E43] hover:bg-[#4A4A4A] transition-colors"
-          >
-            Contact Eden
-          </Link>
         </div>
 
         <div className="border-t border-white/10 pt-8">
