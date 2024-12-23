@@ -1,38 +1,38 @@
 import { motion } from "framer-motion";
-import { Shield, Ticket, Users, Globe, Lock, CreditCard } from "lucide-react";
+import { Shield, Bell, Ticket, TrendingUp, Lock, Gift } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 const FeaturesSection = () => {
   const features = [
     {
-      icon: <Shield className="w-8 h-8 text-eden-primary" />,
-      title: "Secure & Authentic",
+      icon: <Bell className="w-8 h-8 text-eden-primary" />,
+      title: "Smart Price Alerts",
+      description: "Get notified instantly when tickets match your target price"
+    },
+    {
+      icon: <Shield className="w-8 h-8 text-eden-secondary" />,
+      title: "Guaranteed Authentic",
       description: "Dynamic QR codes and real-time validation ensure zero counterfeits"
     },
     {
-      icon: <Ticket className="w-8 h-8 text-eden-secondary" />,
-      title: "Smart Resale",
-      description: "Fair market prices and instant transfers in our trusted marketplace"
+      icon: <TrendingUp className="w-8 h-8 text-eden-accent" />,
+      title: "Market Insights",
+      description: "Make informed decisions with live price tracking and availability alerts"
     },
     {
-      icon: <Users className="w-8 h-8 text-eden-accent" />,
-      title: "Community-Driven",
-      description: "Join thousands of event enthusiasts in a vibrant ecosystem"
+      icon: <Lock className="w-8 h-8 text-eden-primary" />,
+      title: "Secure Transfers",
+      description: "Transfer or resell tickets safely with built-in fraud protection"
     },
     {
-      icon: <Globe className="w-8 h-8 text-eden-primary" />,
-      title: "Worldwide Events",
-      description: "Access exclusive events and experiences from around the globe"
+      icon: <Gift className="w-8 h-8 text-eden-secondary" />,
+      title: "Loyalty Rewards",
+      description: "Earn points on every purchase and unlock exclusive perks"
     },
     {
-      icon: <Lock className="w-8 h-8 text-eden-secondary" />,
-      title: "Fraud Protection",
-      description: "Advanced security measures protect your tickets and funds"
-    },
-    {
-      icon: <CreditCard className="w-8 h-8 text-eden-accent" />,
-      title: "Instant Rewards",
-      description: "Earn points and unlock exclusive perks with every purchase"
+      icon: <Ticket className="w-8 h-8 text-eden-accent" />,
+      title: "Priority Access",
+      description: "Get early access to high-demand events and presales"
     }
   ];
 
@@ -50,10 +50,10 @@ const FeaturesSection = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-medium gradient-text mb-6">
-            Experience the Future of Events
+            The Future of Event Access
           </h2>
           <p className="text-xl text-white/70 max-w-2xl mx-auto">
-            Join thousands of event-goers who trust Eden for secure, seamless, and rewarding experiences
+            Experience seamless ticketing with smart features that put you in control
           </p>
         </motion.div>
 
@@ -80,18 +80,6 @@ const FeaturesSection = () => {
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-16 text-center"
-        >
-          <p className="text-white/60">
-            Trusted by over <span className="text-eden-secondary">100,000+</span> event enthusiasts worldwide
-          </p>
-        </motion.div>
       </div>
     </section>
   );

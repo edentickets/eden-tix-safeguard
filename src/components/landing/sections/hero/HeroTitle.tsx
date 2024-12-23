@@ -8,22 +8,8 @@ export const HeroTitle = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.2 }}
     >
-      <motion.span 
-        className="gradient-text"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-      >
-        Next-Gen Digital
-      </motion.span>
-      <motion.span 
-        className="block text-white mt-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-      >
-        Event Ticketing
-      </motion.span>
+      <span className="gradient-text">Smart Ticketing</span>
+      <span className="block text-white mt-2">For Modern Events</span>
     </motion.h1>
   );
 };

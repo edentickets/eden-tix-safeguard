@@ -1,11 +1,9 @@
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 import Background3D from "@/components/Background3D";
 import { HeroTitle } from "./hero/HeroTitle";
 import { HeroDescription } from "./hero/HeroDescription";
 import { HeroActions } from "./hero/HeroActions";
+import NFTTicketPreview from "@/components/hero/NFTTicketPreview";
 
 const HeroSection = () => {
   return (
@@ -34,6 +32,7 @@ const HeroSection = () => {
       >
         <HeroTitle />
         <HeroDescription />
+        <NFTTicketPreview />
         <HeroActions />
       </motion.div>
     </div>
