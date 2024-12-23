@@ -19,7 +19,7 @@ export const UserMenu = () => {
       <Button 
         variant="secondary" 
         onClick={() => openModal()}
-        className="hidden md:inline-flex"
+        className="bg-eden-primary hover:bg-eden-primary/90 text-white px-6"
       >
         Sign In
       </Button>
@@ -29,7 +29,7 @@ export const UserMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-9 w-9">
+        <Button variant="ghost" size="icon" className="h-9 w-9 text-white">
           <User className="h-5 w-5" />
         </Button>
       </DropdownMenuTrigger>
