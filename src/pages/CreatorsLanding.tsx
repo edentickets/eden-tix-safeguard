@@ -1,6 +1,8 @@
 import Background3D from "@/components/Background3D";
 import { HeroSection } from "@/components/creators/HeroSection";
 import { HowItWorks } from "@/components/creators/HowItWorks";
+import { RevenueModel } from "@/components/creators/RevenueModel";
+import { TrustedCreators } from "@/components/creators/TrustedCreators";
 import { BenefitsSection } from "@/components/creators/BenefitsSection";
 import { PricingSection } from "@/components/creators/PricingSection";
 import { TestimonialsSection } from "@/components/creators/TestimonialsSection";
