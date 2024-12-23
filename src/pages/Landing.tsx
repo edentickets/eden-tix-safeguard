@@ -4,18 +4,16 @@ import ProblemStatementSection from "@/components/sections/ProblemStatementSecti
 import RewardsSection from "@/components/sections/RewardsSection";
 import ClientsSection from "@/components/sections/ClientsSection";
 import CTASection from "@/components/sections/CTASection";
-import { StepsSection } from "@/components/users/StepsSection";
-import { UserRewardsSection } from "@/components/users/UserRewardsSection";
+import { TicketFeatures } from "@/components/landing/sections/TicketFeatures";
 
 const Landing = () => {
   return (
     <div className="bg-eden-dark text-white">
       <HeroSection />
-      <StepsSection />
+      <TicketFeatures />
       <FeaturesSection />
       <ProblemStatementSection />
       <RewardsSection />
-      <UserRewardsSection />
       <ClientsSection />
       <CTASection />
     </div>

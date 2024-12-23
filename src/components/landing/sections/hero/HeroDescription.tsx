@@ -8,8 +8,8 @@ export const HeroDescription = () => {
       transition={{ duration: 0.8, delay: 0.8 }}
       className="text-xl md:text-2xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed"
     >
-      Create, manage, and sell tickets with confidence using our secure digital platform. 
-      Experience the future of event ticketing with dynamic QR technology and smart features.
+      Experience the future of event ticketing with smart alerts, dynamic QR security, and guaranteed authenticity. 
+      Never miss out on your perfect event tickets again.
     </motion.p>
   );
 };
