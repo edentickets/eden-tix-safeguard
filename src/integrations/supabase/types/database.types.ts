@@ -1,47 +1,163 @@
 import { Json } from './helpers.types';
 
 interface Tables {
-  email_campaigns: {
+  promoters: {
     Row: {
       id: string;
+      profile_id: string;
       creator_id: string;
-      event_id: string;
-      subject: string;
-      content: string;
-      status: string;
-      sent_at: string | null;
-      recipient_count: number | null;
-      open_count: number | null;
-      click_count: number | null;
+      commission_rate: number;
       created_at: string | null;
       updated_at: string | null;
     };
     Insert: {
       id?: string;
+      profile_id: string;
       creator_id: string;
-      event_id: string;
-      subject: string;
-      content: string;
-      status?: string;
-      sent_at?: string | null;
-      recipient_count?: number | null;
-      open_count?: number | null;
-      click_count?: number | null;
+      commission_rate?: number;
       created_at?: string | null;
       updated_at?: string | null;
     };
     Update: {
       id?: string;
+      profile_id?: string;
+      creator_id?: string;
+      commission_rate?: number;
+      created_at?: string | null;
+      updated_at?: string | null;
+    };
+  };
+  promoter_sales: {
+    Row: {
+      commission_amount: number;
+      created_at: string | null;
+      id: string;
+      paid_at: string | null;
+      promoter_id: string;
+      ticket_id: string;
+      updated_at: string | null;
+    };
+    Insert: {
+      commission_amount: number;
+      created_at?: string | null;
+      id?: string;
+      paid_at?: string | null;
+      promoter_id: string;
+      ticket_id: string;
+      updated_at?: string | null;
+    };
+    Update: {
+      commission_amount?: number;
+      created_at?: string | null;
+      id?: string;
+      paid_at?: string | null;
+      promoter_id?: string;
+      ticket_id?: string;
+      updated_at?: string | null;
+    };
+  };
+  promoter_payouts: {
+    Row: {
+      amount: number;
+      created_at: string | null;
+      id: string;
+      payout_details: Json | null;
+      payout_method: string | null;
+      promoter_id: string;
+      status: string;
+      stripe_payout_id: string | null;
+      updated_at: string | null;
+    };
+    Insert: {
+      amount: number;
+      created_at?: string | null;
+      id?: string;
+      payout_details?: Json | null;
+      payout_method?: string | null;
+      promoter_id: string;
+      status?: string;
+      stripe_payout_id?: string | null;
+      updated_at?: string | null;
+    };
+    Update: {
+      amount?: number;
+      created_at?: string | null;
+      id?: string;
+      payout_details?: Json | null;
+      payout_method?: string | null;
+      promoter_id?: string;
+      status?: string;
+      stripe_payout_id?: string | null;
+      updated_at?: string | null;
+    };
+  };
+  promoter_referral_links: {
+    Row: {
+      created_at: string | null;
+      event_id: string;
+      id: string;
+      promoter_id: string;
+      unique_code: string;
+      updated_at: string | null;
+    };
+    Insert: {
+      created_at?: string | null;
+      event_id: string;
+      id?: string;
+      promoter_id: string;
+      unique_code: string;
+      updated_at?: string | null;
+    };
+    Update: {
+      created_at?: string | null;
+      event_id?: string;
+      id?: string;
+      promoter_id?: string;
+      unique_code?: string;
+      updated_at?: string | null;
+    };
+  };
+  email_campaigns: {
+    Row: {
+      click_count: number | null;
+      content: string;
+      created_at: string | null;
+      creator_id: string;
+      event_id: string;
+      id: string;
+      open_count: number | null;
+      recipient_count: number | null;
+      sent_at: string | null;
+      status: string;
+      subject: string;
+      updated_at: string | null;
+    };
+    Insert: {
+      click_count?: number | null;
+      content: string;
+      created_at?: string | null;
+      creator_id: string;
+      event_id: string;
+      id?: string;
+      open_count?: number | null;
+      recipient_count?: number | null;
+      sent_at?: string | null;
+      status?: string;
+      subject: string;
+      updated_at?: string | null;
+    };
+    Update: {
+      click_count?: number | null;
+      content?: string;
+      created_at?: string | null;
       creator_id?: string;
       event_id?: string;
-      subject?: string;
-      content?: string;
-      status?: string;
-      sent_at?: string | null;
-      recipient_count?: number | null;
+      id?: string;
       open_count?: number | null;
-      click_count?: number | null;
-      created_at?: string | null;
+      recipient_count?: number | null;
+      sent_at?: string | null;
+      status?: string;
+      subject?: string;
       updated_at?: string | null;
     };
   };
@@ -349,255 +465,7 @@ interface Tables {
       initial_payment_percentage?: number;
       installments?: number;
       name?: string;
-      ticket_tier_id?: string;
-      updated_at?: string | null;
-    };
-  };
-  profiles: {
-    Row: {
-      analytics_consent: boolean | null;
-      avatar_url: string | null;
-      created_at: string | null;
-      creator_bio: string | null;
-      creator_tagline: string | null;
-      full_name: string | null;
-      id: string;
-      is_creator: boolean | null;
-      is_verified: boolean | null;
-      loyalty_points: number | null;
-      onboarding_completed: boolean | null;
-      preferred_payment_method: string | null;
-      social_links: Json | null;
-      updated_at: string | null;
-      username: string | null;
-      verification_date: string | null;
-    };
-    Insert: {
-      analytics_consent?: boolean | null;
-      avatar_url?: string | null;
-      created_at?: string | null;
-      creator_bio?: string | null;
-      creator_tagline?: string | null;
-      full_name?: string | null;
-      id: string;
-      is_creator?: boolean | null;
-      is_verified?: boolean | null;
-      loyalty_points?: number | null;
-      onboarding_completed?: boolean | null;
-      preferred_payment_method?: string | null;
-      social_links?: Json | null;
-      updated_at?: string | null;
-      username?: string | null;
-      verification_date?: string | null;
-    };
-    Update: {
-      analytics_consent?: boolean | null;
-      avatar_url?: string | null;
-      created_at?: string | null;
-      creator_bio?: string | null;
-      creator_tagline?: string | null;
-      full_name?: string | null;
-      id: string;
-      is_creator?: boolean | null;
-      is_verified?: boolean | null;
-      loyalty_points?: number | null;
-      onboarding_completed?: boolean | null;
-      preferred_payment_method?: string | null;
-      social_links?: Json | null;
-      updated_at?: string | null;
-      username?: string | null;
-      verification_date?: string | null;
-    };
-  };
-  promoter_payouts: {
-    Row: {
-      amount: number;
-      created_at: string | null;
-      id: string;
-      payout_details: Json | null;
-      payout_method: string | null;
-      promoter_id: string;
-      status: string;
-      stripe_payout_id: string | null;
-      updated_at: string | null;
-    };
-    Insert: {
-      amount: number;
-      created_at?: string | null;
-      id?: string;
-      payout_details?: Json | null;
-      payout_method?: string | null;
-      promoter_id: string;
-      status?: string;
-      stripe_payout_id?: string | null;
-      updated_at?: string | null;
-    };
-    Update: {
-      amount?: number;
-      created_at?: string | null;
-      id?: string;
-      payout_details?: Json | null;
-      payout_method?: string | null;
-      promoter_id?: string;
-      status?: string;
-      stripe_payout_id?: string | null;
-      updated_at?: string | null;
-    };
-  };
-  promoter_referral_links: {
-    Row: {
-      created_at: string | null;
-      event_id: string;
-      id: string;
-      promoter_id: string;
-      unique_code: string;
-      updated_at: string | null;
-    };
-    Insert: {
-      created_at?: string | null;
-      event_id: string;
-      id?: string;
-      promoter_id: string;
-      unique_code: string;
-      updated_at?: string | null;
-    };
-    Update: {
-      created_at?: string | null;
-      event_id?: string;
-      id?: string;
-      promoter_id?: string;
-      unique_code?: string;
-      updated_at?: string | null;
-    };
-  };
-  promoter_sales: {
-    Row: {
-      commission_amount: number;
-      created_at: string | null;
-      id: string;
-      paid_at: string | null;
-      promoter_id: string;
-      ticket_id: string;
-      updated_at: string | null;
-    };
-    Insert: {
-      commission_amount: number;
-      created_at?: string | null;
-      id?: string;
-      paid_at?: string | null;
-      promoter_id: string;
-      ticket_id: string;
-      updated_at?: string | null;
-    };
-    Update: {
-      commission_amount?: number;
-      created_at?: string | null;
-      id?: string;
-      paid_at?: string | null;
-      promoter_id?: string;
-      ticket_id?: string;
-      updated_at?: string | null;
-    };
-  };
-  referrals: {
-    Row: {
-      created_at: string | null;
-      id: string;
-      referred_id: string;
-      referrer_id: string;
-      reward_points: number | null;
-      status: string;
-      updated_at: string | null;
-    };
-    Insert: {
-      created_at?: string | null;
-      id?: string;
-      referred_id: string;
-      referrer_id: string;
-      reward_points?: number | null;
-      status?: string;
-      updated_at?: string | null;
-    };
-    Update: {
-      created_at?: string | null;
-      id?: string;
-      referred_id?: string;
-      referrer_id?: string;
-      reward_points?: number | null;
-      status?: string;
-      updated_at?: string | null;
-    };
-  };
-  ticket_tiers: {
-    Row: {
-      available_tickets: number;
-      created_at: string | null;
-      description: string | null;
-      event_id: string;
-      group_discount_percentage: number | null;
-      group_discount_threshold: number | null;
-      id: string;
-      price: number;
-      title: string;
-      total_tickets: number;
-      updated_at: string | null;
-    };
-    Insert: {
-      available_tickets: number;
-      created_at?: string | null;
-      description?: string | null;
-      event_id: string;
-      group_discount_percentage?: number | null;
-      group_discount_threshold?: number | null;
-      id?: string;
-      price: number;
-      title: string;
-      total_tickets: number;
-      updated_at?: string | null;
-    };
-    Update: {
-      available_tickets?: number;
-      created_at?: string | null;
-      description?: string | null;
-      event_id?: string;
-      group_discount_percentage?: number | null;
-      group_discount_threshold?: number | null;
-      id?: string;
-      price?: number;
-      title?: string;
-      total_tickets?: number;
-      updated_at?: string | null;
-    };
-  };
-  ticket_transfers: {
-    Row: {
-      created_at: string | null;
-      from_user_id: string | null;
-      id: string;
-      price: number | null;
-      ticket_id: string | null;
-      to_user_id: string | null;
-      transfer_type: string;
-      updated_at: string | null;
-    };
-    Insert: {
-      created_at?: string | null;
-      from_user_id?: string | null;
-      id?: string;
-      price?: number | null;
-      ticket_id?: string | null;
-      to_user_id?: string | null;
-      transfer_type: string;
-      updated_at?: string | null;
-    };
-    Update: {
-      created_at?: string | null;
-      from_user_id?: string | null;
-      id?: string;
-      price?: number | null;
-      ticket_id?: string | null;
-      to_user_id?: string | null;
-      transfer_type?: string;
+      ticket_tier_id: string;
       updated_at?: string | null;
     };
   };
