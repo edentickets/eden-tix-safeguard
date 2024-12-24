@@ -6,3 +6,26 @@ export type PromoterPayoutRow = Database['public']['Tables']['promoter_payouts']
 export type PromoterReferralLinkRow = Database['public']['Tables']['promoter_referral_links']['Row'];
 export type GuestListRow = Database['public']['Tables']['guest_lists']['Row'];
 export type GuestListEntryRow = Database['public']['Tables']['guest_list_entries']['Row'];
+
+export interface PromoterDomainTypes {
+  Tables: {
+    promoters: {
+      Row: PromoterRow;
+    };
+    promoter_sales: {
+      Row: PromoterSaleRow;
+    };
+    promoter_payouts: {
+      Row: PromoterPayoutRow;
+    };
+    promoter_referral_links: {
+      Row: PromoterReferralLinkRow;
+    };
+    guest_lists: {
+      Row: GuestListRow;
+    };
+    guest_list_entries: {
+      Row: GuestListEntryRow;
+    };
+  };
+}

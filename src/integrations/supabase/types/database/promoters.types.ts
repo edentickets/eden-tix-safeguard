@@ -6,16 +6,18 @@ export type PromoterPayoutRow = Database["public"]["Tables"]["promoter_payouts"]
 export type PromoterReferralLinkRow = Database["public"]["Tables"]["promoter_referral_links"]["Row"];
 
 export interface PromoterTypes {
-  promoters: {
-    Row: PromoterRow;
-  };
-  promoter_sales: {
-    Row: PromoterSaleRow;
-  };
-  promoter_payouts: {
-    Row: PromoterPayoutRow;
-  };
-  promoter_referral_links: {
-    Row: PromoterReferralLinkRow;
+  Tables: {
+    promoters: {
+      Row: PromoterRow;
+    };
+    promoter_sales: {
+      Row: PromoterSaleRow;
+    };
+    promoter_payouts: {
+      Row: PromoterPayoutRow;
+    };
+    promoter_referral_links: {
+      Row: PromoterReferralLinkRow;
+    };
   };
 }
