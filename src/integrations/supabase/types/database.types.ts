@@ -1,6 +1,164 @@
 import { Json } from './helpers.types';
 
 interface Tables {
+  profiles: {
+    Row: {
+      id: string;
+      created_at: string | null;
+      updated_at: string | null;
+      username: string | null;
+      full_name: string | null;
+      avatar_url: string | null;
+      is_creator: boolean | null;
+      creator_bio: string | null;
+      creator_tagline: string | null;
+      social_links: Json | null;
+      onboarding_completed: boolean | null;
+      is_verified: boolean | null;
+      verification_date: string | null;
+      loyalty_points: number | null;
+      analytics_consent: boolean | null;
+      preferred_payment_method: string | null;
+    };
+    Insert: {
+      id: string;
+      created_at?: string | null;
+      updated_at?: string | null;
+      username?: string | null;
+      full_name?: string | null;
+      avatar_url?: string | null;
+      is_creator?: boolean | null;
+      creator_bio?: string | null;
+      creator_tagline?: string | null;
+      social_links?: Json | null;
+      onboarding_completed?: boolean | null;
+      is_verified?: boolean | null;
+      verification_date?: string | null;
+      loyalty_points?: number | null;
+      analytics_consent?: boolean | null;
+      preferred_payment_method?: string | null;
+    };
+    Update: {
+      id?: string;
+      created_at?: string | null;
+      updated_at?: string | null;
+      username?: string | null;
+      full_name?: string | null;
+      avatar_url?: string | null;
+      is_creator?: boolean | null;
+      creator_bio?: string | null;
+      creator_tagline?: string | null;
+      social_links?: Json | null;
+      onboarding_completed?: boolean | null;
+      is_verified?: boolean | null;
+      verification_date?: string | null;
+      loyalty_points?: number | null;
+      analytics_consent?: boolean | null;
+      preferred_payment_method?: string | null;
+    };
+  };
+  referrals: {
+    Row: {
+      id: string;
+      referrer_id: string;
+      referred_id: string;
+      reward_points: number | null;
+      status: string;
+      created_at: string | null;
+      updated_at: string | null;
+    };
+    Insert: {
+      id?: string;
+      referrer_id: string;
+      referred_id: string;
+      reward_points?: number | null;
+      status?: string;
+      created_at?: string | null;
+      updated_at?: string | null;
+    };
+    Update: {
+      id?: string;
+      referrer_id?: string;
+      referred_id?: string;
+      reward_points?: number | null;
+      status?: string;
+      created_at?: string | null;
+      updated_at?: string | null;
+    };
+  };
+  ticket_tiers: {
+    Row: {
+      id: string;
+      event_id: string;
+      title: string;
+      description: string | null;
+      price: number;
+      total_tickets: number;
+      available_tickets: number;
+      group_discount_threshold: number | null;
+      group_discount_percentage: number | null;
+      created_at: string | null;
+      updated_at: string | null;
+    };
+    Insert: {
+      id?: string;
+      event_id: string;
+      title: string;
+      description?: string | null;
+      price: number;
+      total_tickets: number;
+      available_tickets: number;
+      group_discount_threshold?: number | null;
+      group_discount_percentage?: number | null;
+      created_at?: string | null;
+      updated_at?: string | null;
+    };
+    Update: {
+      id?: string;
+      event_id?: string;
+      title?: string;
+      description?: string | null;
+      price?: number;
+      total_tickets?: number;
+      available_tickets?: number;
+      group_discount_threshold?: number | null;
+      group_discount_percentage?: number | null;
+      created_at?: string | null;
+      updated_at?: string | null;
+    };
+  };
+  ticket_transfers: {
+    Row: {
+      id: string;
+      ticket_id: string | null;
+      from_user_id: string | null;
+      to_user_id: string | null;
+      price: number | null;
+      transfer_type: string;
+      created_at: string | null;
+      updated_at: string | null;
+    };
+    Insert: {
+      id?: string;
+      ticket_id?: string | null;
+      from_user_id?: string | null;
+      to_user_id?: string | null;
+      price?: number | null;
+      transfer_type: string;
+      created_at?: string | null;
+      updated_at?: string | null;
+    };
+    Update: {
+      id?: string;
+      ticket_id?: string | null;
+      from_user_id?: string | null;
+      to_user_id?: string | null;
+      price?: number | null;
+      transfer_type?: string;
+      created_at?: string | null;
+      updated_at?: string | null;
+    };
+  };
   promoters: {
     Row: {
       id: string;
